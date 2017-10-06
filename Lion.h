@@ -11,6 +11,7 @@
 
 #include "Animal.h"
 
+const char* maneColors[] = {"WHITE", "BROWN", "YELLOW", "RED", "ORANGE"};
 
 class Lion : public Animal
 {
@@ -21,6 +22,7 @@ public:
 	Lion(const char *name, float weight, int birthYear, eManeColor maneColor);
     
     Lion(const Lion& lion) = delete;
+
     const Lion& operator=(const Lion& lion) = delete;
     
     inline eManeColor getManeColor() const;
@@ -29,7 +31,6 @@ public:
 
 private:
 	eManeColor maneColor;
-    
 };
 
 

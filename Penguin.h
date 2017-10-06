@@ -11,25 +11,28 @@
 
 #include "Animal.h"
 
+const char* seaFood[] = {"SHRIMP", "CRAB", "FISH", "CALAMARI"};//Addition
+
 class Penguin : public Animal
 {
 
 public:
 	enum eSeaFood { SHRIMP, CRAB, FISH, CALAMARI };
-    
+
 	Penguin(const char *name, float weight, int birthYear, eSeaFood favoriteFood);
     
     Penguin(const Penguin& penguin) = delete;
+
     const Penguin& operator=(const Penguin& penguin) = delete;
     
     inline eSeaFood getFavoriteFood() const;
+
     void setFavoriteFood(eSeaFood favoriteFood);
     
 	virtual void toOs(ostream& os) const override;
   
 private:
 	eSeaFood favoriteFood;
-
 };
 
 

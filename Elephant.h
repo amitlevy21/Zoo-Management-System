@@ -26,9 +26,11 @@ public:
 	Elephant(const char *name, float weight, int birthYear, float sizeOfEars, float lengthOfTrunk);
     
     Elephant(const Elephant& elephant) = delete;
+
     const Elephant& operator=(const Elephant& elephant) = delete;
     
     inline float getSizeOfEars() const;
+
     inline float getLengthOfTrunk() const;
     
 	virtual void toOs(ostream& os) const override;

@@ -13,17 +13,17 @@
 class Zebra : virtual public Animal
 {
 private:
-    int numOfStrips;
+    int numOfStripes;
 
-	void setNumOfStrips(int numOfStrips) throw (const char*);
+	void setNumOfStripes(int numOfStripes) throw (const char*);
     
 public:
-	Zebra(const char *name, float weight, int birthYear, int numOfStrips);
+	Zebra(const char *name, float weight, int birthYear, int numOfStripes);
     
     Zebra(const Zebra& zebra) = delete;
     const Zebra& operator=(const Zebra& zebra) = delete;
     
-    inline int getNumOfStrips() const;
+    inline int getNumOfStripes() const;
     
 	virtual void toOs(ostream& os) const override;
     

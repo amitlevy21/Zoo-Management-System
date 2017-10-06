@@ -23,6 +23,7 @@ public:
 	Giraffe(const char *name, float weight, int birthYear, float lengthOfNeck);
     
     Giraffe(const Giraffe& giraffe) = delete;
+
     const Giraffe& operator=(const Giraffe& giraffe) = delete;
     
     inline float getLengthOfNeck() const;

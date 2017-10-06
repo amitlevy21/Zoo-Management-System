@@ -16,8 +16,9 @@ class Zebroid : public Horse, public Zebra
 {
     
 public:
-	Zebroid(const char *name, float weight, int birthYear, int numOfStrips, float sizeOfHorseShoe);
-    
+	//Zebroid(const char *name, float weight, int birthYear, int numOfStripes, float sizeOfHorseShoe);
+    Zebroid(const Animal& animal, int numOfStripes, float sizeOfHorseShoe);
+
     Zebroid(const Zebroid& zebroid) = delete;
     const Zebroid& operator=(const Zebroid& zebroid) = delete;
     

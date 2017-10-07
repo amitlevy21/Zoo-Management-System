@@ -21,7 +21,7 @@ private:
     
 public:
 	Horse(const char *name, float weight, int birthYear, float sizeOfHorseShoe);
-    
+
     Horse(const Horse& horse) = delete;
     const Horse& operator=(const Horse& horse) = delete;
     

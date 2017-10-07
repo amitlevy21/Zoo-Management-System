@@ -19,7 +19,7 @@ private:
     
 public:
 	Zebra(const char *name, float weight, int birthYear, int numOfStripes);
-    
+
     Zebra(const Zebra& zebra) = delete;
     const Zebra& operator=(const Zebra& zebra) = delete;
     

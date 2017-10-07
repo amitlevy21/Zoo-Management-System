@@ -22,12 +22,14 @@ public:
     MaintenanceWorker(const MaintenanceWorker& maintenanceWorker) = delete;
     const MaintenanceWorker& operator=(const MaintenanceWorker& maintenanceWorker) = delete;
 
-	float getShoeSize() const { return shoeSize; }
+	float getShoeSize() const;
 	void setShoeSize(float shoeSize) throw (const char*);
 
 	virtual void toOs(ostream& os) const override;
     
 };
+
+
 
 
 #endif /* __MAINTENANCE_WORKER_H */

@@ -25,7 +25,7 @@ private:
 	Area* area;
 
 	void setIdNumber(long idNumber) throw (const char*);
-    
+
 public:
 	Worker(const char *name, long idNumber, int salary, const Area* area = nullptr);
     virtual ~Worker();
@@ -34,6 +34,7 @@ public:
     const Worker& operator=(const Worker& worker) = delete;
     
     inline const char* getName() const;
+	void setName(const char* name) throw(const char*);
     
     inline long getIdNumber() const;
     
@@ -47,5 +48,8 @@ public:
     friend ostream& operator<<(ostream& os, const Worker& worker);
     
 };
+
+
+
 
 #endif /* __WORKER_H */

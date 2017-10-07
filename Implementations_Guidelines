@@ -1,3 +1,6 @@
-In this file we will specity the guidelines we follow in order to implement the H files.
+In this file we will specify the guidelines we follow in order to implement the H files.
 
-The purpose of this file is to make sure both developers are consistent with writing thier code, each in his part of the class diagram.
+The purpose of this file is to make sure both developers are consistent with writing their code, each in his part of the class diagram.
+
+Amit:
+Worker - added setName method that can throw exception if char* points to null or is an empty string.

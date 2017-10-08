@@ -10,9 +10,9 @@
 #define __ANIMAL_H
 
 #include <iostream>
+using namespace std;
 #include "Area.h"
 
-using namespace std;
 
 class Animal
 {

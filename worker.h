@@ -10,12 +10,10 @@
 #define __WORKER_H
 
 #include <iostream>
-
 using namespace std;
+#include "area.h"
 
-class Area;
 
-#include "Area.h"
 class Worker
 {
     

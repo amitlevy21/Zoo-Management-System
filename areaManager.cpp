@@ -2,7 +2,7 @@
 // Created by Amit Levy on 07/10/17.
 //
 
-#include "AreaManager.h"
+#include "areaManager.h"
 
 //set Area?
 AreaManager::AreaManager(const char *name, long idNumber, int salary, int yearsOfExperience) : Worker(name, idNumber, salary)

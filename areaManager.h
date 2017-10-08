@@ -9,9 +9,9 @@
 #ifndef __AREA_MANAGER_H
 #define __AREA_MANAGER_H
 
-#include "Worker.h"
+#include "worker.h"
 
-class AreaManager : public Worker
+class AreaManager: public Worker
 {
 private:
 	int yearsOfExperience;

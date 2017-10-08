@@ -20,14 +20,15 @@ class Zoo
 private:
     char* name;
     int maxNumOfAreas;
-    int numOfAreas;
+    int numOfAreas =0;
     Area** areas;
-	Area quarentineArea;
+	Area quarantineArea;
 
 	void setMaxNumOfAreas(int maxNumOfAreas) throw (const char*);
+	void setName(const char* name) throw(const char*);
 
 public:
-	Zoo(const char* name, int maxNumOfAreas, const Area& quarentineArea);
+	Zoo(const char* name, int maxNumOfAreas, const Area& quarantineArea);
     ~Zoo();
 
 	Zoo(const Zoo& other) = delete;
@@ -39,22 +40,26 @@ public:
 
     int getNumOfAreas() const;
 	
-	const Area& getQuarentineAreaArea() const;
+	const Area& getQuarantineAreaArea() const;
     
 	void addArea(Area& area)  throw (const char *);
     
-	void addAnimal(Animal& animal, const char* areaName)  throw (const char*);
+	void addAnimal(Animal& animal, Area& area)  throw (const char*);
     
-	void addWorker(Worker& worker, const char* areaName)  throw (const char*);
+	void addWorker(Worker& worker, Area& area)  throw (const char*);
     
     const Area** getAllAreas() const;
     
-    const Zoo& operator+(const Area& area);
+    const Zoo& operator+=(Area& area);
     
-    const Area& operator[](int index) const;
+    const Area& operator[](int index) const throw(const char*);
+
+	int findAreaIndex(const Area &area) const;
     
     friend ostream& operator<<(ostream& os, const Zoo& zoo);
 };
+
+
 
 
 #endif /* __ZOO_H */

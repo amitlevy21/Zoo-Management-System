@@ -51,8 +51,8 @@ int main(int argc, const char * argv[])
 
 	try
 	{
-		Area quarentineArea("quarentineArea", 4, 4);
-		Zoo myZoo("My Zoo", 10, quarentineArea);
+		Area quarantineArea("quarantineArea", 4, 4);
+		Zoo myZoo("My Zoo", 10, quarantineArea);
 
 		managers = createAreaManagers(numOfManagers);
 	

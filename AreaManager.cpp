@@ -5,9 +5,9 @@
 #include "AreaManager.h"
 
 //set Area?
-AreaManager::AreaManager(const char *name, long idNumber, int salary, int yearsOfExperience) : Worker(name, idNumber, salary), setYearsOfExperience(yearsOfExperience)
+AreaManager::AreaManager(const char *name, long idNumber, int salary, int yearsOfExperience) : Worker(name, idNumber, salary)
 {
-
+    setYearsOfExperience(yearsOfExperience);
 }
 
 void AreaManager::setYearsOfExperience(int yearsOfExperience)

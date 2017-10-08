@@ -8,12 +8,16 @@ using namespace std;
 #include <string.h>
 #include "Worker.h"
 
-//The order of methods called in the init line was change on purpose, setName is called last because of the name allocation.
-//that way we don't need to worry that if an exception occurs, the destructor is not called.
 
-Worker::Worker(const char *name, long idNumber, int salary, const Area *area) : setIdNumber(idNumber), setSalary(salary), setName(name)
+
+Worker::Worker(const char *name, long idNumber, int salary, const Area *area)
 {
 
+    //setName is called last because of the name allocation.
+    //that way we don't need to worry that if an exception occurs and the destructor is not called.
+    setIdNumber(idNumber);
+    setSalary(salary);
+    setName(name);
     if(area)
     {
         setArea(*area);

@@ -4,9 +4,9 @@
 
 #include "MaintenanceWorker.h"
 
-MaintenanceWorker::MaintenanceWorker(const char *name, long idNumber, int salary, float shoeSize) : Worker(name, idNumber, salary), setShoeSize(shoeSize)
+MaintenanceWorker::MaintenanceWorker(const char *name, long idNumber, int salary, float shoeSize) : Worker(name, idNumber, salary)
 {
-
+    setShoeSize(shoeSize);
 }
 
 float MaintenanceWorker::getShoeSize() const

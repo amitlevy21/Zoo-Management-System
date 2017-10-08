@@ -11,7 +11,7 @@
 
 #include <iostream>
 using namespace std;
-#include "Area.h"
+#include "area.h"
 
 
 class Animal

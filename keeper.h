@@ -9,7 +9,7 @@
 #ifndef __KEEPER_H
 #define __KEEPER_H
 
-#include "Worker.h"
+#include "worker.h"
 
 const char* const eAnimalString[] = {"Lion" , "Penguin", "Elephant", "Giraffe", "Zebra", "Horse", "Zebroid"};
 

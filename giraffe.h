@@ -9,7 +9,7 @@
 #ifndef __GIRAFFE_H
 #define __GIRAFFE_H
 
-#include "Animal.h"
+#include "animal.h"
 
 class Giraffe : public Animal
 {

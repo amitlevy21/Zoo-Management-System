@@ -10,9 +10,9 @@
 #define __AREA_H
 
 #include <iostream>
-#include "AreaManager.h"
-#include "Worker.h"
-#include "Animal.h"
+#include "areaManager.h"
+#include "worker.h"
+#include "animal.h"
 
 //class Animal;
 using namespace std;

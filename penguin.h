@@ -9,7 +9,7 @@
 #ifndef __PENGUIN_H
 #define __PENGUIN_H
 
-#include "Animal.h"
+#include "animal.h"
 
 const char* seaFood[] = {"SHRIMP", "CRAB", "FISH", "CALAMARI"};//Addition
 

@@ -9,7 +9,7 @@
 #ifndef __VETERINARIAN_H
 #define __VETERINARIAN_H
 
-#include "Worker.h"
+#include "worker.h"
 
 class Veterinarian : public Worker
 {

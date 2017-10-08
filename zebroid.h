@@ -9,8 +9,8 @@
 #ifndef __ZEBROID_H
 #define __ZEBROID_H
 
-#include "Horse.h"
-#include "Zebra.h"
+#include "horse.h"
+#include "zebra.h"
 
 class Zebroid : public Horse, public Zebra
 {

@@ -9,7 +9,7 @@
 #ifndef __LION_H
 #define __LION_H
 
-#include "Animal.h"
+#include "animal.h"
 
 const char* maneColors[] = {"WHITE", "BROWN", "YELLOW", "RED", "ORANGE"};
 

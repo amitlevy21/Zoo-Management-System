@@ -9,7 +9,7 @@
 #ifndef __MAINTENANCE_WORKER_H
 #define __MAINTENANCE_WORKER_H
 
-#include "Worker.h"
+#include "worker.h"
 
 class MaintenanceWorker : public Worker
 {

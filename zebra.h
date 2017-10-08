@@ -8,7 +8,7 @@
 #ifndef __ZEBRA_H
 #define __ZEBRA_H
 
-#include "Animal.h"
+#include "animal.h"
 
 class Zebra : virtual public Animal
 {

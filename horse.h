@@ -9,7 +9,7 @@
 #ifndef __HOURSE_H
 #define __HOURSE_H
 
-#include "Animal.h"
+#include "animal.h"
 
 class Horse : virtual public Animal
 {

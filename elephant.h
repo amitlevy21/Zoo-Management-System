@@ -9,8 +9,8 @@
 #ifndef __ELEPHANT_H
 #define __ELEPHANT_H
 
-#include "Animal.h"
-#include "Area.h"
+#include "animal.h"
+#include "area.h"
 
 class Elephant : public Animal
 {

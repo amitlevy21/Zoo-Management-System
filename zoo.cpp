@@ -91,12 +91,12 @@ void Zoo::setName(const char *name)
 {
     if(!name)
     {
-        throw "ERROR: worker's name is pointing to NULL";
+        throw "ERROR: Zoo's name is pointing to NULL";
     }
 
     if(strcmp(name,"") == 0)
     {
-        throw "ERROR: worker's name cannot be empty";
+        throw "ERROR: Zoo's name cannot be empty";
     }
 
     this->name = strdup(name);

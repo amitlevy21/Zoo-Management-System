@@ -3,6 +3,7 @@
 //
 
 #include "Animal.h"
+#include <string.h>
 
 void Animal::setName(const char *name)
 {
@@ -85,4 +86,5 @@ void Animal::setArea(Area& area)
     this->area = &area;
     area.addAnimal(*this);
 }
+
 

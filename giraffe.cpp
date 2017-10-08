@@ -4,7 +4,7 @@
 
 #include "giraffe.h"
 
-void Giraffe::setLengthOfNeck(float lengthOfNeck)
+void Giraffe::setLengthOfNeck(float lengthOfNeck) throw(const char*)
 {
     if(lengthOfNeck <= 0)
         throw "Giraffe neck length must be non negetive non zero number";

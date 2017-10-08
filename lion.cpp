@@ -10,7 +10,7 @@ Lion::Lion(const char *name, float weight, int birthYear, eManeColor maneColor)
     this->maneColor = maneColor;
 }
 
-eManeColor Lion::getManeColor() const
+Lion::eManeColor Lion::getManeColor() const
 {
     return maneColor;
 }

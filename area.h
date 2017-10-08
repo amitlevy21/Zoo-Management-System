@@ -10,16 +10,17 @@
 #define __AREA_H
 
 #include <iostream>
-#include "areaManager.h"
-#include "worker.h"
-#include "animal.h"
 
-//class Animal;
+
+class Animal;
+class Worker;
+class AreaManager;
+
+
 using namespace std;
 
 class Area
 {
-
 private:
     char *name;
     int numOfAnimals = 0;

@@ -5,7 +5,7 @@
 #include "animal.h"
 #include <string.h>
 
-void Animal::setName(const char *name)
+void Animal::setName(const char *name) throw(const char*)
 {
     if(strcmp(name, "") == 0)
         throw "animal name cannot be an empty string";
@@ -15,7 +15,7 @@ void Animal::setName(const char *name)
     this->name = strdup(name);
 }
 
-void Animal::setWeight(float weight)
+void Animal::setWeight(float weight) throw(const char*)
 {
     if(weight <= 0)
         throw "weight cannot be zero or negetive";
@@ -23,7 +23,7 @@ void Animal::setWeight(float weight)
     this->weight = weight;
 }
 
-void Animal::setBirthYear(int birthYear)
+void Animal::setBirthYear(int birthYear) throw(const char*)
 {
     const int NINETEENTH_CENTURY = 1800;
     if(birthYear < NINETEENTH_CENTURY)
@@ -49,7 +49,7 @@ ostream &operator<<(ostream &os, const Animal &animal)
     return os;
 }
 
-void Animal::~Animal()
+Animal::~Animal()
 {
     delete[] name;
 }

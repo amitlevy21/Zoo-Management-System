@@ -4,7 +4,7 @@
 
 #include "elephant.h"
 
-void Elephant::setSizeOfEars(float sizeOfEars)
+void Elephant::setSizeOfEars(float sizeOfEars) throw(const char*)
 {
     if(sizeOfEars <= 0)
         throw "Ear size must be non negetive non zero number";
@@ -12,7 +12,7 @@ void Elephant::setSizeOfEars(float sizeOfEars)
     this->sizeOfEars = sizeOfEars;
 }
 
-void Elephant::setLengthOfTrunk(float lengthOfTrunk)
+void Elephant::setLengthOfTrunk(float lengthOfTrunk) throw(const char*)
 {
     if(lengthOfTrunk <= 0)
         throw "Length of trunk must be a non negetive non zero number";

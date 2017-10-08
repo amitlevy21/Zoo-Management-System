@@ -11,8 +11,8 @@
 
 #include <iostream>
 using namespace std;
-#include "area.h"
 
+class Area;
 
 class Worker
 {
@@ -28,7 +28,7 @@ private:
 
 
 public:
-	Worker(const char *name, long idNumber, int salary, const Area* area = nullptr);
+	Worker(const char *name, long idNumber, int salary, Area* area = nullptr);
     virtual ~Worker();
     
     Worker(const Worker& worker) = delete;

@@ -10,7 +10,7 @@ AreaManager::AreaManager(const char *name, long idNumber, int salary, int yearsO
     setYearsOfExperience(yearsOfExperience);
 }
 
-void AreaManager::setYearsOfExperience(int yearsOfExperience)
+void AreaManager::setYearsOfExperience(int yearsOfExperience) throw(const char*)
 {
     if(yearsOfExperience < 0 )
     {

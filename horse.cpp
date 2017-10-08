@@ -4,7 +4,7 @@
 
 #include "horse.h"
 
-void Horse::setSizeOfHorseShoe(float sizeOfHorseShoe)
+void Horse::setSizeOfHorseShoe(float sizeOfHorseShoe) throw(const char*)
 {
     if(sizeOfHorseShoe <= 0)
         throw "Size of horse shoe must be a non negetive non zero number";

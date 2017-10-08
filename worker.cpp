@@ -88,10 +88,8 @@ void Worker::setName(const char *name) throw(const char*)
 
 bool Worker::operator==(const Worker &other)
 {
-    if(this->idNumber == other.idNumber)
-        return true;
+    return this->idNumber == other.idNumber;
 
-    return false;
 }
 
 void Worker::generateID()

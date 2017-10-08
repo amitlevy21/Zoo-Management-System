@@ -25,7 +25,7 @@ public:
     Horse(const Horse& horse) = delete;
     const Horse& operator=(const Horse& horse) = delete;
     
-    inline int getSizeOfHorseShoe() const;
+    inline float getSizeOfHorseShoe() const;
     
 	virtual void toOs(ostream& os) const override;
     

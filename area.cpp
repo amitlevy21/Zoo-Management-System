@@ -118,26 +118,20 @@ const Area &Area::operator+=(Animal &animal)
 
 bool Area::operator<(const Area& other) const
 {
-    if(this->maxNumberOfAnimals < other.getMaxNumberOfAnimals())
-        return true;
+    return this->maxNumberOfAnimals < other.getMaxNumberOfAnimals();
 
-    return false;
 }
 
 bool Area::operator>(const Area& other) const
 {
-    if(this->maxNumberOfAnimals > other.getMaxNumberOfAnimals())
-        return true;
+    return this->maxNumberOfAnimals > other.getMaxNumberOfAnimals();
 
-    return false;
 }
 
 bool Area::operator==(const Area& other) const
 {
-    if(this->maxNumberOfAnimals == other.maxNumberOfAnimals)
-        return true;
+    return this->maxNumberOfAnimals == other.maxNumberOfAnimals;
 
-    return false;
 }
 
 ostream &operator<<(ostream &os, const Area& area)

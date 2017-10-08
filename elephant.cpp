@@ -7,7 +7,7 @@
 void Elephant::setSizeOfEars(float sizeOfEars) throw(const char*)
 {
     if(sizeOfEars <= 0)
-        throw "Ear size must be non negetive non zero number";
+        throw "Ear size must be non negative non zero number";
 
     this->sizeOfEars = sizeOfEars;
 }
@@ -15,7 +15,7 @@ void Elephant::setSizeOfEars(float sizeOfEars) throw(const char*)
 void Elephant::setLengthOfTrunk(float lengthOfTrunk) throw(const char*)
 {
     if(lengthOfTrunk <= 0)
-        throw "Length of trunk must be a non negetive non zero number";
+        throw "Length of trunk must be a non negative non zero number";
 
     this->lengthOfTrunk = lengthOfTrunk;
 }

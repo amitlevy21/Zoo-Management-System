@@ -18,7 +18,7 @@ Horse::Horse(const char *name, float weight, int birthYear, float sizeOfHorseSho
     setSizeOfHorseShoe(sizeOfHorseShoe);
 }
 
-int Horse::getSizeOfHorseShoe() const
+float Horse::getSizeOfHorseShoe() const
 {
     return sizeOfHorseShoe;
 }

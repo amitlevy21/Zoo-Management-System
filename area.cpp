@@ -3,6 +3,9 @@
 //
 
 #include "area.h"
+#include "animal.h"
+#include "worker.h"
+#include "areaManager.h"
 
 void Area::setMaxNumberOfAnimals(int maxNumberOfAnimals)
 {

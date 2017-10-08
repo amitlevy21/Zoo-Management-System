@@ -143,7 +143,7 @@ Animal** createAnimals(int& numOfAnimals) throw(const char*)
 	return animals;
 }
 
-void addAllAnimalsToZoo(Zoo& myZoo, Animal** animals, int &numOfAnimals) throw(const char*)
+void addAllAnimalsToZoo(Zoo& myZoo, Animal** animals, int numOfAnimals) throw(const char*)
 {
 	for (int i = 0; i < numOfAnimals - 1; i++)
 	{
@@ -166,11 +166,11 @@ Keeper** createAllKeepers(int& numOfKeepers) throw(const char*)
 	return keepers;
 }
 
-void addKeepersToZoo(Zoo& myZoo, Keeper** keepers, int numOfKeepers) throw(const char*)
+void addKeepersToArea(Area& area, Keeper** keepers, int numOfKeepers) throw(const char*)
 {
 	for (int i = 0; i < numOfKeepers; i++)
 	{
-		myZoo.addWorker(*keepers[i], myZoo.getAllAreas()[i]->getName());
+		area.addWorker(*keepers[i]);
 	}
 }
 
@@ -186,11 +186,11 @@ Veterinarian** createAllVeterinarian(int& numOfVeterinarian) throw(const char*)
 	return vets;
 }
 
-void addAllVeterinarianToZoo(Zoo& myZoo, Veterinarian**vets, int numOfVeterinarian) throw(const char*)
+void addVeterinariansToArea(Area& area, Veterinarian** vets, int numOfVeterinarian) throw(const char*)
 {
 	for (int i = 0; i < numOfVeterinarian; i++)
 	{
-		myZoo.addWorker(*vets[i], myZoo.getAllAreas()[i]->getName());
+		area.addWorker(*vets[i]);
 	}
 }
 

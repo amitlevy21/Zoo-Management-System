@@ -14,7 +14,7 @@ float MaintenanceWorker::getShoeSize() const
     return shoeSize;
 }
 
-void MaintenanceWorker::setShoeSize(float shoeSize)
+void MaintenanceWorker::setShoeSize(float shoeSize) throw(const char*)
 {
     if(shoeSize < 0 )
     {

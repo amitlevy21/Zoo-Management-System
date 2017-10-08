@@ -3,6 +3,7 @@
 //
 
 #include "animal.h"
+#include "area.h"
 #include <string.h>
 
 void Animal::setName(const char *name) throw(const char*)
@@ -56,10 +57,8 @@ Animal::~Animal()
 
 bool Animal::operator==(const Animal& other)
 {
-    if(strcmp(this->name, other.name) == 0)
-        return true;
+    return strcmp(this->name, other.name) == 0;
 
-    return false;
 }
 
 const char *Animal::getName() const

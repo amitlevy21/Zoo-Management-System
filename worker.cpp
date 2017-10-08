@@ -7,6 +7,7 @@ using namespace std;
 
 #include <string.h>
 #include "worker.h"
+#include "area.h"
 
 long Worker::idGenerator = 100000000;
 
@@ -40,7 +41,7 @@ int Worker::getSalary() const
     return salary;
 }
 
-void Worker::setSalary(int salary)
+void Worker::setSalary(int salary) throw(const char*)
 {
     if(salary < 0)
     {
@@ -71,7 +72,7 @@ ostream& operator<<(ostream& os, const Worker& worker)
 }
 
 
-void Worker::setName(const char *name)
+void Worker::setName(const char *name) throw(const char*)
 {
     if(!name)
     {

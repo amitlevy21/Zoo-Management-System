@@ -29,11 +29,11 @@ AreaManager** createAreaManagers(int& numOfManagers) throw(const char*);
 Area** createAllAreas(AreaManager **managers, int& numOfAreas) throw(const char*);
 void addAreasToZoo(Zoo& zoo, Area** areas, int& numOfAreas) throw(const char*);
 Animal** createAnimals(int& numOfAnimals) throw(const char*);
-void addAllAnimalsToArea(Area& areaToAdd, Animal** animals, int numOfAnimals) throw(const char*);
+void addAnimalsToArea(Area& areaToAdd, Animal** animals, int numOfAnimals) throw(const char*);
 Keeper** createAllKeepers(int& numOfKeepers) throw(const char*);
-void addKeepersToZoo(Zoo& myZoo, Keeper** keepers, int numOfKeepers) throw(const char*);
+void addKeepersToArea(Area& area, Keeper** keepers, int numOfKeepers) throw(const char*);
 Veterinarian** createAllVeterinarian(int& numOfVeterinarian) throw(const char*);
-void addAllVeterinarianToZoo(Zoo& myZoo, Veterinarian**vets, int numOfVeterinarian) throw(const char*);
+void addVeterinariansToArea(Area& area, Veterinarian** vets, int numOfVeterinarian) throw(const char*);
 void freeAllAreaManagers(AreaManager** areaManagers, int& numOfAreaManagers);
 void freeAllAreas(Area** areas, int& numOfAreas);
 void freeAllAnimals(Animal** animals, int& numOfAnimals);
@@ -64,17 +64,16 @@ int main(int argc, const char * argv[])
 		animals = createAnimals(numOfAnimals);
 
 		// add animals
-		addAllAnimalsToArea(myZoo, animals, numOfAnimals);
+		//addAnimalsToArea(myZoo, animals, numOfAnimals);
 
 		keepers = createAllKeepers(numOfKeepers);
 
 		// add all the keepers
-		addKeepersToZoo(myZoo, keepers, numOfKeepers);
+		//addKeepersToArea(myZoo, keepers, numOfKeepers);
 
 		vets = createAllVeterinarian(numOfVeterinarian);
-
 		// add all vets
-		addAllVeterinarianToZoo(myZoo, vets, numOfVeterinarian);
+		//addVeterinariansToArea(myZoo, vets, numOfVeterinarian);
 		
 		// print the whole zoo
 		cout << "My Zoo: \n" << myZoo << endl;
@@ -143,7 +142,7 @@ Animal** createAnimals(int& numOfAnimals) throw(const char*)
 	return animals;
 }
 
-void addAllAnimalsToArea(Area& areaToAdd, Animal** animals, int numOfAnimals) throw(const char*)
+void addAnimalsToArea(Area& areaToAdd, Animal** animals, int numOfAnimals) throw(const char*)
 {
 	for (int i = 0; i < numOfAnimals; i++)
 	{

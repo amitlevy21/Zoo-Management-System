@@ -39,7 +39,7 @@ const Area &Zoo::getQuarantineAreaArea() const
     return quarantineArea;
 }
 
-void Zoo::addArea(Area &area)
+void Zoo::addArea(Area &area) throw(const char*)
 {
     if(findAreaIndex(area) != -1)
     {
@@ -49,7 +49,7 @@ void Zoo::addArea(Area &area)
     numOfAreas++;
 }
 
-void Zoo::addAnimal(Animal& animal, Area& area)
+void Zoo::addAnimal(Animal& animal, Area& area) throw(const char*)
 {
     int areaIndex = findAreaIndex(area);
 
@@ -61,7 +61,7 @@ void Zoo::addAnimal(Animal& animal, Area& area)
     areas[areaIndex]->addAnimal(animal);
 }
 
-void Zoo::addWorker(Worker& worker, Area& area)
+void Zoo::addWorker(Worker& worker, Area& area) throw(const char*)
 {
     int areaIndex = findAreaIndex(area);
 
@@ -78,7 +78,7 @@ const Area **Zoo::getAllAreas() const
     return (const Area**)areas;
 }
 
-void Zoo::setMaxNumOfAreas(int maxNumOfAreas)
+void Zoo::setMaxNumOfAreas(int maxNumOfAreas) throw(const char*)
 {
     if(maxNumOfAreas <= 0)
     {
@@ -88,7 +88,7 @@ void Zoo::setMaxNumOfAreas(int maxNumOfAreas)
     this->maxNumOfAreas = maxNumOfAreas;
 }
 
-void Zoo::setName(const char *name)
+void Zoo::setName(const char *name) throw(const char*)
 {
     if(!name)
     {
@@ -108,7 +108,7 @@ const Zoo &Zoo::operator+=(Area &area)
     addArea(area);
 }
 
-const Area &Zoo::operator[](int index) const
+const Area &Zoo::operator[](int index) const throw(const char*)
 {
     if(index < 0 || index > numOfAreas)
     {
@@ -120,10 +120,10 @@ const Area &Zoo::operator[](int index) const
 
 ostream& operator<<(ostream& os, const Zoo& zoo)
 {
-    os << "Zoo Details:\nName: " << name << "\nArea Capacity: " << maxNumOfAreas <<"\nNum of Areas: " << numOfAreas << endl;
-    for (int i = 0; i < numOfAreas; ++i)
+    os << "Zoo Details:\nName: " << zoo.getName() << "\nArea Capacity: " << zoo.getMaxNumOfAreas() <<"\nNum of Areas: " << zoo.getNumOfAreas() << endl;
+    for (int i = 0; i < zoo.getNumOfAreas(); ++i)
     {
-        os << areas[i];
+        os << zoo.getAllAreas()[i];
     }
 }
 

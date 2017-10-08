@@ -8,7 +8,7 @@
 #include "worker.h"
 #include "areaManager.h"
 
-void Area::setMaxNumberOfAnimals(int maxNumberOfAnimals)
+void Area::setMaxNumberOfAnimals(int maxNumberOfAnimals) throw(const char*)
 {
     if(maxNumberOfAnimals <= 0)
         throw "area must have at least 1 animal";
@@ -16,7 +16,7 @@ void Area::setMaxNumberOfAnimals(int maxNumberOfAnimals)
     this->maxNumberOfAnimals = maxNumberOfAnimals;
 }
 
-void Area::setMaxNumberOfWorkers(int maxNumberOfWorkers)
+void Area::setMaxNumberOfWorkers(int maxNumberOfWorkers) throw(const char*)
 {
     if(maxNumberOfWorkers <= 0)
         throw "area must have at least 1 worker";
@@ -74,7 +74,7 @@ void Area::setAreaManager(AreaManager &areaManager)
     }
 }
 
-void Area::addAnimal(Animal& animal)
+void Area::addAnimal(Animal& animal) throw(const char*)
 {
     for (int i = 0; i < numOfAnimals; i++)
         if(*animals[i] == animal)
@@ -87,7 +87,7 @@ void Area::addAnimal(Animal& animal)
     animal.setArea(*this);
 }
 
-void Area::addWorker(Worker& worker)
+void Area::addWorker(Worker& worker) throw(const char*)
 {
     for (int i = 0; i < numOfWorkers; i++)
         if(*workers[i] == worker)

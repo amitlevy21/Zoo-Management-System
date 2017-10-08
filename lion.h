@@ -11,7 +11,7 @@
 
 #include "animal.h"
 
-const char* maneColors[] = {"WHITE", "BROWN", "YELLOW", "RED", "ORANGE"};
+static const char* maneColors[] = {"WHITE", "BROWN", "YELLOW", "RED", "ORANGE"};
 
 class Lion : public Animal
 {

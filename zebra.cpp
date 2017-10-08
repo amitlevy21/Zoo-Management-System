@@ -4,7 +4,7 @@
 
 #include "zebra.h"
 
-void Zebra::setNumOfStripes(int numOfStripes)
+void Zebra::setNumOfStripes(int numOfStripes) throw(const char*)
 {
     if(numOfStripes < 0)
         throw "Number of stripes cannot be a negetive number";

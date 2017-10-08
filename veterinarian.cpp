@@ -9,7 +9,7 @@ Veterinarian::Veterinarian(const char *name, long idNumber, int salary, int lice
     setLicenseNumber(licenseNumber);
 }
 
-void Veterinarian::setLicenseNumber(int licenseNumber)
+void Veterinarian::setLicenseNumber(int licenseNumber) throw(const char*)
 {
     if(licenseNumber < 0)
     {

@@ -41,7 +41,7 @@ public:
     Area(const Area& area) = delete;
     const Area& operator=(const Area& area) = delete;
     
-    inline const char* getName() const;
+     const char* getName() const;
     
     inline long getNumOfAnimals() const;
     inline long getMaxNumberOfAnimals() const;

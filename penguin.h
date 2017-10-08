@@ -11,7 +11,7 @@
 
 #include "animal.h"
 
-const char* seaFood[] = {"SHRIMP", "CRAB", "FISH", "CALAMARI"};//Addition
+static const char* seaFood[] = {"SHRIMP", "CRAB", "FISH", "CALAMARI"};//Addition
 
 class Penguin : public Animal
 {

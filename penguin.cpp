@@ -10,7 +10,7 @@ Penguin::Penguin(const char *name, float weight, int birthYear, eSeaFood favorit
     setFavoriteFood(favoriteFood);
 }
 
-eSeaFood Penguin::getFavoriteFood() const
+Penguin::eSeaFood Penguin::getFavoriteFood() const
 {
     return favoriteFood;
 }

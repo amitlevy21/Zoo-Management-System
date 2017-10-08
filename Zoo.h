@@ -22,13 +22,13 @@ private:
     int maxNumOfAreas;
     int numOfAreas =0;
     Area** areas;
-	Area quarantineArea;
+	Area& quarantineArea;
 
 	void setMaxNumOfAreas(int maxNumOfAreas) throw (const char*);
 	void setName(const char* name) throw(const char*);
 
 public:
-	Zoo(const char* name, int maxNumOfAreas, const Area& quarantineArea);
+	Zoo(const char* name, int maxNumOfAreas, Area& quarantineArea);
     ~Zoo();
 
 	Zoo(const Zoo& other) = delete;

@@ -68,7 +68,6 @@ ostream& operator<<(ostream& os, const Worker& worker)
     os << "Worker details: \n Name: " << worker.getName() << "\n ID: " << worker.getIdNumber() << "\n Salary: " << worker.getSalary() << "\n Area: " << worker.getArea() << endl;
 
     worker.toOs(os);
-
 }
 
 

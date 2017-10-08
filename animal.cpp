@@ -51,15 +51,6 @@ void Animal::~Animal()
     delete[] name;
 }
 
-void Animal::setArea(const Area *area)
-{
-    if(!area)
-        throw "area non existent";
-
-    if(this->area != area)
-        this->area = area;
-}
-
 bool Animal::operator==(const Animal& other)
 {
     if(strcmp(this->name, other.name) == 0)

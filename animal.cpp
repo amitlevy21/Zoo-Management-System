@@ -29,7 +29,7 @@ void Animal::setBirthYear(int birthYear)
     this->birthYear = birthYear;
 }
 
-Animal::Animal(const char *name, float weight, int birthYear, const Area *area)
+Animal::Animal(const char *name, float weight, int birthYear)
 {
     setWeight(weight);
     setBirthYear(birthYear);
@@ -58,5 +58,25 @@ void Animal::setArea(const Area *area)
 
     if(this->area != area)
         this->area = area;
+}
+
+bool Animal::operator==(const Animal& other)
+{
+    if(strcmp(this->name, other.name) == 0)
+        return true;
+
+    return false;
+}
+
+void Animal::setArea(Area &area)
+{
+    if(this->area != nullptr)
+    {
+        if(*this->area == area)
+            return;
+    }
+
+    this->area = &area;
+    area.addAnimal(*this);
 }
 

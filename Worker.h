@@ -15,16 +15,19 @@ using namespace std;
 
 class Area;
 
+#include "Area.h"
 class Worker
 {
     
 private:
+	static long idGenerator;
     char *name;
     long idNumber;
     int salary;
 	Area* area;
 
-	void setIdNumber(long idNumber) throw (const char*);
+	void generateID();
+
 
 public:
 	Worker(const char *name, long idNumber, int salary, const Area* area = nullptr);
@@ -32,6 +35,8 @@ public:
     
     Worker(const Worker& worker) = delete;
     const Worker& operator=(const Worker& worker) = delete;
+
+	bool operator==(const Worker& other);
     
     inline const char* getName() const;
 	void setName(const char* name) throw(const char*);
@@ -42,7 +47,7 @@ public:
     void setSalary(int salary) throw (const char*);
     
     inline const Area& getArea() const;
-    void setArea(const Area& area);
+    void setArea(Area& area);
     
 	virtual void toOs(ostream& os) const =0;
     friend ostream& operator<<(ostream& os, const Worker& worker);

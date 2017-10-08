@@ -7,10 +7,11 @@
 
 
 
-Zoo::Zoo(const char *name, int maxNumOfAreas, const Area &quarantineArea)
+Zoo::Zoo(const char *name, int maxNumOfAreas, Area& quarantineArea): quarantineArea(quarantineArea)
 {
     setMaxNumOfAreas(maxNumOfAreas);
     setName(name);
+
 }
 
 Zoo::~Zoo()
@@ -128,7 +129,7 @@ ostream& operator<<(ostream& os, const Zoo& zoo)
 
 int Zoo::findAreaIndex(const Area &area) const
 {
-    for (int i = 0; i < numOfAreas; ++i)
+    for (int i = 0; i < numOfAreas; i++)
     {
         if(*areas[i] == area)
         {

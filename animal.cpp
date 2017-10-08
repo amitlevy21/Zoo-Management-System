@@ -9,6 +9,8 @@ void Animal::setName(const char *name)
 {
     if(strcmp(name, "") == 0)
         throw "animal name cannot be an empty string";
+    if(!name)
+        throw "animal name cannot be null";
 
     this->name = strdup(name);
 }

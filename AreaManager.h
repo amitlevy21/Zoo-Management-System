@@ -27,7 +27,6 @@ public:
 	inline int getYearsOfExperience() const;
 
 	virtual void toOs(ostream& os) const override;
-    
 };
 
 

@@ -8,20 +8,16 @@ using namespace std;
 #include <string.h>
 #include "Worker.h"
 
+long Worker::idGenerator = 100000000;
 
+//The order of methods called in the init line was change on purpose, setName is called last because of the name allocation.
+//that way we don't need to worry that if an exception occurs, the destructor is not called.
 
 Worker::Worker(const char *name, long idNumber, int salary, const Area *area)
 {
-
-    //setName is called last because of the name allocation.
-    //that way we don't need to worry that if an exception occurs and the destructor is not called.
-    setIdNumber(idNumber);
+    generateID();
     setSalary(salary);
     setName(name);
-    if(area)
-    {
-        setArea(*area);
-    }
 }
 
 Worker::~Worker()
@@ -58,10 +54,13 @@ const Area &Worker::getArea() const
     return *area;
 }
 
-void Worker::setArea(const Area &area)
+void Worker::setArea(Area &area)
 {
-    //TODO
-    this->area = &area;
+    if(this->area != &area)
+    {
+        this->area = &area;
+        area.addWorker(*this);
+    }
 }
 
 ostream& operator<<(ostream& os, const Worker& worker)
@@ -72,15 +71,6 @@ ostream& operator<<(ostream& os, const Worker& worker)
 
 }
 
-void Worker::setIdNumber(long idNumber)
-{
-    if( idNumber < 0)
-    {
-        throw "ERROR: idNumber cannot be negative";
-    }
-    this->idNumber = idNumber;
-
-}
 
 void Worker::setName(const char *name)
 {
@@ -94,5 +84,18 @@ void Worker::setName(const char *name)
         throw "ERROR: worker's name cannot be empty";
     }
     this->name = strdup(name);
+}
+
+bool Worker::operator==(const Worker &other)
+{
+    if(this->idNumber == other.idNumber)
+        return true;
+
+    return false;
+}
+
+void Worker::generateID()
+{
+    idNumber = idGenerator++;
 }
 

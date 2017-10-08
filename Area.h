@@ -22,19 +22,19 @@ class Area
 
 private:
     char *name;
-    int numOfAnimals;
+    int numOfAnimals = 0;
     int maxNumberOfAnimals;
-    int numOfWorkers;
+    int numOfWorkers = 0;
     int maxNumberOfWorkers;
-    AreaManager* areaManager;
-    Animal** animals;
-    Worker** workers;
+	AreaManager* areaManager;
+	Animal** animals;
+	Worker** workers;
 
 	void setMaxNumberOfAnimals(int maxNumberOfAnimals) throw (const char*);
 	void setMaxNumberOfWorkers(int maxNumberOfWorkers) throw (const char*);
     
 public:
-	Area(const char *name, int maxNumberOfAnimals, int maxNumberOfWorkers, const AreaManager* areaManager = nullptr);
+	Area(const char *name, int maxNumberOfAnimals, int maxNumberOfWorkers, AreaManager* areaManager = nullptr);
     ~Area();
     
     Area(const Area& area) = delete;
@@ -49,22 +49,24 @@ public:
     inline long getMaxNumberOfWorkers() const;
     
     inline const AreaManager& getAreaManager() const;
-    void setAreaManager(const AreaManager& areaManager);
+    void setAreaManager(AreaManager& areaManager);
+
+	void setAreaName(const char* name);
     
-	void addAnimal(const Animal& animal) throw (const char*);
+	void addAnimal(Animal& animal) throw (const char*);
     
-	void addWorker(const Worker& worker) throw (const char*);
+	void addWorker(Worker& worker) throw (const char*);
     
     const Animal** getAllAnimals() const;
     const Worker** getAllworkers() const;
     
-    const Area& operator+=(const Animal& animal);
+    const Area& operator+=(Animal& animal);
 
-    bool operator<(const Area& area) const;
+    bool operator<(const Area& other) const;
     
-    bool operator>(const Area& area) const;
+    bool operator>(const Area& other) const;
     
-    bool operator==(const Area& area) const;
+    bool operator==(const Area& other) const;
     
     friend ostream& operator<<(ostream& os, const Area& area);
     

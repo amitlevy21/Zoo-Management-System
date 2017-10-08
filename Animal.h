@@ -29,19 +29,23 @@ private:
 	void setArea(const Area* area)		throw (const char*);
     
 public:
-	Animal(const char *name, float weight, int birthYear, const Area* area = nullptr);
+	Animal(const char *name, float weight, int birthYear);
 
     virtual ~Animal();
     
     Animal(const Animal& animal) = delete;
 
     const Animal& operator=(const Animal& animal) = delete;
+
+    bool operator==(const Animal& other);
     
     virtual inline const char* getName() 	const;
     
 	virtual inline float getWeight() 		const;
     
 	virtual inline int getBirthYear() 		const;
+
+	void setArea(Area& area);
     
 	virtual void toOs(ostream& os) const = 0;
 

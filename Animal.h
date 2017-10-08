@@ -26,7 +26,7 @@ private:
 	void setName(const char* name) 		throw (const char*);
 	void setWeight(float weight) 		throw (const char*);
 	void setBirthYear(int birthYear) 	throw (const char*);
-	void setArea(const Area* area)		throw (const char*);
+
     
 public:
 	Animal(const char *name, float weight, int birthYear);

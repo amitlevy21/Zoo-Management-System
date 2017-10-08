@@ -59,7 +59,22 @@ bool Animal::operator==(const Animal& other)
     return false;
 }
 
-void Animal::setArea(Area &area)
+const char *Animal::getName() const
+{
+    return name;
+}
+
+float Animal::getWeight() const
+{
+    return weight;
+}
+
+int Animal::getBirthYear() const
+{
+    return birthYear;
+}
+
+void Animal::setArea(Area& area)
 {
     if(this->area != nullptr)
     {

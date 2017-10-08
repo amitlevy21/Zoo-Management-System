@@ -164,11 +164,11 @@ Keeper** createAllKeepers(int& numOfKeepers) throw(const char*)
 	return keepers;
 }
 
-void addKeepersToZoo(Zoo& myZoo, Keeper** keepers, int numOfKeepers) throw(const char*)
+void addKeepersToArea(Area& area, Keeper** keepers, int numOfKeepers) throw(const char*)
 {
 	for (int i = 0; i < numOfKeepers; i++)
 	{
-		myZoo.addWorker(*keepers[i], const_cast<Area&>(myZoo.getAllAreas()[i]));
+		area.addWorker(*keepers[i]);
 	}
 }
 
@@ -184,11 +184,11 @@ Veterinarian** createAllVeterinarian(int& numOfVeterinarian) throw(const char*)
 	return vets;
 }
 
-void addAllVeterinarianToZoo(Zoo& myZoo, Veterinarian**vets, int numOfVeterinarian) throw(const char*)
+void addVeterinariansToArea(Area& area, Veterinarian** vets, int numOfVeterinarian) throw(const char*)
 {
 	for (int i = 0; i < numOfVeterinarian; i++)
 	{
-		myZoo.addWorker(*vets[i], const_cast<Area&>(myZoo.getAllAreas()[i]));
+		area.addWorker(*vets[i]);
 	}
 }
 

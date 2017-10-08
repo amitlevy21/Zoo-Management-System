@@ -4,6 +4,9 @@
 
 #include "area.h"
 #include <string.h>
+#include "animal.h"
+#include "worker.h"
+#include "areaManager.h"
 
 void Area::setMaxNumberOfAnimals(int maxNumberOfAnimals)
 {
@@ -115,20 +118,26 @@ const Area &Area::operator+=(Animal &animal)
 
 bool Area::operator<(const Area& other) const
 {
-    return this->maxNumberOfAnimals < other.getMaxNumberOfAnimals();
+    if(this->maxNumberOfAnimals < other.getMaxNumberOfAnimals())
+        return true;
 
+    return false;
 }
 
 bool Area::operator>(const Area& other) const
 {
-    return this->maxNumberOfAnimals > other.getMaxNumberOfAnimals();
+    if(this->maxNumberOfAnimals > other.getMaxNumberOfAnimals())
+        return true;
 
+    return false;
 }
 
 bool Area::operator==(const Area& other) const
 {
-    return this->maxNumberOfAnimals == other.maxNumberOfAnimals;
+    if(this->maxNumberOfAnimals == other.maxNumberOfAnimals)
+        return true;
 
+    return false;
 }
 
 ostream &operator<<(ostream &os, const Area& area)

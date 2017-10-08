@@ -36,7 +36,7 @@ int Zoo::getNumOfAreas() const
 
 const Area &Zoo::getQuarantineAreaArea() const
 {
-    return <#initializer#>;
+    return quarantineArea;
 }
 
 void Zoo::addArea(Area &area)

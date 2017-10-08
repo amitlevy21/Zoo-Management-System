@@ -11,8 +11,8 @@
 
 #include <iostream>
 using namespace std;
-#include "area.h"
 
+class Area;
 
 class Animal
 {

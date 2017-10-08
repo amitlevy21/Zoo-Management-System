@@ -29,7 +29,7 @@ AreaManager** createAreaManagers(int& numOfManagers) throw(const char*);
 Area** createAllAreas(AreaManager **managers, int& numOfAreas) throw(const char*);
 void addAreasToZoo(Zoo& zoo, Area** areas, int& numOfAreas) throw(const char*);
 Animal** createAnimals(int& numOfAnimals) throw(const char*);
-void addAllAnimalsToZoo(Zoo& myZoo, Animal** animals, int &numOfAnimals) throw(const char*);
+void addAllAnimalsToArea(Area& areaToAdd, Animal** animals, int numOfAnimals) throw(const char*);
 Keeper** createAllKeepers(int& numOfKeepers) throw(const char*);
 void addKeepersToZoo(Zoo& myZoo, Keeper** keepers, int numOfKeepers) throw(const char*);
 Veterinarian** createAllVeterinarian(int& numOfVeterinarian) throw(const char*);
@@ -64,7 +64,7 @@ int main(int argc, const char * argv[])
 		animals = createAnimals(numOfAnimals);
 
 		// add animals
-		addAllAnimalsToZoo(myZoo, animals, numOfAnimals);
+		addAllAnimalsToArea(myZoo, animals, numOfAnimals);
 
 		keepers = createAllKeepers(numOfKeepers);
 
@@ -143,15 +143,13 @@ Animal** createAnimals(int& numOfAnimals) throw(const char*)
 	return animals;
 }
 
-void addAllAnimalsToZoo(Zoo& myZoo, Animal** animals, int &numOfAnimals) throw(const char*)
+void addAllAnimalsToArea(Area& areaToAdd, Animal** animals, int numOfAnimals) throw(const char*)
 {
-	for (int i = 0; i < numOfAnimals - 1; i++)
+	for (int i = 0; i < numOfAnimals; i++)
 	{
-		myZoo.addAnimal(*animals[i], myZoo.getAllAreas()[i]->getName());
+		areaToAdd.addAnimal(*animals[i]);
 	}
 
-	// another animal to the last area
-	myZoo.addAnimal(*animals[3], myZoo.getAllAreas()[2]->getName());
 }
 
 Keeper** createAllKeepers(int& numOfKeepers) throw(const char*)
@@ -170,7 +168,7 @@ void addKeepersToZoo(Zoo& myZoo, Keeper** keepers, int numOfKeepers) throw(const
 {
 	for (int i = 0; i < numOfKeepers; i++)
 	{
-		myZoo.addWorker(*keepers[i], myZoo.getAllAreas()[i]->getName());
+		myZoo.addWorker(*keepers[i], const_cast<Area&>(myZoo.getAllAreas()[i]));
 	}
 }
 
@@ -190,7 +188,7 @@ void addAllVeterinarianToZoo(Zoo& myZoo, Veterinarian**vets, int numOfVeterinari
 {
 	for (int i = 0; i < numOfVeterinarian; i++)
 	{
-		myZoo.addWorker(*vets[i], myZoo.getAllAreas()[i]->getName());
+		myZoo.addWorker(*vets[i], const_cast<Area&>(myZoo.getAllAreas()[i]));
 	}
 }
 

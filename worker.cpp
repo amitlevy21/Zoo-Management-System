@@ -13,7 +13,7 @@ long Worker::idGenerator = 100000000;
 //The order of methods called in the init line was change on purpose, setName is called last because of the name allocation.
 //that way we don't need to worry that if an exception occurs, the destructor is not called.
 
-Worker::Worker(const char *name, long idNumber, int salary, const Area *area)
+Worker::Worker(const char *name, long idNumber, int salary, Area *area)
 {
     generateID();
     setSalary(salary);

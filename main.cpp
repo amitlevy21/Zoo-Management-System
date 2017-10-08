@@ -7,21 +7,21 @@
 //
 #pragma warning( disable : 4290 )
 #include <iostream>
-#include "Zoo.h"
-#include "Area.h"
-#include "Animal.h"
-#include "Worker.h"
-#include "AreaManager.h"
-#include "Veterinarian.h"
-#include "Keeper.h"
-#include "MaintenanceWorker.h"
-#include "Elephant.h"
-#include "Giraffe.h"
-#include "Horse.h"
-#include "Lion.h"
-#include "Penguin.h"
-#include "Zebra.h"
-#include "Zebroid.h"
+#include "zoo.h"
+#include "area.h"
+#include "animal.h"
+#include "worker.h"
+#include "areaManager.h"
+#include "veterinarian.h"
+#include "keeper.h"
+#include "maintenanceWorker.h"
+#include "elephant.h"
+#include "giraffe.h"
+#include "horse.h"
+#include "lion.h"
+#include "penguin.h"
+#include "zebra.h"
+#include "zebroid.h"
 
 using namespace std;
 

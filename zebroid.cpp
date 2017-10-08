@@ -2,7 +2,7 @@
 // Created by Moshe Sheena on 06/10/2017.
 //
 
-#include "Zebroid.h"
+#include "zebroid.h"
 
 Zebroid::Zebroid(const char *name, float weight, int birthYear, int numOfStripes, float sizeOfHorseShoe)
         :Animal(name, weight, birthYear), Horse(name, weight, birthYear, sizeOfHorseShoe),

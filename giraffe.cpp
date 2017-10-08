@@ -2,7 +2,7 @@
 // Created by Moshe Sheena on 06/10/2017.
 //
 
-#include "Giraffe.h"
+#include "giraffe.h"
 
 void Giraffe::setLengthOfNeck(float lengthOfNeck)
 {

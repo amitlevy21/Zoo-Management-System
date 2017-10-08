@@ -2,7 +2,7 @@
 // Created by Amit Levy on 07/10/17.
 //
 
-#include "Keeper.h"
+#include "keeper.h"
 
 Keeper::Keeper(const char *name, long idNumber, int salary, Keeper::eAnimal keeperSpecialty) : Worker(name, idNumber, salary), keeperSpecialty(keeperSpecialty)
 {

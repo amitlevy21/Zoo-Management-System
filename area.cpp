@@ -2,7 +2,7 @@
 // Created by Moshe Sheena on 07/10/2017.
 //
 
-#include "Area.h"
+#include "area.h"
 
 void Area::setMaxNumberOfAnimals(int maxNumberOfAnimals)
 {

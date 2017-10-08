@@ -2,7 +2,7 @@
 // Created by Moshe Sheena on 06/10/2017.
 //
 
-#include "Zebra.h"
+#include "zebra.h"
 
 void Zebra::setNumOfStripes(int numOfStripes)
 {

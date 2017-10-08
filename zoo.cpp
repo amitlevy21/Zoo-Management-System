@@ -2,7 +2,7 @@
 // Created by Amit Levy on 08/10/17.
 //
 
-#include "Zoo.h"
+#include "zoo.h"
 #include <string.h>
 
 

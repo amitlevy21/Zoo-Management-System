@@ -2,7 +2,7 @@
 // Created by Amit Levy on 07/10/17.
 //
 
-#include "Veterinarian.h"
+#include "veterinarian.h"
 
 Veterinarian::Veterinarian(const char *name, long idNumber, int salary, int licenseNumber) : Worker(name, idNumber, salary)
 {

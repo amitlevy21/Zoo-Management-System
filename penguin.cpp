@@ -2,7 +2,7 @@
 // Created by Moshe Sheena on 06/10/2017.
 //
 
-#include "Penguin.h"
+#include "penguin.h"
 
 Penguin::Penguin(const char *name, float weight, int birthYear, eSeaFood favoriteFood)
         :Animal(name, weight, birthYear)

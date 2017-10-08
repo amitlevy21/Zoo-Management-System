@@ -2,7 +2,7 @@
 // Created by Amit Levy on 07/10/17.
 //
 
-#include "MaintenanceWorker.h"
+#include "maintenanceWorker.h"
 
 MaintenanceWorker::MaintenanceWorker(const char *name, long idNumber, int salary, float shoeSize) : Worker(name, idNumber, salary)
 {

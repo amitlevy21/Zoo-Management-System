@@ -6,7 +6,7 @@
 using namespace std;
 
 #include <string.h>
-#include "Worker.h"
+#include "worker.h"
 
 long Worker::idGenerator = 100000000;
 

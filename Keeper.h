@@ -11,14 +11,13 @@
 
 #include "Worker.h"
 
-
+const char* const eAnimalString[] = {"Lion" , "Penguin", "Elephant", "Giraffe", "Zebra", "Horse", "Zebroid"};
 
 class Keeper : public Worker
 {
     
 public:
 	enum eAnimal { LION, PENGUIN, ELEPHANT, GIRAFFE, ZEBRA, HORSE, ZEBROID };
-	const char* const eAnimalString[] = {"Lion" , "Penguin", "Elephant", "Giraffe", "Zebra", "Horse", "Zebroid"};
 
 	Keeper(const char *name, long idNumber, int salary, eAnimal keeperSpecialty);
 

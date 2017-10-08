@@ -2,7 +2,7 @@
 // Created by Moshe Sheena on 07/10/2017.
 //
 
-#include "Animal.h"
+#include "animal.h"
 #include <string.h>
 
 void Animal::setName(const char *name)

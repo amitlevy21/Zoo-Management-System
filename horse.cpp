@@ -2,7 +2,7 @@
 // Created by Moshe Sheena on 06/10/2017.
 //
 
-#include "Horse.h"
+#include "horse.h"
 
 void Horse::setSizeOfHorseShoe(float sizeOfHorseShoe)
 {

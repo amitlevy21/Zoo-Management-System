@@ -2,7 +2,7 @@
 // Created by Moshe Sheena on 06/10/2017.
 //
 
-#include "Elephant.h"
+#include "elephant.h"
 
 void Elephant::setSizeOfEars(float sizeOfEars)
 {

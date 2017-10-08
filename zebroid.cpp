@@ -27,7 +27,9 @@ int Zebroid::getBirthYear() const
 
 void Zebroid::toOs(ostream &os) const
 {
-    os << ", horse shoe size: " << this->getSizeOfHorseShoe() << ", number of stripes: "
-       << this->getNumOfStripes();
+//    os << ", horse shoe size: " <<  << ", number of stripes: "
+//       << getNumOfStripes();
+    Horse::toOs(os);
+    Zebra::toOs(os);
 }
 

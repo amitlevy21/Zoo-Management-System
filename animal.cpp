@@ -33,7 +33,8 @@ void Animal::setBirthYear(int birthYear) throw(const char*)
     this->birthYear = birthYear;
 }
 
-Animal::Animal(const char *name, float weight, int birthYear)
+Animal::Animal(const char *name, float weight, int birthYear, eAnimalClass animalClass)
+        :animalClass(animalClass)
 {
     setWeight(weight);
     setBirthYear(birthYear);
@@ -42,7 +43,7 @@ Animal::Animal(const char *name, float weight, int birthYear)
 
 ostream &operator<<(ostream &os, const Animal &animal)
 {
-    os << "Name: " << animal.name << ", weight: " << animal.weight << ", YOB: "
+    os << "Name: " << animal.name << ", class: " << animalClasses[animalClass] << ", weight: " << animal.weight << ", YOB: "
        << animal.birthYear << ", area: " << animal.area->getName();
 
     animal.toOs(os);
@@ -86,6 +87,11 @@ void Animal::setArea(Area& area)
 
     this->area = &area;
     area.addAnimal(*this);
+}
+
+eAnimalClass Animal::getAnimalClass() const
+{
+    return animalClass;
 }
 
 

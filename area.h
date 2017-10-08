@@ -10,7 +10,7 @@
 #define __AREA_H
 
 #include <iostream>
-
+#include "AnimalClassify.h"
 
 class Animal;
 class Worker;
@@ -30,12 +30,14 @@ private:
 	AreaManager* areaManager;
 	Animal** animals;
 	Worker** workers;
+	eAnimalClass habitat;
 
 	void setMaxNumberOfAnimals(int maxNumberOfAnimals) throw (const char*);
 	void setMaxNumberOfWorkers(int maxNumberOfWorkers) throw (const char*);
     
 public:
-	Area(const char *name, int maxNumberOfAnimals, int maxNumberOfWorkers, AreaManager* areaManager = nullptr);
+	Area(const char *name, int maxNumberOfAnimals, int maxNumberOfWorkers, AreaManager* areaManager = nullptr
+	, eAnimalClass habitat);
     ~Area();
     
     Area(const Area& area) = delete;
@@ -45,6 +47,8 @@ public:
     
     inline long getNumOfAnimals() const;
     inline long getMaxNumberOfAnimals() const;
+
+	inline eAnimalClass getHabitat() 	const;
  
     inline long getNumOfWorkers() const;
     inline long getMaxNumberOfWorkers() const;

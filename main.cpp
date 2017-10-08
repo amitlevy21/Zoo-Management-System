@@ -29,7 +29,7 @@ AreaManager** createAreaManagers(int& numOfManagers) throw(const char*);
 Area** createAllAreas(AreaManager **managers, int& numOfAreas) throw(const char*);
 void addAreasToZoo(Zoo& zoo, Area** areas, int& numOfAreas) throw(const char*);
 Animal** createAnimals(int& numOfAnimals) throw(const char*);
-void addAnimalsToArea(Area& areaToAdd, Animal** animals, int numOfAnimals) throw(const char*);
+void addAnimalsToArea(Zoo& zoo, Animal** animals, int numOfAnimals) throw(const char*);
 Keeper** createAllKeepers(int& numOfKeepers) throw(const char*);
 void addKeepersToArea(Area& area, Keeper** keepers, int numOfKeepers) throw(const char*);
 Veterinarian** createAllVeterinarian(int& numOfVeterinarian) throw(const char*);
@@ -39,6 +39,8 @@ void freeAllAreas(Area** areas, int numOfAreas);
 void freeAllAnimals(Animal** animals, int& numOfAnimals);
 void freeAllVeterinarian(Veterinarian** vets, int& numOfVeterinarian);
 void freeAllKeepers(Keeper** keepers, int& numOfKeepers);
+
+int findAreaByHabitat(const Area **areas, int numOfAreas, eAnimalClass habitat) throw(const char*);
 
 int main(int argc, const char * argv[]) 
 {
@@ -142,13 +144,30 @@ Animal** createAnimals(int& numOfAnimals) throw(const char*)
 	return animals;
 }
 
-void addAnimalsToArea(Area& areaToAdd, Animal** animals, int numOfAnimals) throw(const char*)
+void addAnimalsToArea(Zoo& zoo, Animal** animals, int numOfAnimals) throw(const char*)
 {
+	int areaIndex = -1;
+
 	for (int i = 0; i < numOfAnimals; i++)
 	{
-		areaToAdd.addAnimal(*animals[i]);
+		areaIndex = findAreaByHabitat(zoo.getAllAreas(), zoo.getNumOfAreas(), animals[i]->getAnimalClass());
+		if(areaIndex != -1)
+			zoo.getAllAreas()[areaIndex]->addAnimal(animals[i]);
+
+		areaIndex = -1;
 	}
 
+}
+
+int findAreaByHabitat(const Area **areas, int numOfAreas, eAnimalClass habitat) throw(const char*)
+{
+	for (int i = 0; i < numOfAreas; i++)
+	{
+		if(areas[i]->getHabitat() == habitat)
+			return i;
+	}
+
+	throw "no areas match the given habitat";
 }
 
 Keeper** createAllKeepers(int& numOfKeepers) throw(const char*)

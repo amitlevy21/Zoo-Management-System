@@ -35,7 +35,7 @@ void addKeepersToArea(Area& area, Keeper** keepers, int numOfKeepers) throw(cons
 Veterinarian** createAllVeterinarian(int& numOfVeterinarian) throw(const char*);
 void addVeterinariansToArea(Area& area, Veterinarian** vets, int numOfVeterinarian) throw(const char*);
 void freeAllAreaManagers(AreaManager** areaManagers, int& numOfAreaManagers);
-void freeAllAreas(Area** areas, int& numOfAreas);
+void freeAllAreas(Area** areas, int numOfAreas);
 void freeAllAnimals(Animal** animals, int& numOfAnimals);
 void freeAllVeterinarian(Veterinarian** vets, int& numOfVeterinarian);
 void freeAllKeepers(Keeper** keepers, int& numOfKeepers);
@@ -201,7 +201,7 @@ void freeAllAreaManagers(AreaManager** areaManagers, int& numOfAreaManagers)
 	delete []areaManagers;
 }
 
-void freeAllAreas(Area** areas, int& numOfAreas)
+void freeAllAreas(Area** areas, int numOfAreas)
 {
 	for (int i = 0; i < numOfAreas; i++)
 	{	

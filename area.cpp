@@ -179,3 +179,19 @@ void Area::setAreaName(const char *name)
     }
     this->name = strdup(name);
 }
+
+Area::~Area()
+{
+    for (int i = 0; i < numOfAnimals; i++)
+    {
+        delete(animals[i]);
+    }
+
+    for (int j = 0; j < numOfWorkers; j++)
+    {
+        delete(workers[j]);
+    }
+
+    delete[](animals);
+    delete[](workers);
+}

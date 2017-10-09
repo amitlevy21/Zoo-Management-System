@@ -55,7 +55,7 @@ public:
      long getMaxNumberOfWorkers() const;
     
      const AreaManager& getAreaManager() const;
-    void setAreaManager(AreaManager& areaManager);
+    void setAreaManager(AreaManager* areaManager);
 
 	void setAreaName(const char* name);
     

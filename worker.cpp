@@ -55,12 +55,13 @@ const Area &Worker::getArea() const
     return *area;
 }
 
-void Worker::setArea(Area &area)
+void Worker::setArea(Area* area)
 {
-    if(this->area != &area)
+
+    if((this->area == nullptr) || (this->area != area))
     {
-        this->area = &area;
-        area.addWorker(*this);
+        this->area = area;
+        area->addWorker(*this);
     }
 }
 

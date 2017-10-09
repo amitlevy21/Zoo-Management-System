@@ -24,7 +24,7 @@ void Area::setMaxNumberOfWorkers(int maxNumberOfWorkers) throw(const char*)
     this->maxNumberOfWorkers = maxNumberOfWorkers;
 }
 
-Area::Area(const char *name, int maxNumberOfAnimals, int maxNumberOfWorkers, AreaManager *areaManager, eAnimalClass habitat)
+Area::Area(const char *name, int maxNumberOfAnimals, int maxNumberOfWorkers, eAnimalClass habitat, AreaManager *areaManager)
         :habitat(habitat)
 {
     setAreaName(name);
@@ -137,7 +137,7 @@ bool Area::operator==(const Area& other) const
 
 ostream &operator<<(ostream &os, const Area& area)
 {
-    os << "Area name: " << area.name << "habitat: " << animalClasses[habitat] << ", number of animals: " << area.numOfAnimals
+    os << "Area name: " << area.name << "habitat: " << animalClasses[area.habitat] << ", number of animals: " << area.numOfAnimals
        << " up to: " << area.maxNumberOfAnimals << ", number of workers: "
        << area.numOfWorkers << " up to: " << area.maxNumberOfWorkers
        << ", managed by: " << area.areaManager->getName() << endl;

@@ -36,8 +36,7 @@ private:
 	void setMaxNumberOfWorkers(int maxNumberOfWorkers) throw (const char*);
     
 public:
-	Area(const char *name, int maxNumberOfAnimals, int maxNumberOfWorkers, AreaManager* areaManager = nullptr
-	, eAnimalClass habitat);
+	Area(const char *name, int maxNumberOfAnimals, int maxNumberOfWorkers, eAnimalClass habitat, AreaManager* areaManager = nullptr);
     ~Area();
     
     Area(const Area& area) = delete;

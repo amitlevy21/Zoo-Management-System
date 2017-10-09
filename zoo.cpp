@@ -75,7 +75,7 @@ void Zoo::addWorker(Worker& worker, Area& area) throw(const char*)
 
 Area **const Zoo::getAllAreas() const
 {
-    return (const Area**)areas;
+    return areas;
 }
 
 void Zoo::setMaxNumOfAreas(int maxNumOfAreas) throw(const char*)

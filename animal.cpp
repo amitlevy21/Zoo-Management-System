@@ -6,6 +6,7 @@
 #include "area.h"
 #include <string.h>
 
+
 void Animal::setName(const char *name) throw(const char*)
 {
     if(strcmp(name, "") == 0)
@@ -19,7 +20,7 @@ void Animal::setName(const char *name) throw(const char*)
 void Animal::setWeight(float weight) throw(const char*)
 {
     if(weight <= 0)
-        throw "weight cannot be zero or negetive";
+        throw "weight cannot be zero or negative";
 
     this->weight = weight;
 }

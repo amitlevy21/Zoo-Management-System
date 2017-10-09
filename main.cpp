@@ -29,7 +29,7 @@ AreaManager** createAreaManagers(int& numOfManagers) throw(const char*);
 Area** createAllAreas(AreaManager **managers, int& numOfAreas) throw(const char*);
 void addAreasToZoo(Zoo& zoo, Area** areas, int& numOfAreas) throw(const char*);
 Animal** createAnimals(int& numOfAnimals) throw(const char*);
-void addAnimalsToArea(Zoo& zoo, Animal** animals, int numOfAnimals) throw(const char*);
+bool addAnimalsToZoo(Zoo &zoo, Animal **animals, int numOfAnimals);
 Keeper** createAllKeepers(int& numOfKeepers) throw(const char*);
 void addKeepersToArea(Area& area, Keeper** keepers, int numOfKeepers) throw(const char*);
 Veterinarian** createAllVeterinarian(int& numOfVeterinarian) throw(const char*);
@@ -39,8 +39,8 @@ void freeAllAreas(Area** areas, int numOfAreas);
 void freeAllAnimals(Animal** animals, int& numOfAnimals);
 void freeAllVeterinarian(Veterinarian** vets, int& numOfVeterinarian);
 void freeAllKeepers(Keeper** keepers, int& numOfKeepers);
-
-int findAreaByHabitat(const Area **areas, int numOfAreas, eAnimalClass habitat) throw(const char*);
+int findAreaByHabitat(const Area *const *const areas, int numOfAreas, eAnimalClass habitat) throw(const char*);
+int getNumOfSpacesLeftInAreaForAnimals(const Area &area);
 
 int main(int argc, const char * argv[]) 
 {
@@ -66,7 +66,7 @@ int main(int argc, const char * argv[])
 		animals = createAnimals(numOfAnimals);
 
 		// add animals
-		//addAnimalsToArea(myZoo, animals, numOfAnimals);
+		//addAnimalsToZoo(myZoo, animals, numOfAnimals);
 
 		keepers = createAllKeepers(numOfKeepers);
 
@@ -144,30 +144,46 @@ Animal** createAnimals(int& numOfAnimals) throw(const char*)
 	return animals;
 }
 
-void addAnimalsToArea(Zoo& zoo, Animal** animals, int numOfAnimals) throw(const char*)
+bool addAnimalsToZoo(Zoo &zoo, Animal **animals, int numOfAnimals) throw(const char*)
 {
-	int areaIndex = -1;
+    int numOfSpacesAvailableInZoo = 0;
+
+    for (int j = 0; j < zoo.getNumOfAreas(); j++)
+    {
+        numOfSpacesAvailableInZoo += getNumOfSpacesLeftInAreaForAnimals(*zoo.getAllAreas()[j]);
+    }
+
+    if(numOfSpacesAvailableInZoo < numOfAnimals)
+    {
+        cout << "no room for all animals. try again with " << numOfAnimals - numOfSpacesAvailableInZoo
+             << " animals";
+        return false;
+    }
+
+	int areaIndex;
 
 	for (int i = 0; i < numOfAnimals; i++)
 	{
-		areaIndex = findAreaByHabitat(zoo.getAllAreas(), zoo.getNumOfAreas(), animals[i]->getAnimalClass());
-		if(areaIndex != -1)
-			zoo.getAllAreas()[areaIndex]->addAnimal(animals[i]);
-
-		areaIndex = -1;
+		areaIndex = findAreaByHabitat((const Area**)zoo.getAllAreas(), zoo.getNumOfAreas(), animals[i]->getAnimalClass());
+		if(areaIndex == -1)
+        {
+            cout << "failed to find area for animal in index " << i;
+            return false;
+        }
+        zoo.getAllAreas()[areaIndex]->addAnimal(*animals[i]);
 	}
-
 }
 
-int findAreaByHabitat(const Area **areas, int numOfAreas, eAnimalClass habitat) throw(const char*)
+int findAreaByHabitat(const Area *const*const areas, int numOfAreas, eAnimalClass habitat)
 {
-	for (int i = 0; i < numOfAreas; i++)
+    for (int i = 0; i < numOfAreas; i++)
 	{
 		if(areas[i]->getHabitat() == habitat)
 			return i;
 	}
 
-	throw "no areas match the given habitat";
+    cout << "no area matches the given habitat";
+    return -1;
 }
 
 Keeper** createAllKeepers(int& numOfKeepers) throw(const char*)
@@ -258,4 +274,9 @@ void freeAllKeepers(Keeper** keepers, int& numOfKeepers)
 	}
 
 	delete []keepers;
+}
+
+int getNumOfSpacesLeftInAreaForAnimals(const Area &area)
+{
+    return area.getMaxNumberOfAnimals() - area.getNumOfAnimals();
 }

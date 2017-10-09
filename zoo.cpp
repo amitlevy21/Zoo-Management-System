@@ -73,7 +73,7 @@ void Zoo::addWorker(Worker& worker, Area& area) throw(const char*)
     areas[areaIndex]->addWorker(worker);
 }
 
-const Area **Zoo::getAllAreas() const
+Area **const Zoo::getAllAreas() const
 {
     return (const Area**)areas;
 }

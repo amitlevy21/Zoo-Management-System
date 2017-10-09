@@ -19,7 +19,7 @@ class Penguin : public Animal
 public:
 	enum eSeaFood { SHRIMP, CRAB, FISH, CALAMARI };
 
-	Penguin(const char *name, float weight, int birthYear, eSeaFood favoriteFood);
+	Penguin(const char *name, float weight, int birthYear, eSeaFood favoriteFood, eAnimalClass animalClass);
     
     Penguin(const Penguin& penguin) = delete;
 

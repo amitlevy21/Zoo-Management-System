@@ -20,7 +20,7 @@ private:
 	void setSizeOfHorseShoe(float sizeOfHorseShoe) throw (const char*);
     
 public:
-	Horse(const char *name, float weight, int birthYear, float sizeOfHorseShoe);
+	Horse(const char *name, float weight, int birthYear, float sizeOfHorseShoe, eAnimalClass animalClass);
 
     Horse(const Horse& horse) = delete;
     const Horse& operator=(const Horse& horse) = delete;

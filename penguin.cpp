@@ -4,8 +4,8 @@
 
 #include "penguin.h"
 
-Penguin::Penguin(const char *name, float weight, int birthYear, eSeaFood favoriteFood)
-        :Animal(name, weight, birthYear)
+Penguin::Penguin(const char *name, float weight, int birthYear, eSeaFood favoriteFood, eAnimalClass animalClass)
+        :Animal(name, weight, birthYear, animalClass)
 {
     setFavoriteFood(favoriteFood);
 }

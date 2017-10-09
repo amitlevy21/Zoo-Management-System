@@ -12,8 +12,8 @@ void Horse::setSizeOfHorseShoe(float sizeOfHorseShoe) throw(const char*)
     this->sizeOfHorseShoe = sizeOfHorseShoe;
 }
 
-Horse::Horse(const char *name, float weight, int birthYear, float sizeOfHorseShoe)
-        :Animal(name, weight, birthYear)
+Horse::Horse(const char *name, float weight, int birthYear, float sizeOfHorseShoe, eAnimalClass animalClass)
+        :Animal(name, weight, birthYear, animalClass)
 {
     setSizeOfHorseShoe(sizeOfHorseShoe);
 }

@@ -4,8 +4,8 @@
 
 #include "lion.h"
 
-Lion::Lion(const char *name, float weight, int birthYear, eManeColor maneColor)
-        :Animal(name, weight, birthYear)
+Lion::Lion(const char *name, float weight, int birthYear, eManeColor maneColor, eAnimalClass animalClass)
+        :Animal(name, weight, birthYear, animalClass)
 {
     this->maneColor = maneColor;
 }

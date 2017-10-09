@@ -10,8 +10,8 @@ void Zebra::setNumOfStripes(int numOfStripes) throw(const char*)
         throw "Number of stripes cannot be a negetive number";
 }
 
-Zebra::Zebra(const char *name, float weight, int birthYear, int numOfStripes)
-        :Animal(name, weight, birthYear)
+Zebra::Zebra(const char *name, float weight, int birthYear, int numOfStripes, eAnimalClass animalClass)
+        :Animal(name, weight, birthYear, animalClass)
 {
     setNumOfStripes(numOfStripes);
 }

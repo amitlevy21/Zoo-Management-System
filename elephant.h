@@ -23,7 +23,8 @@ private:
 	void setLengthOfTrunk(float lengthOfTrunk) throw (const char*);
     
 public:
-	Elephant(const char *name, float weight, int birthYear, float sizeOfEars, float lengthOfTrunk);
+	Elephant(const char *name, float weight, int birthYear, float sizeOfEars, float lengthOfTrunk,
+                 eAnimalClass animalClass);
     
     Elephant(const Elephant& elephant) = delete;
 

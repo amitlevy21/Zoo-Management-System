@@ -20,8 +20,9 @@ void Elephant::setLengthOfTrunk(float lengthOfTrunk) throw(const char*)
     this->lengthOfTrunk = lengthOfTrunk;
 }
 
-Elephant::Elephant(const char *name, float weight, int birthYear, float sizeOfEars, float lengthOfTrunk)
-        :Animal(name, weight, birthYear)
+Elephant::Elephant(const char *name, float weight, int birthYear, float sizeOfEars, float lengthOfTrunk,
+                   eAnimalClass animalClass)
+        :Animal(name, weight, birthYear, animalClass)
 {
     setSizeOfEars(sizeOfEars);
     setLengthOfTrunk(lengthOfTrunk);

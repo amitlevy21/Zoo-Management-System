@@ -4,9 +4,10 @@
 
 #include "zebroid.h"
 
-Zebroid::Zebroid(const char *name, float weight, int birthYear, int numOfStripes, float sizeOfHorseShoe)
-        :Animal(name, weight, birthYear), Horse(name, weight, birthYear, sizeOfHorseShoe),
-         Zebra(name, weight, birthYear, numOfStripes)
+Zebroid::Zebroid(const char *name, float weight, int birthYear, int numOfStripes, float sizeOfHorseShoe,
+                 eAnimalClass animalClass)
+        :Animal(name, weight, birthYear, animalClass), Horse(name, weight, birthYear, sizeOfHorseShoe, animalClass),
+         Zebra(name, weight, birthYear, numOfStripes, animalClass)
 {
 }
 

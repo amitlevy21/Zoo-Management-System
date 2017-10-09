@@ -19,7 +19,7 @@ class Lion : public Animal
 public:
 	enum eManeColor { WHITE, BROWN, YELLOW, RED, ORANGE };
 
-	Lion(const char *name, float weight, int birthYear, eManeColor maneColor);
+	Lion(const char *name, float weight, int birthYear, eManeColor maneColor, eAnimalClass animalClass);
     
     Lion(const Lion& lion) = delete;
 

@@ -12,8 +12,8 @@ void Giraffe::setLengthOfNeck(float lengthOfNeck) throw(const char*)
     this->lengthOfNeck = lengthOfNeck;
 }
 
-Giraffe::Giraffe(const char *name, float weight, int birthYear, float lengthOfNeck)
-        : Animal(name, weight, birthYear)
+Giraffe::Giraffe(const char *name, float weight, int birthYear, float lengthOfNeck, eAnimalClass animalClass)
+        : Animal(name, weight, birthYear, animalClass)
 //What about Area? why not received in c'tor?
 {
     setLengthOfNeck(lengthOfNeck);

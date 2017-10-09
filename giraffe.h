@@ -20,7 +20,7 @@ private:
 	void setLengthOfNeck(float lengthOfNeck) throw (const char*);
     
 public:
-	Giraffe(const char *name, float weight, int birthYear, float lengthOfNeck);
+	Giraffe(const char *name, float weight, int birthYear, float lengthOfNeck, eAnimalClass animalClass);
     
     Giraffe(const Giraffe& giraffe) = delete;
 

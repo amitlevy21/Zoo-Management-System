@@ -10,13 +10,16 @@
 #define __ANIMAL_H
 
 #include <iostream>
-#include "AnimalClassify.h"
+
 using namespace std;
 
 class Area;
+//enum class eAnimalClass;
+#include "AnimalClassify.h"
 
 class Animal
 {
+
 private:
 	char* name;
 	float weight;

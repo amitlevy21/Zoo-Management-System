@@ -5,9 +5,9 @@
 #ifndef ZOO_MANAGEMENT_SYSTEM_ANIMALCLASSIFY_H
 #define ZOO_MANAGEMENT_SYSTEM_ANIMALCLASSIFY_H
 
-const char* animalClasses[] = {"LAND", "MARINE", "AMPHIBIAN"};
+static const char* animalClasses[] = {"LAND", "MARINE", "AMPHIBIAN"};
 
-enum eAnimalClass{LAND, MARINE, AMPHIBIAN};
+enum class eAnimalClass{LAND, MARINE, AMPHIBIAN};
 
 
 #endif //ZOO_MANAGEMENT_SYSTEM_ANIMALCLASSIFY_H

@@ -106,6 +106,7 @@ void Zoo::setName(const char *name) throw(const char*)
 const Zoo &Zoo::operator+=(Area &area)
 {
     addArea(area);
+    return *this;
 }
 
 const Area &Zoo::operator[](int index) const throw(const char*)
@@ -125,6 +126,7 @@ ostream& operator<<(ostream& os, const Zoo& zoo)
     {
         os << zoo.getAllAreas()[i];
     }
+    return os;
 }
 
 int Zoo::findAreaIndex(const Area &area) const

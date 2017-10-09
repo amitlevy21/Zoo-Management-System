@@ -23,7 +23,7 @@
 #include "zebra.h"
 #include "zebroid.h"
 
-#include "AnimalClassify.h"
+
 
 using namespace std;
 
@@ -42,7 +42,7 @@ void freeAllAnimals(Animal** animals, int numOfAnimals);
 void freeAllVeterinarian(Veterinarian** vets, int numOfVeterinarian);
 void freeAllKeepers(Keeper** keepers, int numOfKeepers);
 int findAreaByHabitat(const Area *const *const areas, int numOfAreas, eAnimalClass habitat);
-int getNumOfSpacesLeftInAreaForAnimals(const Area &area);
+
 
 int main(int argc, const char * argv[]) 
 {
@@ -135,10 +135,10 @@ Animal** createAnimals(int numOfAnimals) throw(const char*)
 {
 	Animal** animals = new Animal*[numOfAnimals];
 	
-	animals[0] = new Penguin("Pini", 1.2f, 2005, Penguin::eSeaFood::CRAB, LAND);
-	animals[1] = new Elephant("Eli", 2.5f, 2003, 1.35f, 2.75f, LAND);
-	animals[2] = new Horse("Horsy", 208.5f, 1998, 40.2f, LAND);
-	animals[3] = new Zebroid("Zeze", 1.45f, 2010, 128, 38.6f, LAND);
+	animals[0] = new Penguin("Pini", 1.2f, 2005, Penguin::eSeaFood::CRAB, eAnimalClass::AMPHIBIAN);
+	animals[1] = new Elephant("Eli", 2.5f, 2003, 1.35f, 2.75f, eAnimalClass::LAND);
+	animals[2] = new Horse("Horsy", 208.5f, 1998, 40.2f, eAnimalClass::LAND);
+	animals[3] = new Zebroid("Zeze", 1.45f, 2010, 128, 38.6f, eAnimalClass::LAND);
 						
 	return animals;
 }
@@ -149,7 +149,7 @@ bool addAnimalsToZoo(Zoo &zoo, Animal **animals, int numOfAnimals)
 
     for (int j = 0; j < zoo.getNumOfAreas(); j++)
     {
-        numOfSpacesAvailableInZoo += getNumOfSpacesLeftInAreaForAnimals(*zoo.getAllAreas()[j]);
+        numOfSpacesAvailableInZoo += zoo.getAllAreas()[j]->getNumOfSpacesLeftInAreaForAnimals();
     }
 
     if(numOfSpacesAvailableInZoo < numOfAnimals)
@@ -294,7 +294,3 @@ void freeAllKeepers(Keeper** keepers, int numOfKeepers)
 	delete []keepers;
 }
 
-int getNumOfSpacesLeftInAreaForAnimals(const Area &area)
-{
-    return area.getMaxNumberOfAnimals() - area.getNumOfAnimals();
-}

@@ -4,6 +4,7 @@
 
 #include "animal.h"
 #include "area.h"
+
 #include <string.h>
 
 
@@ -44,7 +45,7 @@ Animal::Animal(const char *name, float weight, int birthYear, eAnimalClass anima
 
 ostream &operator<<(ostream &os, const Animal &animal)
 {
-    os << "Name: " << animal.name << ", class: " << animalClasses[animalClass] << ", weight: " << animal.weight << ", YOB: "
+    os << "Name: " << animal.name << ", class: " << animalClasses[static_cast<int>(animal.getAnimalClass())] << ", weight: " << animal.weight << ", YOB: "
        << animal.birthYear << ", area: " << animal.area->getName();
 
     animal.toOs(os);

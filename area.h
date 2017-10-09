@@ -10,12 +10,12 @@
 #define __AREA_H
 
 #include <iostream>
-#include "AnimalClassify.h"
 
 class Animal;
 class Worker;
 class AreaManager;
-
+//enum class eAnimalClass;
+#include "AnimalClassify.h"
 
 using namespace std;
 
@@ -44,15 +44,17 @@ public:
     
      const char* getName() const;
     
-    inline long getNumOfAnimals() const;
-    inline long getMaxNumberOfAnimals() const;
+     int getNumOfAnimals() const;
+     int getMaxNumberOfAnimals() const;
 
-	inline eAnimalClass getHabitat() 	const;
+	int getNumOfSpacesLeftInAreaForAnimals() const;
+
+	 eAnimalClass getHabitat() 	const;
  
-    inline long getNumOfWorkers() const;
-    inline long getMaxNumberOfWorkers() const;
+     long getNumOfWorkers() const;
+     long getMaxNumberOfWorkers() const;
     
-    inline const AreaManager& getAreaManager() const;
+     const AreaManager& getAreaManager() const;
     void setAreaManager(AreaManager& areaManager);
 
 	void setAreaName(const char* name);

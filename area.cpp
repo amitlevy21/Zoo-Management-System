@@ -7,6 +7,7 @@
 #include "animal.h"
 #include "worker.h"
 #include "areaManager.h"
+#include "AnimalClassify.h"
 
 void Area::setMaxNumberOfAnimals(int maxNumberOfAnimals) throw(const char*)
 {
@@ -41,12 +42,12 @@ const char *Area::getName() const
     return name;
 }
 
-long Area::getNumOfAnimals() const
+int Area::getNumOfAnimals() const
 {
     return numOfAnimals;
 }
 
-long Area::getMaxNumberOfAnimals() const
+int Area::getMaxNumberOfAnimals() const
 {
     return maxNumberOfAnimals;
 }
@@ -137,7 +138,7 @@ bool Area::operator==(const Area& other) const
 
 ostream &operator<<(ostream &os, const Area& area)
 {
-    os << "Area name: " << area.name << "habitat: " << animalClasses[area.habitat] << ", number of animals: " << area.numOfAnimals
+    os << "Area name: " << area.name << "habitat: " << animalClasses[static_cast<int>(area.getHabitat())] << ", number of animals: " << area.numOfAnimals
        << " up to: " << area.maxNumberOfAnimals << ", number of workers: "
        << area.numOfWorkers << " up to: " << area.maxNumberOfWorkers
        << ", managed by: " << area.areaManager->getName() << endl;
@@ -194,4 +195,8 @@ Area::~Area()
 eAnimalClass Area::getHabitat() const
 {
     return habitat;
+}
+
+int Area::getNumOfSpacesLeftInAreaForAnimals() const {
+    return maxNumberOfAnimals - numOfAnimals;
 }

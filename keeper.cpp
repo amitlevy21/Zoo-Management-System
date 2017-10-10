@@ -4,12 +4,12 @@
 
 #include "keeper.h"
 
-Keeper::Keeper(const char *name, long idNumber, int salary, eAnimal keeperSpecialty, Area *area) :
+Keeper::Keeper(const char *name, int salary, eAnimalSpeciality keeperSpecialty, Area *area) :
         Worker(name, salary, area), keeperSpecialty(keeperSpecialty)
 {
 }
 
-Keeper::eAnimal Keeper::getKeeperSpecialty() const
+Keeper::eAnimalSpeciality Keeper::getKeeperSpecialty() const
 {
     return keeperSpecialty;
 }

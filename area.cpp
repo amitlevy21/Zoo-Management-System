@@ -35,7 +35,7 @@ Area::Area(const char *name, int maxNumberOfAnimals, int maxNumberOfWorkers, Ani
     animals = new Animal*[maxNumberOfAnimals];
     workers = new Worker *[maxNumberOfWorkers];
 
-    setAreaManager(areaManager);
+    setAreaManager(*areaManager);
 }
 
 const char *Area::getName() const
@@ -68,14 +68,14 @@ const AreaManager &Area::getAreaManager() const
     return *areaManager;
 }
 
-void Area::setAreaManager(AreaManager* areaManager)
+void Area::setAreaManager(AreaManager& areaManager)
 {
-    if((this->areaManager == nullptr) || (this->areaManager != areaManager))
+    if((this->areaManager == nullptr) || (this->areaManager != &areaManager))
     {
-        if(areaManager)
+        if(&areaManager)
         {
-            this->areaManager = areaManager;
-            areaManager->setArea(*this);
+            this->areaManager = &areaManager;
+            areaManager.setArea(*this);
         }
     }
 }

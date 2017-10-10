@@ -9,6 +9,6 @@ Zoo - 1. changed methods addWorker & addAnimal - receives Area object instead of
       3. In the methods addWorker & addAnimal we choose to iterate and check if the passed Area argument exists in the Zoo, not assuming that it was already added.
       4. operator[] now throws indexOutOfBound exception.
       5. changed operator + to +=
-      6. main, used const cast
+      6. main, used const cast. Also, we decided to get the input from the user about the areas of the zoo first, and then the input about the managers.
 
 Moshe:

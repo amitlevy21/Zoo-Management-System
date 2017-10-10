@@ -17,19 +17,19 @@ class Keeper : public Worker
 {
     
 public:
-	enum eAnimal { LION, PENGUIN, ELEPHANT, GIRAFFE, ZEBRA, HORSE, ZEBROID };
+	enum eAnimalSpeciality { LION, PENGUIN, ELEPHANT, GIRAFFE, ZEBRA, HORSE, ZEBROID };
 
-	Keeper(const char *name, long idNumber, int salary, eAnimal keeperSpecialty, Area *area = nullptr);
+	Keeper(const char *name, int salary, eAnimalSpeciality keeperSpecialty, Area *area = nullptr);
 
     Keeper(const Keeper& keeper) = delete;
     const Keeper& operator=(const Keeper& keeper) = delete;
     
-    inline eAnimal getKeeperSpecialty() const;
+    inline eAnimalSpeciality getKeeperSpecialty() const;
     
 	virtual void toOs(ostream& os) const override;
 
 private:
-	eAnimal keeperSpecialty;
+	eAnimalSpeciality keeperSpecialty;
 };
 
 

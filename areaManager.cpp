@@ -4,7 +4,6 @@
 
 #include "areaManager.h"
 
-//set Area?
 AreaManager::AreaManager(const char *name, int salary, int yearsOfExperience, Area *area) : Worker(name, salary,
                                                                                                    area)
 {

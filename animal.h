@@ -14,24 +14,16 @@
 using namespace std;
 
 class Area;
-//enum class eAnimalClass;
-#include "AnimalClassify.h"
+
+//#include "AnimalClassify.h"
+
+static const char* animalClasses[] = {"LAND", "MARINE", "AMPHIBIAN"};
 
 class Animal
 {
 
-private:
-	char* name;
-	float weight;
-	int birthYear;
-	Area* area;
-	eAnimalClass animalClass;
-
-	void setName(const char* name) 		throw (const char*);
-	void setWeight(float weight) 		throw (const char*);
-	void setBirthYear(int birthYear) 	throw (const char*);
-
 public:
+	enum class eAnimalClass{LAND, MARINE, AMPHIBIAN};
 
 	Animal(const char *name, float weight, int birthYear, eAnimalClass animalClass);
 
@@ -56,6 +48,17 @@ public:
 	virtual void toOs(ostream& os) const = 0;
 
 	friend ostream& operator<<(ostream& os, const Animal& animal);
+
+private:
+	char* name;
+	float weight;
+	int birthYear;
+	Area* area;
+	eAnimalClass animalClass;
+
+	void setName(const char* name) 		throw (const char*);
+	void setWeight(float weight) 		throw (const char*);
+	void setBirthYear(int birthYear) 	throw (const char*);
 };
 
 #endif /* __ANIMAL_H */

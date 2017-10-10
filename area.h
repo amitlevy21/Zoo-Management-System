@@ -11,11 +11,12 @@
 
 #include <iostream>
 
-class Animal;
+//class Animal;
 class Worker;
 class AreaManager;
-//enum class eAnimalClass;
-#include "AnimalClassify.h"
+
+//#include "AnimalClassify.h"
+#include "animal.h"
 
 using namespace std;
 
@@ -30,13 +31,13 @@ private:
 	AreaManager* areaManager;
 	Animal** animals;
 	Worker** workers;
-	eAnimalClass habitat;
+	Animal::eAnimalClass habitat;
 
 	void setMaxNumberOfAnimals(int maxNumberOfAnimals) throw (const char*);
 	void setMaxNumberOfWorkers(int maxNumberOfWorkers) throw (const char*);
     
 public:
-	Area(const char *name, int maxNumberOfAnimals, int maxNumberOfWorkers, eAnimalClass habitat, AreaManager* areaManager = nullptr);
+	Area(const char *name, int maxNumberOfAnimals, int maxNumberOfWorkers, Animal::eAnimalClass habitat, AreaManager* areaManager = nullptr);
     ~Area();
     
     Area(const Area& area) = delete;
@@ -49,7 +50,7 @@ public:
 
 	int getNumOfSpacesLeftInAreaForAnimals() const;
 
-	 eAnimalClass getHabitat() 	const;
+	 Animal::eAnimalClass getHabitat() 	const;
  
      long getNumOfWorkers() const;
      long getMaxNumberOfWorkers() const;

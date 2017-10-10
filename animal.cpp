@@ -91,7 +91,7 @@ void Animal::setArea(Area& area)
     area.addAnimal(*this);
 }
 
-eAnimalClass Animal::getAnimalClass() const
+Animal::eAnimalClass Animal::getAnimalClass() const
 {
     return animalClass;
 }

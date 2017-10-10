@@ -45,7 +45,7 @@ public:
     void setSalary(int salary) throw (const char*);
     
     inline const Area& getArea() const;
-    void setArea(Area* area);
+    void setArea(Area &area);
     
 	virtual void toOs(ostream& os) const =0;
     friend ostream& operator<<(ostream& os, const Worker& worker);

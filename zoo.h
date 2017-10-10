@@ -48,7 +48,9 @@ public:
     
 	void addWorker(Worker& worker, Area& area)  throw (const char*);
     
-    Area **const getAllAreas() const;
+    const Area ** getAllAreas() const;
+
+	Area** getAllAreas();
     
     const Zoo& operator+=(Area& area);
     

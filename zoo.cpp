@@ -9,9 +9,10 @@
 
 Zoo::Zoo(const char *name, int maxNumOfAreas, Area& quarantineArea): quarantineArea(quarantineArea)
 {
-    setMaxNumOfAreas(maxNumOfAreas);
     setName(name);
+    setMaxNumOfAreas(maxNumOfAreas);
 
+    areas = new Area*[maxNumOfAreas];
 }
 
 Zoo::~Zoo()
@@ -45,8 +46,7 @@ void Zoo::addArea(Area &area) throw(const char*)
     {
         throw "Area already exists in the zoo";
     }
-    areas[numOfAreas] = &area;
-    numOfAreas++;
+    areas[numOfAreas++] = &area;
 }
 
 void Zoo::addAnimal(Animal& animal, Area& area) throw(const char*)
@@ -73,7 +73,12 @@ void Zoo::addWorker(Worker& worker, Area& area) throw(const char*)
     areas[areaIndex]->addWorker(worker);
 }
 
-Area **const Zoo::getAllAreas() const
+const Area ** Zoo::getAllAreas() const
+{
+    return (const Area**)areas;
+}
+
+Area **Zoo::getAllAreas()
 {
     return areas;
 }
@@ -121,7 +126,8 @@ const Area &Zoo::operator[](int index) const throw(const char*)
 
 ostream& operator<<(ostream& os, const Zoo& zoo)
 {
-    os << "Zoo Details:\nName: " << zoo.getName() << "\nArea Capacity: " << zoo.getMaxNumOfAreas() <<"\nNum of Areas: " << zoo.getNumOfAreas() << endl;
+    os << "Zoo name: " << zoo.getName() << ", area capacity: " << zoo.getMaxNumOfAreas() <<"number of areas: " << zoo.getNumOfAreas() << endl;
+    os << "Areas: " << endl;
     for (int i = 0; i < zoo.getNumOfAreas(); i++)
     {
         os << zoo.getAllAreas()[i];
@@ -141,4 +147,6 @@ int Zoo::findAreaIndex(const Area &area) const
 
     return -1;
 }
+
+
 

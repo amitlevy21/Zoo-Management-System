@@ -41,10 +41,10 @@ void freeAllAreas(Area** areas, int numOfAreas);
 void freeAllAnimals(Animal** animals, int numOfAnimals);
 void freeAllVeterinarian(Veterinarian** vets, int numOfVeterinarian);
 void freeAllKeepers(Keeper** keepers, int numOfKeepers);
-int findAreaByHabitat(const Area *const *const areas, int numOfAreas, eAnimalClass habitat);
+int findAreaByHabitat(const Area *const *const areas, int numOfAreas, Animal::eAnimalClass habitat);
 
 
-int main(int argc, const char * argv[]) 
+int main(int argc, const char * argv[])
 {
 	int numOfManagers = 3, numOfAreas = 3, numOfAnimals = 4, numOfKeepers = 3, numOfVeterinarian = 4;
 	AreaManager** managers = nullptr;
@@ -55,7 +55,7 @@ int main(int argc, const char * argv[])
 
 	try
 	{
-		Area quarantineArea("quarantineArea", 4, 4, eAnimalClass::AMPHIBIAN);
+		Area quarantineArea("quarantineArea", 4, 4, Animal::eAnimalClass::AMPHIBIAN);
 		Zoo myZoo("My Zoo", 10, quarantineArea);
 
 		managers = createAreaManagers(numOfManagers);
@@ -116,9 +116,9 @@ Area** createAllAreas(AreaManager **managers, int numOfAreas) throw(const char*)
 {
 	Area** areas = new Area*[numOfAreas];
 
-	areas[0] = new Area("A1", 4, 4, eAnimalClass::LAND, managers[0]);
-	areas[1] = new Area("A2", 4, 4, eAnimalClass::MARINE, managers[1]);
-	areas[2] = new Area("A3", 4, 4, eAnimalClass::AMPHIBIAN);
+	areas[0] = new Area("A1", 4, 4, Animal::eAnimalClass::LAND, managers[0]);
+	areas[1] = new Area("A2", 4, 4, Animal::eAnimalClass::MARINE, managers[1]);
+	areas[2] = new Area("A3", 4, 4, Animal::eAnimalClass::AMPHIBIAN);
 				
 	return areas;
 }
@@ -135,10 +135,10 @@ Animal** createAnimals(int numOfAnimals) throw(const char*)
 {
 	Animal** animals = new Animal*[numOfAnimals];
 	
-	animals[0] = new Penguin("Pini", 1.2f, 2005, Penguin::eSeaFood::CRAB, eAnimalClass::AMPHIBIAN);
-	animals[1] = new Elephant("Eli", 2.5f, 2003, 1.35f, 2.75f, eAnimalClass::LAND);
-	animals[2] = new Horse("Horsy", 208.5f, 1998, 40.2f, eAnimalClass::LAND);
-	animals[3] = new Zebroid("Zeze", 1.45f, 2010, 128, 38.6f, eAnimalClass::LAND);
+	animals[0] = new Penguin("Pini", 1.2f, 2005, Penguin::eSeaFood::CRAB, Animal::eAnimalClass::AMPHIBIAN);
+	animals[1] = new Elephant("Eli", 2.5f, 2003, 1.35f, 2.75f, Animal::eAnimalClass::LAND);
+	animals[2] = new Horse("Horsy", 208.5f, 1998, 40.2f, Animal::eAnimalClass::LAND);
+	animals[3] = new Zebroid("Zeze", 1.45f, 2010, 128, 38.6f, Animal::eAnimalClass::LAND);
 						
 	return animals;
 }
@@ -173,7 +173,7 @@ bool addAnimalsToZoo(Zoo &zoo, Animal **animals, int numOfAnimals)
 	}
 }
 
-int findAreaByHabitat(const Area *const*const areas, int numOfAreas, eAnimalClass habitat)
+int findAreaByHabitat(const Area *const*const areas, int numOfAreas, Animal::eAnimalClass habitat)
 {
     for (int i = 0; i < numOfAreas; i++)
 	{

@@ -22,20 +22,17 @@
 #include "penguin.h"
 #include "zebra.h"
 #include "zebroid.h"
-
-
-
 using namespace std;
 
-AreaManager** createAreaManagers(int numOfManagers) throw(const char*);
-Area** createAllAreas(AreaManager **managers, int numOfAreas) throw(const char*);
-void addAreasToZoo(Zoo& zoo, Area** areas, int numOfAreas) throw(const char*);
+AreaManager** createAreaManagers(int numOfManagers) 								throw(const char*);
+Area** createAllAreas(AreaManager **managers, int numOfAreas) 						throw(const char*);
+void addAreasToZoo(Zoo& zoo, Area** areas, int numOfAreas) 							throw(const char*);
 Animal** createAnimals(int numOfAnimals) throw(const char*);
 bool addAnimalsToZoo(Zoo &zoo, Animal **animals, int numOfAnimals);
 Keeper** createAllKeepers(int numOfKeepers) throw(const char*);
-void addKeepersToZoo(Zoo &zoo, Keeper **keepers, int numOfKeepers) throw(const char*);
+void addKeepersToZoo(Zoo &zoo, Keeper **keepers, int numOfKeepers) 					throw(const char*);
 Veterinarian** createAllVeterinarian(int numOfVeterinarian) throw(const char*);
-void addVeterinariansToArea(Area& area, Veterinarian** vets, int numOfVeterinarian) throw(const char*);
+void addVeterinariansToZoo(Zoo &zoo, Veterinarian **vets, int numOfVeterinarian) throw(const char*);
 void freeAllAreaManagers(AreaManager** areaManagers, int numOfAreaManagers);
 void freeAllAreas(Area** areas, int numOfAreas);
 void freeAllAnimals(Animal** animals, int numOfAnimals);
@@ -68,16 +65,16 @@ int main(int argc, const char * argv[])
 		animals = createAnimals(numOfAnimals);
 
 		// add animals
-		//addAnimalsToZoo(myZoo, animals, numOfAnimals);
+		addAnimalsToZoo(myZoo, animals, numOfAnimals);
 
 		keepers = createAllKeepers(numOfKeepers);
 
 		// add all the keepers
-		//addKeepersToZoo(myZoo, keepers, numOfKeepers);
+		addKeepersToZoo(myZoo, keepers, numOfKeepers);
 
 		vets = createAllVeterinarian(numOfVeterinarian);
 		// add all vets
-		//addVeterinariansToArea(myZoo, vets, numOfVeterinarian);
+		addVeterinariansToZoo(myZoo, vets, numOfVeterinarian);
 		
 		// print the whole zoo
 		cout << "My Zoo: \n" << myZoo << endl;
@@ -103,11 +100,11 @@ int main(int argc, const char * argv[])
 
 AreaManager** createAreaManagers(int numOfManagers) throw(const char*)
 {
-	AreaManager** managers = new AreaManager*[numOfManagers];
+	AreaManager** managers = new AreaManager *[numOfManagers];
 
-	managers[0] = new AreaManager("Yogev", 31235, 5000, 123);
-	managers[1] = new AreaManager("Moshe", 51455, 4500, 456);
-	managers[2] = new AreaManager("Roie", 84578, 4800, 789);
+	managers[0] = new AreaManager("Yogev", 5000, 123);
+	managers[1] = new AreaManager("Moshe", 4500, 456);
+	managers[2] = new AreaManager("Roie", 4800, 789);
 
 	return managers;
 }
@@ -118,7 +115,7 @@ Area** createAllAreas(AreaManager **managers, int numOfAreas) throw(const char*)
 
 	areas[0] = new Area("A1", 4, 4, Animal::eAnimalClass::LAND, managers[0]);
 	areas[1] = new Area("A2", 4, 4, Animal::eAnimalClass::MARINE, managers[1]);
-	areas[2] = new Area("A3", 4, 4, Animal::eAnimalClass::AMPHIBIAN);
+	areas[2] = new Area("A3", 4, 4, Animal::eAnimalClass::AMPHIBIAN, managers[2]);
 				
 	return areas;
 }
@@ -171,6 +168,7 @@ bool addAnimalsToZoo(Zoo &zoo, Animal **animals, int numOfAnimals)
         }
         zoo.getAllAreas()[areaIndex]->addAnimal(*animals[i]);
 	}
+	return true;
 }
 
 int findAreaByHabitat(const Area *const*const areas, int numOfAreas, Animal::eAnimalClass habitat)
@@ -186,7 +184,7 @@ int findAreaByHabitat(const Area *const*const areas, int numOfAreas, Animal::eAn
 
 Keeper** createAllKeepers(int numOfKeepers) throw(const char*)
 {
-	Keeper** keepers = new Keeper*[numOfKeepers];
+	Keeper** keepers = new Keeper *[numOfKeepers];
 
 	keepers[0] = new Keeper("Kipi", 312542, 7500, Keeper::eAnimal::PENGUIN);
 	keepers[1] = new Keeper("Keepi", 387542, 7500, Keeper::eAnimal::ELEPHANT);
@@ -202,7 +200,7 @@ void addKeepersToZoo(Zoo &zoo, Keeper **keepers, int numOfKeepers) throw(const c
 	cout << "new keepers that were hired by the zoo:" << endl;
 	for (int i = 0; i < numOfKeepers; i++)
 	{
-		cout << i+1 << ") " << *keepers[i] << endl;
+		cout << i+1 << ") " << keepers[i]->getName() << endl;
 	}
 
 	for (int i = 0; i < numOfKeepers; i++)
@@ -216,12 +214,13 @@ void addKeepersToZoo(Zoo &zoo, Keeper **keepers, int numOfKeepers) throw(const c
 
 Veterinarian** createAllVeterinarian(int numOfVeterinarian) throw(const char*)
 {
-	numOfVeterinarian = 3;
+	numOfVeterinarian = 4;
 	Veterinarian** vets = new Veterinarian*[numOfVeterinarian];
 	
-	vets[0] = new Veterinarian("Vivi", 45875, 10000, 5);
-	vets[1] = new Veterinarian("Vuvu", 87457, 10000, 8);
-	vets[2] = new Veterinarian("Kobi", 26584, 10000, 10);
+	vets[0] = new Veterinarian("Vivi", 45875, 5);
+	vets[1] = new Veterinarian("Vuvu", 87457,8);
+	vets[2] = new Veterinarian("Kobi", 26584,10);
+	vets[3] = new Veterinarian("Gogo", 34276,3);
 	
 	return vets;
 }
@@ -233,7 +232,7 @@ void addVeterinariansToZoo(Zoo& zoo, Veterinarian** vets, int numOfVeterinarian)
 	cout << "new veterinarians that were hired by the zoo:" << endl;
 	for (int i = 0; i < numOfVeterinarian; i++)
 	{
-		cout << i+1 << ") " << *vets[i] << endl;
+		cout << i+1 << ") " << vets[i]->getName() << endl;
 	}
 
 	for (int i = 0; i < numOfVeterinarian; i++)

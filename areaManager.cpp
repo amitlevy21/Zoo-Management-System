@@ -5,7 +5,8 @@
 #include "areaManager.h"
 
 //set Area?
-AreaManager::AreaManager(const char *name, long idNumber, int salary, int yearsOfExperience) : Worker(name, idNumber, salary)
+AreaManager::AreaManager(const char *name, int salary, int yearsOfExperience, Area *area) : Worker(name, salary,
+                                                                                                   area)
 {
     setYearsOfExperience(yearsOfExperience);
 }
@@ -26,7 +27,7 @@ int AreaManager::getYearsOfExperience() const
 
 void AreaManager::toOs(ostream &os) const
 {
-    os << "Area Manager Details:\n Years of Experience: " << yearsOfExperience;
+    os << "years of Experience: " << yearsOfExperience;
 }
 
 

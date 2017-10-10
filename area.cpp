@@ -7,7 +7,7 @@
 #include "animal.h"
 #include "worker.h"
 #include "areaManager.h"
-#include "AnimalClassify.h"
+
 
 void Area::setMaxNumberOfAnimals(int maxNumberOfAnimals) throw(const char*)
 {
@@ -33,7 +33,7 @@ Area::Area(const char *name, int maxNumberOfAnimals, int maxNumberOfWorkers, Ani
     setMaxNumberOfWorkers(maxNumberOfWorkers);
 
     animals = new Animal*[maxNumberOfAnimals];
-    workers = new Worker*[maxNumberOfWorkers];
+    workers = new Worker *[maxNumberOfWorkers];
 
     setAreaManager(areaManager);
 }
@@ -136,30 +136,35 @@ bool Area::operator>(const Area& other) const
 
 bool Area::operator==(const Area& other) const
 {
-    return strcmp(this->name, other.getName()) == 0;
+    return strcmp(getName(), other.getName()) == 0;
 }
 
 ostream &operator<<(ostream &os, const Area& area)
 {
-    os << "Area name: " << area.name << "habitat: " << animalClasses[static_cast<int>(area.getHabitat())] << ", number of animals: " << area.numOfAnimals
-       << " up to: " << area.maxNumberOfAnimals << ", number of workers: "
-       << area.numOfWorkers << " up to: " << area.maxNumberOfWorkers
+    os << "Area name: " << area.name << ", habitat: " << animalClasses[static_cast<int>(area.getHabitat())] << ", number of animals: " << area.numOfAnimals
+       << ", up to: " << area.maxNumberOfAnimals << ", number of workers: "
+       << area.numOfWorkers << ", up to: " << area.maxNumberOfWorkers
        << ", managed by: " << area.areaManager->getName() << endl;
 
     os << "The animals:" << endl;
 
-    for (int i = 0; i < area.numOfAnimals; i++)
+    if(area.numOfAnimals > 0)
     {
-        os << i + 1 << ") " << area.animals[i];
+        for (int i = 0; i < area.numOfAnimals; i++)
+        {
+            os << i + 1 << ") " << *(area.animals[i]);
+        }
     }
-
     os << endl;
 
     os << "The workers:" << endl;
 
-    for (int i = 0; i < area.numOfWorkers; i++)
+    if(area.numOfWorkers > 0)
     {
-        os << i + 1 << ") " << area.workers[i];
+        for (int i = 0; i < area.numOfWorkers; i++)
+        {
+            os << i + 1 << ") " << *(area.workers[i]);
+        }
     }
 
     return os;

@@ -28,7 +28,7 @@ private:
 
 
 public:
-	Worker(const char *name, long idNumber, int salary, Area* area = nullptr);
+	Worker(const char *name, int salary, Area *area = nullptr);
     virtual ~Worker();
     
     Worker(const Worker& worker) = delete;

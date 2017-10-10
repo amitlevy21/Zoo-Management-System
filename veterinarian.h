@@ -19,7 +19,7 @@ private:
 	void setLicenseNumber(int licenseNumber) throw (const char*);
 
 public:
-	Veterinarian(const char *name, long idNumber, int salary, int licenseNumber);
+	Veterinarian(const char *name, int salary, int licenseNumber, Area *area = nullptr);
     
     Veterinarian(const Veterinarian& veterinarian) = delete;
     const Veterinarian& operator=(const Veterinarian& veterinarian) = delete;

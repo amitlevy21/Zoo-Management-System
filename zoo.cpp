@@ -126,11 +126,12 @@ const Area &Zoo::operator[](int index) const throw(const char*)
 
 ostream& operator<<(ostream& os, const Zoo& zoo)
 {
-    os << "Zoo name: " << zoo.getName() << ", area capacity: " << zoo.getMaxNumOfAreas() <<"number of areas: " << zoo.getNumOfAreas() << endl;
+    os << "Zoo name: " << zoo.getName() << ", area capacity: " << zoo.getMaxNumOfAreas() <<", number of areas: " << zoo.getNumOfAreas() << endl;
     os << "Areas: " << endl;
+    os << "-----------------" << endl;
     for (int i = 0; i < zoo.getNumOfAreas(); i++)
     {
-        os << zoo.getAllAreas()[i];
+        os << *(zoo.getAllAreas()[i]);
     }
     return os;
 }

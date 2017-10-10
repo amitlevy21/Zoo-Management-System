@@ -4,7 +4,8 @@
 
 #include "maintenanceWorker.h"
 
-MaintenanceWorker::MaintenanceWorker(const char *name, long idNumber, int salary, float shoeSize) : Worker(name, idNumber, salary)
+MaintenanceWorker::MaintenanceWorker(const char *name, long idNumber, int salary, float shoeSize, Area *area)
+        : Worker(name, salary, area)
 {
     setShoeSize(shoeSize);
 }

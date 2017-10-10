@@ -19,7 +19,7 @@ private:
 	void setYearsOfExperience(int yearsOfExperience) throw (const char*);
 
 public:
-	AreaManager(const char *name, long idNumber, int salary, int yearsOfExperience);
+	AreaManager(const char *name, int salary, int yearsOfExperience, Area *area = nullptr);
     
     AreaManager(const AreaManager& areaManager) = delete;
     const AreaManager& operator=(const AreaManager& areaManager) = delete;

@@ -41,7 +41,7 @@ public:
 
 	virtual inline int getBirthYear() 		const;
 
-	inline eAnimalClass getAnimalClass() 	const;
+	inline Animal::eAnimalClass getAnimalClass() 	const;
 
 	void setArea(Area& area);
 

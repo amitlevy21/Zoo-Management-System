@@ -4,7 +4,8 @@
 
 #include "veterinarian.h"
 
-Veterinarian::Veterinarian(const char *name, long idNumber, int salary, int licenseNumber) : Worker(name, idNumber, salary)
+Veterinarian::Veterinarian(const char *name, int salary, int licenseNumber, Area *area)
+        : Worker(name, salary, area)
 {
     setLicenseNumber(licenseNumber);
 }

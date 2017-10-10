@@ -17,7 +17,7 @@ private:
 	float shoeSize;
 
 public:
-	MaintenanceWorker(const char *name, long idNumber, int salary, float shoeSize);
+	MaintenanceWorker(const char *name, long idNumber, int salary, float shoeSize, Area *area = nullptr);
     
     MaintenanceWorker(const MaintenanceWorker& maintenanceWorker) = delete;
     const MaintenanceWorker& operator=(const MaintenanceWorker& maintenanceWorker) = delete;

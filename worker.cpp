@@ -14,11 +14,12 @@ long Worker::idGenerator = 100000000;
 //The order of methods called in the init line was change on purpose, setName is called last because of the name allocation.
 //that way we don't need to worry that if an exception occurs, the destructor is not called.
 
-Worker::Worker(const char *name, long idNumber, int salary, Area *area)
+Worker::Worker(const char *name, int salary, Area *area)
 {
     generateID();
     setSalary(salary);
     setName(name);
+    setArea(*area);
 }
 
 Worker::~Worker()
@@ -26,7 +27,7 @@ Worker::~Worker()
     delete[](name);
 }
 
-const char *Worker::getName() const
+inline const char *Worker::getName() const
 {
     return name;
 }
@@ -60,16 +61,21 @@ void Worker::setArea(Area &area)
 
     if((this->area == nullptr) || (this->area != &area))
     {
-        this->area = &area;
-        area.addWorker(*this);
+        if(&area)
+        {
+            this->area = &area;
+            area.addWorker(*this);
+        }
     }
 }
 
 ostream& operator<<(ostream& os, const Worker& worker)
 {
-    os << "Worker details: \n Name: " << worker.getName() << "\n ID: " << worker.getIdNumber() << "\n Salary: " << worker.getSalary() << "\n Area: " << worker.getArea() << endl;
+    os << "name: " << worker.getName() << ", ID: " << worker.getIdNumber() << ", salary: " << worker.getSalary() << ", area: " << worker.getArea().getName() << endl;
 
     worker.toOs(os);
+
+    return os;
 }
 
 

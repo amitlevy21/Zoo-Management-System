@@ -11,7 +11,7 @@
 
 #include "worker.h"
 
-const char* const eAnimalString[] = {"Lion" , "Penguin", "Elephant", "Giraffe", "Zebra", "Horse", "Zebroid"};
+static const char* const eAnimalString[] = {"Lion" , "Penguin", "Elephant", "Giraffe", "Zebra", "Horse", "Zebroid"};
 
 class Keeper : public Worker
 {
@@ -19,7 +19,7 @@ class Keeper : public Worker
 public:
 	enum eAnimal { LION, PENGUIN, ELEPHANT, GIRAFFE, ZEBRA, HORSE, ZEBROID };
 
-	Keeper(const char *name, long idNumber, int salary, eAnimal keeperSpecialty);
+	Keeper(const char *name, long idNumber, int salary, eAnimal keeperSpecialty, Area *area = nullptr);
 
     Keeper(const Keeper& keeper) = delete;
     const Keeper& operator=(const Keeper& keeper) = delete;

@@ -45,7 +45,7 @@ Animal::Animal(const char *name, float weight, int birthYear, eAnimalClass anima
 
 ostream &operator<<(ostream &os, const Animal &animal)
 {
-    os << "Name: " << animal.name << ", class: " << animalClasses[static_cast<int>(animal.getAnimalClass())] << ", weight: " << animal.weight << ", YOB: "
+    os << "name: " << animal.name << ", class: " << animalClasses[static_cast<int>(animal.getAnimalClass())] << ", weight: " << animal.weight << ", YOB: "
        << animal.birthYear << ", area: " << animal.area->getName();
 
     animal.toOs(os);
@@ -64,7 +64,7 @@ bool Animal::operator==(const Animal& other)
 
 }
 
-const char *Animal::getName() const
+inline const char *Animal::getName() const
 {
     return name;
 }
@@ -91,7 +91,7 @@ void Animal::setArea(Area& area)
     area.addAnimal(*this);
 }
 
-Animal::eAnimalClass Animal::getAnimalClass() const
+inline Animal::eAnimalClass Animal::getAnimalClass() const
 {
     return animalClass;
 }

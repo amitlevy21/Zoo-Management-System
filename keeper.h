@@ -17,7 +17,7 @@ class Keeper : public Worker
 {
     
 public:
-	enum eAnimalSpeciality { LION, PENGUIN, ELEPHANT, GIRAFFE, ZEBRA, HORSE, ZEBROID };
+	enum eAnimalSpeciality { LION, PENGUIN, ELEPHANT, GIRAFFE, ZEBRA, HORSE, ZEBROID};
 
 	Keeper(const char *name, int salary, eAnimalSpeciality keeperSpecialty, Area *area = nullptr);
 

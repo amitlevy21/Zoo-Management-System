@@ -27,6 +27,8 @@ public:
 	inline int getLicenseNumber() const;
     
 	virtual void toOs(ostream& os) const override;
+
+	virtual const char* getWorkerType() const override;
     
 };
 

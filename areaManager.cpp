@@ -29,4 +29,9 @@ void AreaManager::toOs(ostream &os) const
     os << "years of Experience: " << yearsOfExperience;
 }
 
+const char *AreaManager::getWorkerType() const
+{
+    return "AreaManager";
+}
+
 

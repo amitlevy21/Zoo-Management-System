@@ -24,25 +24,26 @@
 #include "zebroid.h"
 using namespace std;
 
-Area** createAllAreas(int numOfAreas) 						                    throw(const char*);
-AreaManager** createAreaManagers(Zoo& myZoo, int numOfManagers)                 throw(const char*);
-Keeper** createAllKeepers(Zoo& myZoo, int numOfKeepers)                         throw(const char*);
-Veterinarian** createAllVeterinarian(Zoo& myZoo, int numOfVeterinarian)         throw(const char*);
+Area** createAllAreas(int numOfAreas)throw(const char*);
+Worker** createAllWorkers(Zoo& myZoo, int numOfWorkers);
+AreaManager* createAreaManager(Zoo& myZoo, const char* managerName, int salary, int assignToArea) throw(const char*);
+Keeper* createKeeper(Zoo& myZoo, const char*keeperName, int salary, int assignToArea)throw(const char*);
+MaintenanceWorker* createMaintenanceWorker(Zoo& myZoo, const char* maintenanceWorkerName, int salary, int assignToArea) throw(const char*);
+Veterinarian* createVeterinarian(Zoo &myZoo, const char *veterinarianName, int salary, int assignToArea) throw(const char*);
 Animal** createAnimals(int numOfAnimals) throw(const char*);
 
 
-void addAreasToZoo(Zoo& zoo, Area** areas, int numOfAreas) 						throw(const char*);
+void addAreasToZoo(Zoo& zoo, Area** areas, int numOfAreas)throw(const char*);
+void addWorkersToZoo(Zoo& zoo, Worker** workers, int numOfWorkers) throw(const char*);
+
 bool addAnimalsToZoo(Zoo &zoo, Animal **animals, int numOfAnimals);
-void addKeepersToZoo(Zoo &zoo, Keeper **keepers, int numOfKeepers) 				throw(const char*);
-void addVeterinariansToZoo(Zoo &zoo, Veterinarian **vets, int numOfVeterinarian)throw(const char*);
 
-void inputForWorker(int indexForPrinting, char** name,int* salary, const char* role);
+void inputForWorker(int indexForPrinting, char** name,int* salary,int* assignToArea);
 
-void freeAllAreaManagers(AreaManager** areaManagers, int numOfAreaManagers);
 void freeAllAreas(Area** areas, int numOfAreas);
+void freeAllWorkers(Worker** workers, int numOfWorkers);
 void freeAllAnimals(Animal** animals, int numOfAnimals);
-void freeAllVeterinarian(Veterinarian** vets, int numOfVeterinarian);
-void freeAllKeepers(Keeper** keepers, int numOfKeepers);
+
 
 
 int findAreaByHabitat(const Area *const *const areas, int numOfAreas, Animal::eAnimalClass habitat);
@@ -54,21 +55,17 @@ const int STRING_INPUT_LENGTH = 15;
 int main(int argc, const char * argv[])
 {
 	
-	AreaManager** managers = nullptr;
 	Area** areas = nullptr;
 	Animal** animals = nullptr;
-	Keeper** keepers = nullptr;
-	Veterinarian** vets = nullptr;
+	Worker** workers = nullptr;
     
     char zooName[STRING_INPUT_LENGTH];
     char quarantineAreaName[STRING_INPUT_LENGTH];
 
     int maxNumOfWorkers = 0;
-    int numOfManagers = 0;
+    int numOfWorkers = 0;
     int numOfAreas = 0;
     int numOfAnimals = 0;
-    int numOfKeepers = 0;
-    int numOfVeterinarian = 0;
     int quarantineMaxNumOfWorkers = 0;
     int quarantineMaxNumOfAnimals = 0;
 
@@ -76,7 +73,6 @@ int main(int argc, const char * argv[])
 
 	try
 	{
-        
         cout << "Welcome to Zoo Management System!" << endl << endl;
         cout << "Enter Zoo Name: ";
         
@@ -85,7 +81,6 @@ int main(int argc, const char * argv[])
         cout << endl << "Enter max number of workers: ";
         
         cin >> maxNumOfWorkers;
-
         
         cout << endl << endl << "The zoo must have a quarantine area, Let's create it first." << endl;
 
@@ -107,33 +102,27 @@ int main(int argc, const char * argv[])
         
 		Zoo myZoo(zooName, maxNumOfWorkers, quarantineArea);
 
+        cout << endl << endl;
+
         cout << "Let's create the areas of the zoo" << endl << "Enter number of areas: ";
 
         cin >> numOfAreas;
+
+        cout << endl;
 
         areas = createAllAreas(numOfAreas);
 
         addAreasToZoo(myZoo, areas, numOfAreas);
 
-        cout << endl << "Let's create the managers of the zoo" << endl << "Enter number of managers: ";
+        cout << endl << "Let's create the workers of the zoo" << endl << "Enter number of workers: ";
 
-        cin >> numOfManagers;
+        cin >> numOfWorkers;
 
-		managers = createAreaManagers(myZoo, numOfManagers);
+        cout << endl;
 
-        /*cout << endl << "Let's create the keepers of the zoo" << endl << "Enter number of keepers: ";
+		workers = createAllWorkers(myZoo, numOfWorkers);
 
-        cin >> numOfKeepers;
-
-        keepers = createAllKeepers(myZoo, numOfKeepers);
-
-        cout << endl << "Let's create the veterinarians of the zoo" << endl << "Enter number of veterinarians: ";
-
-        cin >> numOfVeterinarian;
-
-        vets = createAllVeterinarian(myZoo, numOfVeterinarian);
-
-        cout << endl << "Let's create the animals of the zoo" << endl << "Enter number of animals: ";
+        cout << endl << endl << "Let's create the animals of the zoo" << endl << "Enter number of animals: ";
 
         cin >> numOfAnimals;
 
@@ -145,7 +134,7 @@ int main(int argc, const char * argv[])
             roomForAllAnimals = addAnimalsToZoo(myZoo, animals, numOfAnimals);
             if(!roomForAllAnimals)
             {
-                cout << "enter num of animals to add to the zoo: ";
+                cout << endl << "enter num of animals to add to the zoo: ";
                 cin >> numOfAnimals;
                 cout << endl;
             }
@@ -153,12 +142,10 @@ int main(int argc, const char * argv[])
         }while(!roomForAllAnimals);
 
 
-		addKeepersToZoo(myZoo, keepers, numOfKeepers);
-
-		addVeterinariansToZoo(myZoo, vets, numOfVeterinarian);
+		addWorkersToZoo(myZoo, workers, numOfWorkers);
 		
 		// print the whole zoo
-		cout << "My Zoo: \n" << myZoo << endl;*/
+		cout << "My Zoo: \n" << myZoo << endl;
 	}
 	catch (const char* e)
 	{
@@ -171,10 +158,8 @@ int main(int argc, const char * argv[])
 
 	// free all allocations
 	freeAllAnimals(animals, numOfAnimals);
-	freeAllAreaManagers(managers, numOfManagers);
 	freeAllAreas(areas, numOfAreas);
-	freeAllKeepers(keepers, numOfKeepers);
-	freeAllVeterinarian(vets, numOfVeterinarian);
+    freeAllWorkers(workers, numOfWorkers);
 
     return 0;
 }
@@ -191,7 +176,7 @@ Area** createAllAreas(int numOfAreas) throw(const char*)
         int maxNumOfWorkers = 0;
         int areaAnimalClassification = 0;
 
-        cout << "Enter name for area #" << i+1 << " :";
+        cout << "Enter name for area #" << i+1 << ": ";
         cin >> areaName;
         do
         {
@@ -207,6 +192,7 @@ Area** createAllAreas(int numOfAreas) throw(const char*)
 
         }while(!inputValidationNonNegative(maxNumOfWorkers));
 
+        cout << endl;
         do
         {
             cout << "Enter Animal Classification for " << areaName << ": " << endl << "0 - Land" << endl << "1 - Marine" << endl << "2 - Amphibian" << endl;
@@ -215,6 +201,8 @@ Area** createAllAreas(int numOfAreas) throw(const char*)
 
         }while(areaAnimalClassification < 0 || areaAnimalClassification > NUM_OF_ANIMAL_CLASSIFICATIONS);
 
+        cout << endl;
+
         areas[i] = new Area(areaName,maxNumOfAnimals,maxNumOfWorkers,(Animal::eAnimalClass)areaAnimalClassification);
 
     }
@@ -222,163 +210,202 @@ Area** createAllAreas(int numOfAreas) throw(const char*)
     return areas;
 }
 
-AreaManager** createAreaManagers(Zoo& myZoo, int numOfManagers) throw(const char*)
+Worker** createAllWorkers(Zoo& myZoo,int numOfWorkers)
 {
-	AreaManager** managers = new AreaManager* [numOfManagers];
+    Worker** workers = new Worker*[numOfWorkers];
 
-
-    for (int i = 0; i < numOfManagers; i++)
-	{
-        char *managerName = new char(STRING_INPUT_LENGTH);
+    for (int i = 0; i < numOfWorkers; i++) {
+        char *workerName = new char[STRING_INPUT_LENGTH];
         int salary = 0;
-        int yearsOfExperience = 0;
         int assignToArea = 0;
+        int workerType = 0;
 
-        inputForWorker(i + 1, &managerName, &salary, "manager");
-        do
-        {
-            cout << endl << "Enter years of experience of " << managerName << ": ";
-            cin >> yearsOfExperience;
+        cout << "Which type of worker would you like to create?" << endl << "0 - Area Manager" << endl << "1 - Keeper" 
+             << endl << "2 - Maintenance worker" << endl << "3 - Veterinarian" << endl;
 
-        }while(!inputValidationNonNegative(yearsOfExperience));
+        cin >> workerType;
 
-        do
-        {
-            cout << endl << "If you wish to assign " << managerName << " to an area by entering the area's index. " << endl <<
-                 "Areas that already have manager will be overwritten" << endl <<
-                    "Enter -1 if you don't want to assign him to any area right now: " << endl;
-            cin >> assignToArea;
-        }while(assignToArea != -1 || !inputValidationNonNegative(assignToArea));
+        cout << endl;
 
-        if(assignToArea == -1)
+        inputForWorker(i + 1, &workerName, &salary, &assignToArea);
+
+        switch(workerType)
         {
-            managers[i] = new AreaManager((char*)*managerName, salary, yearsOfExperience);
-        }
-        else
-        {
-            Area* areaToAssign = (myZoo.getAllAreas()[assignToArea]);
-            managers[i] = new AreaManager(managerName, salary, yearsOfExperience, areaToAssign);
+            case 0:
+            {
+                workers[i] = createAreaManager(myZoo,workerName,salary,assignToArea);
+                break;
+            }
+
+            case 1:
+            {
+                workers[i] = createKeeper(myZoo, workerName,salary,assignToArea);
+                break;
+            }
+
+            case 2:
+            {
+                workers[i] = createMaintenanceWorker(myZoo, workerName, salary, assignToArea);
+                break;
+            }
+
+            case 3:
+            {
+                workers[i] = createVeterinarian(myZoo, workerName, salary, assignToArea);
+                break;
+            }
+
+            default:
+            {
+                cout << "Invalid choice! please try again" << endl;
+                i--; //prevent gaps in the array, reenter values for the same worker
+                break;
+            }
         }
     }
-	return managers;
 }
 
-Keeper** createAllKeepers(Zoo& myZoo, int numOfKeepers) throw(const char*)
+AreaManager* createAreaManager(Zoo& myZoo, const char* managerName, int salary, int assignToArea) throw(const char*)
 {
-    Keeper** keepers = new Keeper*[numOfKeepers];
+    AreaManager* areaManager = nullptr;
+    int yearsOfExperience = 0;
 
-    const int NUM_OF_ANIMAL_TYPES = 6;
+    do
+    {
+        cout << endl << "Enter years of experience of " << managerName << ": ";
+        cin >> yearsOfExperience;
 
-    for (int i = 0; i < numOfKeepers; i++)
-	{
-        char* keeperName = new char[STRING_INPUT_LENGTH];
-        int salary = 0;
-        int keeperSpeciality = 0;
-        int assignToArea = 0;
+    }while(!inputValidationNonNegative(yearsOfExperience));
 
-        inputForWorker(i + 1 , &keeperName, &salary, "keeper");
-        do
-        {
-            cout << "Enter Keeper Speciality for " << keeperName << ": " << endl << "0 - Lion" << endl << "1 - Penguin" << endl << "2 - Elephant" << endl
-                    << "3 - Giraffe" << endl << "4 - Zebra" << endl << "5 - Horse" << endl << "6 - Zebroid" << endl;
-
-            cin >> keeperSpeciality;
-
-        }while(keeperSpeciality < 0 || keeperSpeciality > NUM_OF_ANIMAL_TYPES);
-
-        do
-        {
-            cout << endl << "If you wish you can assign " << keeperName << " to an area by entering the area's index. " << endl <<
-                 "Enter -1 if you don't want to assign him to any area right now: " << endl;
-            cin >> assignToArea;
-
-        }while(assignToArea != -1 || !inputValidationNonNegative(assignToArea));
-
-        if(assignToArea == -1)
-        {
-			keepers[i] = new Keeper(keeperName,salary,(Keeper::eAnimalSpeciality)keeperSpeciality);
-        }
-        else
-        {
-			Area* areaToAssign = myZoo.getAllAreas()[assignToArea];
-			keepers[i] = new Keeper(keeperName,salary,(Keeper::eAnimalSpeciality)keeperSpeciality, areaToAssign);
-        }
-
+    if(assignToArea == -1)
+    {
+        areaManager = new AreaManager(managerName, salary, yearsOfExperience);
     }
-
-    return keepers;
+    else
+    {
+        Area* areaToAssign = (myZoo.getAllAreas()[assignToArea]);
+        areaManager = new AreaManager(managerName, salary, yearsOfExperience, areaToAssign);
+    }
+    return areaManager;
 }
 
-Veterinarian** createAllVeterinarian(Zoo& myZoo, int numOfVeterinarian) throw(const char*)
+Keeper* createKeeper(Zoo &myZoo, const char *keeperName, int salary, int assignToArea) throw(const char*)
 {
-    Veterinarian** vets = new Veterinarian*[numOfVeterinarian];
+    Keeper* keeper = nullptr;
 
-    for (int i = 0; i < numOfVeterinarian; i++)
-	{
-        char* nameOfVeterinarian = new char[STRING_INPUT_LENGTH];
-        int salary = 0;
-        int licenseNumber = 0;
-        int assignToArea = 0;
+    const int NUM_OF_ANIMAL_TYPES = 7;
 
-        inputForWorker(i + 1, &nameOfVeterinarian, &salary, "veterinarian");
-        do
-        {
-            cout << endl << "Enter license number for " << nameOfVeterinarian << ": ";
-            cin >> licenseNumber;
 
-        }while(!inputValidationNonNegative(licenseNumber));
+    int keeperSpeciality = 0;
 
-        do
-        {
-            cout << endl << "If you wish you can assign " << nameOfVeterinarian << " to an area by entering the area's index. " << endl <<
-                 "Enter -1 if you don't want to assign him to any area right now: " << endl;
-            cin >> assignToArea;
-        }while(assignToArea != -1 || !inputValidationNonNegative(assignToArea));
+    do
+    {
+        cout << endl << "Enter Keeper Speciality for " << keeperName << ": " << endl << "0 - Lion" << endl << "1 - Penguin" << endl << "2 - Elephant" << endl
+                << "3 - Giraffe" << endl << "4 - Zebra" << endl << "5 - Horse" << endl << "6 - Zebroid" << endl;
 
-        if(assignToArea == -1)
-        {
-            vets[i] = new Veterinarian(nameOfVeterinarian, salary, licenseNumber);
-        }
-        else
-        {
-            Area* areaToAssign = myZoo.getAllAreas()[assignToArea];
-            vets[i] = new Veterinarian(nameOfVeterinarian, salary, licenseNumber, areaToAssign);
-        }
+        cin >> keeperSpeciality;
 
+    }while(keeperSpeciality < 0 || keeperSpeciality >= NUM_OF_ANIMAL_TYPES);
+
+    cout << endl;
+
+    if(assignToArea == -1)
+    {
+        keeper = new Keeper(keeperName,salary,(Keeper::eAnimalSpeciality)keeperSpeciality);
+    }
+    else
+    {
+        Area* areaToAssign = myZoo.getAllAreas()[assignToArea];
+        keeper = new Keeper(keeperName,salary,(Keeper::eAnimalSpeciality)keeperSpeciality, areaToAssign);
     }
 
-    return vets;
+    return keeper;
+}
+
+MaintenanceWorker* createMaintenanceWorker(Zoo& myZoo, const char* maintenanceWorkerName, int salary, int assignToArea) throw(const char*)
+{
+    MaintenanceWorker* maintenanceWorker = nullptr;
+
+    float shoeSize = 0;
+
+    do
+    {
+        cout << endl << "Enter shoe size for " << maintenanceWorkerName << ": ";
+        cin >> shoeSize;
+
+    }while(!inputValidationNonNegative((int)shoeSize));
+
+    cout << endl;
+
+    if(assignToArea == -1)
+    {
+        maintenanceWorker = new MaintenanceWorker(maintenanceWorkerName, salary, shoeSize);
+    }
+    else
+    {
+        Area* areaToAssign = myZoo.getAllAreas()[assignToArea];
+        maintenanceWorker = new MaintenanceWorker(maintenanceWorkerName, salary, shoeSize, areaToAssign);
+    }
+
+    return maintenanceWorker;
+}
+
+Veterinarian* createVeterinarian(Zoo &myZoo, const char *veterinarianName, int salary, int assignToArea) throw(const char*)
+{
+    Veterinarian* veterinarian = nullptr;
+
+    int licenseNumber = 0;
+
+    do
+    {
+        cout << endl << "Enter license number for " << veterinarianName << ": ";
+        cin >> licenseNumber;
+
+    }while(!inputValidationNonNegative(licenseNumber));
+
+    if(assignToArea == -1)
+    {
+        veterinarian = new Veterinarian(veterinarianName, salary, licenseNumber);
+    }
+    else
+    {
+        Area* areaToAssign = myZoo.getAllAreas()[assignToArea];
+        veterinarian = new Veterinarian(veterinarianName, salary, licenseNumber, areaToAssign);
+    }
+
+    return veterinarian;
 }
 
 Animal** createAnimals(int numOfAnimals) throw(const char*)
 {
-    /*const int NUM_OF_ANIMAL_CLASSIFICATIONS = 2;
-	const int RANGE_OF_ANIMAL_TYPES = 6;*/
+	const int RANGE_OF_ANIMAL_TYPES = 6;
 
     Animal** animals = new Animal*[numOfAnimals];
 
-    /*for (int i = 0; i < numOfAnimals; i++)
+    for (int i = 0; i < numOfAnimals; i++)
 	{
         char* animalName = new char[STRING_INPUT_LENGTH];
 		int animalChoice = 0;
         float weight = 0;
         int birthYear = 0;
-        int animalClass = 0;
 
-		cout << "This zoo can currently house any one of these fine creatures:" << endl;
-		for (int j = 0; j < RANGE_OF_ANIMAL_TYPES; j++)
-		{
-			cout << i+1 << ") " << eAnimalString[j] << endl;
-		}
+        do
+        {
+            cout << endl << "This zoo can currently house any one of these fine creatures:" << endl;
+            /*for (int j = 0; j < RANGE_OF_ANIMAL_TYPES; j++)
+            {
+                cout << j << ") " << eAnimalString[j] << endl;
+            }*///what if tomorrow the class keeper is changed? it's not related to purpose of this loop.
+            cout << "0 - Elephant" << endl << "1 - Giraffe" << endl << "2 - Horse" << endl << "3 - Lion" << endl << "4 - Penguin" << endl
+                 << "5 - Zebra" << endl << "6 - Zebroid" << endl;
 
-		do
-		{
-			cout << "Please enter the number of the animal you would like to create: ";
-			cin >> animalChoice;
+            cin >> animalChoice;
 
-		}while(animalChoice <0 || animalChoice > RANGE_OF_ANIMAL_TYPES);
+		}while(animalChoice < 0 || animalChoice > RANGE_OF_ANIMAL_TYPES);
 
-        cout << "Enter name for animal #" << i << ":";
+        cin.ignore(); //clear buffer
+
+        cout << endl << "Enter name for animal #" << (i + 1) << ":";
         cin.getline(animalName, STRING_INPUT_LENGTH);
         do
         {
@@ -394,31 +421,149 @@ Animal** createAnimals(int numOfAnimals) throw(const char*)
 
         }while(!inputValidationNonNegative(birthYear));
 
-        do
-        {
-            cout << "Enter Animal Classification for " << animalName << ": " << endl << "0 - Land" << endl << "1 - Marine" << endl << "2 - Amphibian" << endl;
-
-            cin >> animalClass;
-
-        }while(animalClass < 0 || animalClass > NUM_OF_ANIMAL_CLASSIFICATIONS);
-
 		switch (animalChoice)
 		{
-			case 1: animals[i] = new
-		}
-    }*/
+			case 0:
+            {
+                float sizeOfEars = 0;
+                float lengthOfTrunk = 0;
 
-	animals[0] = new Lion("Arie", 35.5f, 2003, Lion::eManeColor::BROWN, Animal::eAnimalClass::LAND);
-	animals[1] = new Penguin("Pini", 45.6f, 2007, Penguin::eSeaFood::CRAB, Animal::eAnimalClass::MARINE);
-	animals[2] = new Horse("Barak", 98.4f, 1992, 16.5f, Animal::eAnimalClass::LAND);
-	animals[3] = new Zebra("Zezi", 46.8f, 1996, 4, Animal::eAnimalClass::AMPHIBIAN);
+                do
+                {
+                    cout << endl << "Enter size of ears for " << animalName<< ": ";
+                    cin >> sizeOfEars;
+
+                }while(!inputValidationNonNegative((int)sizeOfEars));
+
+                do
+                {
+                    cout << endl <<  "Enter length of trunk for " << animalName << ": ";
+                    cin >> lengthOfTrunk;
+
+                }while(!inputValidationNonNegative((int)lengthOfTrunk));
+
+                animals[i] = new Elephant(animalName, weight, birthYear, sizeOfEars, lengthOfTrunk, Animal::eAnimalClass::LAND);
+                break;
+
+            }
+
+            case 1:
+            {
+                int lengthOfNeck = 0;
+
+                do
+                {
+                    cout << endl << "Enter Giraffe length of neck for " << animalName << ": ";
+                    cin >> lengthOfNeck;
+
+                }while(!inputValidationNonNegative(lengthOfNeck));
+
+                animals[i] = new Giraffe(animalName, weight, birthYear,lengthOfNeck,Animal::eAnimalClass::LAND);
+                break;
+            }
+
+            case 2:
+            {
+                float sizeOfHorseShoe = 0;
+
+                do
+                {
+                    cout << endl << "Enter size of horse shoe for " << animalName << ": ";
+                    cin >> sizeOfHorseShoe;
+
+                }while(!inputValidationNonNegative((int)sizeOfHorseShoe));
+                animals[i] = new Horse(animalName, weight, birthYear, sizeOfHorseShoe, Animal::eAnimalClass::LAND);
+                break;
+            }
+
+            case 3:
+            {
+                int maneColor = 0;
+                const int NUM_OF_MANE_COLORS = 5;
+
+                do
+                {
+                    cout << endl << "Enter mane color for " << animalName << endl
+                         << "0 - White" << endl << "1 - Brown" << endl << "2 - Yellow" << endl << "3 - Red" << endl << "4 - Orange" << endl;
+                    cin >> maneColor;
+
+                }while(maneColor < 0 || maneColor >= NUM_OF_MANE_COLORS);
+
+                animals[i] = new Lion(animalName, weight, birthYear, (Lion::eManeColor )maneColor, Animal::eAnimalClass::LAND);
+                break;
+            }
+
+            case 4:
+            {
+                int favouriteSeaFood = 0;
+                const int NUM_OF_SEA_FOOD_TYPES = 4;
+
+                do
+                {
+                    cout << "Enter favourite sea food for " << animalName << endl
+                         << "0 - Shrimp" << endl << "1 - Crab" << endl << "2 - Fish" << endl << "3 - Calamari" << endl;
+                    cin >> favouriteSeaFood;
+
+                }while(favouriteSeaFood < 0 || favouriteSeaFood >= NUM_OF_SEA_FOOD_TYPES);
+
+                animals[i] = new Penguin(animalName, weight, birthYear, (Penguin::eSeaFood) favouriteSeaFood, Animal::eAnimalClass::AMPHIBIAN);
+                break;
+            }
+
+            case 5:
+            {
+                int numOfStripes = 0;
+
+                do
+                {
+                    cout << endl << "Enter num of stripes for " << animalName << ": ";
+                    cin >> numOfStripes;
+
+                }while(!inputValidationNonNegative(numOfStripes));
+
+                animals[i] = new Giraffe(animalName, weight, birthYear,numOfStripes,Animal::eAnimalClass::LAND);
+                break;
+            }
+
+            case 6:
+            {
+                int numOfStripes = 0;
+                float sizeOfHorseShoe = 0;
+
+                do
+                {
+                    cout << endl << "Enter num of stripes for " << animalName << ": ";
+                    cin >> numOfStripes;
+
+                }while(!inputValidationNonNegative(numOfStripes));
+
+                do
+                {
+                    cout << endl <<  "Enter size of horse shoe for " << animalName << ": ";
+                    cin >> sizeOfHorseShoe;
+
+                }while(!inputValidationNonNegative((int)sizeOfHorseShoe));
+
+                animals[i] = new Zebroid(animalName, weight, birthYear , numOfStripes ,sizeOfHorseShoe, Animal::eAnimalClass::LAND);
+                break;
+            }
+
+            default:
+            {
+                cout << "Invalid input! please try again" << endl;
+                i--;
+                break;
+            }
+        }
+
+    }
 
     return animals;
 }
 
-void inputForWorker(int indexForPrinting, char** name, int* salary, const char* role)
+void inputForWorker(int indexForPrinting, char** name, int* salary,int* assignToArea)
 {
-    cout << "Enter name for " << role <<" #" << indexForPrinting << ": ";
+    cout << "Enter name for worker #" << indexForPrinting << ": ";
     cin >> *name;
     do
     {
@@ -426,6 +571,13 @@ void inputForWorker(int indexForPrinting, char** name, int* salary, const char* 
         cin >> *salary;
 
     }while(!inputValidationNonNegative(*salary));
+
+    do
+    {
+        cout << endl << "If you wish to assign " << *name << " to an area by entering the area's index. " << endl <<
+             "Enter -1 if you don't want to assign him to any area right now: " << endl;
+        cin >> *assignToArea;
+    }while(*assignToArea != -1 && !inputValidationNonNegative(*assignToArea));
 }
 
 void addAreasToZoo(Zoo& zoo, Area** areas, int numOfAreas) throw(const char*)
@@ -472,59 +624,33 @@ int findAreaByHabitat(const Area *const*const areas, int numOfAreas, Animal::eAn
 {
     for (int i = 0; i < numOfAreas; i++)
 	{
-		if(areas[i]->getHabitat() == habitat)
+		if(areas[i]->getHabitat() == habitat || areas[i]->getHabitat() == Animal::eAnimalClass::AMPHIBIAN)
 			return i;
 	}
 
     return -1;
 }
 
-
-void addKeepersToZoo(Zoo &zoo, Keeper **keepers, int numOfKeepers) throw(const char*)
+void addWorkersToZoo(Zoo& zoo, Worker** workers, int numOfWorkers) throw(const char*)
 {
-	int areaChoice;
+    int areaChoice;
+    for (int i = 0; i < numOfWorkers; i++)
+    {
+        cout << "in which area would you like to assign worker #" << i + 1 << "of type " << workers[i]->getWorkerType() << "?";
+        cin >> areaChoice;
+        zoo.addWorker(*workers[i], *zoo.getAllAreas()[areaChoice]);
 
-	cout << "new keepers that were hired by the zoo:" << endl;
-	for (int i = 0; i < numOfKeepers; i++)
-	{
-		cout << i+1 << ") " << keepers[i]->getName() << endl;
-	}
-
-	for (int i = 0; i < numOfKeepers; i++)
-	{
-		cout << "in which area would you like to assign keeper #" << i+1 << " ?";
-		cin >> areaChoice;
-		zoo.addWorker(*keepers[i], *zoo.getAllAreas()[areaChoice]);
-	}
-
+    }
 }
 
-void addVeterinariansToZoo(Zoo& zoo, Veterinarian** vets, int numOfVeterinarian) throw(const char*)
+void freeAllWorkers(Worker** workers, int numOfWorkers)
 {
-	int areaChoice;
-
-	cout << "new veterinarians that were hired by the zoo:" << endl;
-	for (int i = 0; i < numOfVeterinarian; i++)
+	for (int i = 0; i < numOfWorkers; i++)
 	{
-		cout << i+1 << ") " << vets[i]->getName() << endl;
+		delete workers[i];
 	}
 
-	for (int i = 0; i < numOfVeterinarian; i++)
-	{
-		cout << "in which area would you like to assign keeper #" << i+1 << " ?";
-		cin >> areaChoice;
-		zoo.addWorker(*vets[i], *zoo.getAllAreas()[areaChoice]);
-	}
-}
-
-void freeAllAreaManagers(AreaManager** areaManagers, int numOfAreaManagers)
-{
-	for (int i = 0; i < numOfAreaManagers; i++)
-	{
-		delete areaManagers[i];
-	}
-
-	delete []areaManagers;
+	delete []workers;
 }
 
 void freeAllAreas(Area** areas, int numOfAreas)
@@ -546,27 +672,6 @@ void freeAllAnimals(Animal** animals, int numOfAnimals)
 
 	delete []animals;
 }
-
-void freeAllVeterinarian(Veterinarian** vets, int numOfVeterinarian)
-{
-	for (int i = 0; i < numOfVeterinarian; i++)
-	{
-		delete vets[i];
-	}
-
-	delete []vets;
-}
-
-void freeAllKeepers(Keeper** keepers, int numOfKeepers)
-{
-	for (int i = 0; i < numOfKeepers; i++)
-	{
-		delete keepers[i];
-	}
-
-	delete []keepers;
-}
-
 
 /** Returns false and prints error message if inputFromUser is a negative number, true otherwise*/
 bool inputValidationNonNegative(int inputFromUser)

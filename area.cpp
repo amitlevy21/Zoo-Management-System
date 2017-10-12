@@ -152,10 +152,14 @@ ostream &operator<<(ostream &os, const Area& area)
     {
         for (int i = 0; i < area.numOfAnimals; i++)
         {
-            os << i + 1 << ") " << *(area.animals[i]);
+            os << i + 1 << ") " << *(area.animals[i]) << endl;
         }
     }
-    os << endl;
+    else
+    {
+        os << "no animals are found" << endl;
+    }
+
 
     os << "The workers:" << endl;
 
@@ -163,8 +167,12 @@ ostream &operator<<(ostream &os, const Area& area)
     {
         for (int i = 0; i < area.numOfWorkers; i++)
         {
-            os << i + 1 << ") " << *(area.workers[i]);
+            os << i + 1 << ") " << *(area.workers[i]) << endl;
         }
+    }
+    else
+    {
+        os << "no workers found.";
     }
 
     return os;

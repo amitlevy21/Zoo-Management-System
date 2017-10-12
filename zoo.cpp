@@ -78,7 +78,7 @@ const Area ** Zoo::getAllAreas() const
     return (const Area**)areas;
 }
 
-Area **Zoo::getAllAreas()
+Area** Zoo::getAllAreas()
 {
     return areas;
 }
@@ -131,7 +131,8 @@ ostream& operator<<(ostream& os, const Zoo& zoo)
     os << "-----------------" << endl;
     for (int i = 0; i < zoo.getNumOfAreas(); i++)
     {
-        os << *(zoo.getAllAreas()[i]);
+        os << *(zoo.getAllAreas()[i]) << endl;
+        os << "-----------------" << endl;
     }
     return os;
 }

@@ -41,6 +41,7 @@ Animal::Animal(const char *name, float weight, int birthYear, eAnimalClass anima
     setWeight(weight);
     setBirthYear(birthYear);
     setName(name);
+    area = nullptr;
 }
 
 ostream &operator<<(ostream &os, const Animal &animal)

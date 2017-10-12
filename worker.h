@@ -49,6 +49,8 @@ public:
     
 	virtual void toOs(ostream& os) const =0;
     friend ostream& operator<<(ostream& os, const Worker& worker);
+
+	virtual const char* getWorkerType() const = 0;
     
 };
 

@@ -27,6 +27,8 @@ public:
 	inline int getYearsOfExperience() const;
 
 	virtual void toOs(ostream& os) const;
+
+	virtual const char* getWorkerType() const override;
 };
 
 

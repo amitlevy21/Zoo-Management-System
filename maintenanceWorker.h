@@ -17,7 +17,7 @@ private:
 	float shoeSize;
 
 public:
-	MaintenanceWorker(const char *name, long idNumber, int salary, float shoeSize, Area *area = nullptr);
+	MaintenanceWorker(const char *name, int salary, float shoeSize, Area *area = nullptr);
     
     MaintenanceWorker(const MaintenanceWorker& maintenanceWorker) = delete;
     const MaintenanceWorker& operator=(const MaintenanceWorker& maintenanceWorker) = delete;
@@ -26,6 +26,8 @@ public:
 	void setShoeSize(float shoeSize) throw (const char*);
 
 	virtual void toOs(ostream& os) const override;
+
+    virtual const char* getWorkerType() const override;
     
 };
 

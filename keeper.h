@@ -28,6 +28,8 @@ public:
     
 	virtual void toOs(ostream& os) const override;
 
+	virtual const char* getWorkerType() const override;
+
 private:
 	eAnimalSpeciality keeperSpecialty;
 };

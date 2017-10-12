@@ -29,3 +29,8 @@ void Veterinarian::toOs(ostream &os) const
     os << "Veterinarian details:\n License Number: " << licenseNumber;
 }
 
+const char *Veterinarian::getWorkerType() const
+{
+    return "Veterinarian";
+}
+

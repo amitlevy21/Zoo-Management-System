@@ -4,7 +4,7 @@
 
 #include "maintenanceWorker.h"
 
-MaintenanceWorker::MaintenanceWorker(const char *name, long idNumber, int salary, float shoeSize, Area *area)
+MaintenanceWorker::MaintenanceWorker(const char *name, int salary, float shoeSize, Area *area)
         : Worker(name, salary, area)
 {
     setShoeSize(shoeSize);
@@ -27,4 +27,8 @@ void MaintenanceWorker::setShoeSize(float shoeSize) throw(const char*)
 void MaintenanceWorker::toOs(ostream &os) const
 {
     os << "Maintenance Worker Details:\n Shoe Size: " << shoeSize;
+}
+
+const char *MaintenanceWorker::getWorkerType() const {
+    return "Maintenance Worker";
 }

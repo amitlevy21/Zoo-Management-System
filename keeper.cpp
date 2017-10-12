@@ -19,4 +19,10 @@ void Keeper::toOs(ostream &os) const
     os << "Keeper Details:\nKeeper Specialty: " << eAnimalString[keeperSpecialty];
 }
 
+const char *Keeper::getWorkerType() const
+{
+    return "Keeper";
+}
+
+
 

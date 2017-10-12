@@ -28,7 +28,8 @@ public:
     inline float getSizeOfHorseShoe() const;
     
 	virtual void toOs(ostream& os) const override;
-    
+
+	virtual const char* getClassName() const override ;
 };
 
 

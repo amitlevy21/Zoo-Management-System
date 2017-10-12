@@ -3,6 +3,7 @@
 //
 
 #include "keeper.h"
+#include <string.h>
 
 Keeper::Keeper(const char *name, int salary, eAnimalSpeciality keeperSpecialty, Area *area) :
         Worker(name, salary, area), keeperSpecialty(keeperSpecialty)
@@ -22,6 +23,19 @@ void Keeper::toOs(ostream &os) const
 const char *Keeper::getWorkerType() const
 {
     return "Keeper";
+}
+
+int Keeper::getNumOfAnimalsToTakeCare() const
+{
+    return numOfAnimalsToTakeCare;
+}
+
+void Keeper::notify(Animal &animalAdded)
+{
+    if(strcmp(animalAdded.getClassName(), eAnimalString[keeperSpecialty]) == 0)
+    {
+        numOfAnimalsToTakeCare++;
+    }
 }
 
 

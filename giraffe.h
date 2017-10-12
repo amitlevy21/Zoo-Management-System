@@ -29,7 +29,8 @@ public:
     inline float getLengthOfNeck() const;
     
 	virtual void toOs(ostream& os) const override;
-    
+
+	virtual const char* getClassName() const override ;
 };
 
 #endif /* __GIRAFFE_H */

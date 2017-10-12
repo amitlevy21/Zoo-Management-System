@@ -43,5 +43,10 @@ void Elephant::toOs(ostream &os) const
     os << ", size of ears: " << sizeOfEars << ", length of trunk: " << lengthOfTrunk;
 }
 
+const char *Elephant::getClassName() const
+{
+    return "Elephant";
+}
+
 
 

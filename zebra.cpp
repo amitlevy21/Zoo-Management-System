@@ -26,3 +26,8 @@ void Zebra::toOs(ostream &os) const
     os << ", number of stripes: " << numOfStripes;
 }
 
+const char *Zebra::getClassName() const
+{
+    return "Zebra";
+}
+

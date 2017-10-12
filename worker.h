@@ -9,10 +9,12 @@
 #ifndef __WORKER_H
 #define __WORKER_H
 
+#include "area.h"
 #include <iostream>
 using namespace std;
 
 class Area;
+
 
 class Worker
 {

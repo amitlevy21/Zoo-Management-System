@@ -35,6 +35,8 @@ public:
     inline float getLengthOfTrunk() const;
     
 	virtual void toOs(ostream& os) const override;
+
+	virtual const char* getClassName() const override ;
  
 };
 

@@ -9,9 +9,10 @@
 #ifndef __ZOO_H
 #define __ZOO_H
 
-#include "area.h"
 #include "worker.h"
 #include "animal.h"
+#include "area.h"
+
 
 using namespace std;
 

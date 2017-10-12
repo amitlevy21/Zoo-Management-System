@@ -28,3 +28,8 @@ void Horse::toOs(ostream &os) const
     os << ", size of horse shoe: " << sizeOfHorseShoe;
 }
 
+const char *Horse::getClassName() const
+{
+    return "Horse";
+}
+

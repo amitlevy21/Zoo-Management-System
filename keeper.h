@@ -10,10 +10,12 @@
 #define __KEEPER_H
 
 #include "worker.h"
+#include "animal.h"
+#include "ObserverInterface.h"
 
 static const char* const eAnimalString[] = {"Lion" , "Penguin", "Elephant", "Giraffe", "Zebra", "Horse", "Zebroid"};
 
-class Keeper : public Worker
+class Keeper : public Worker, public Observer
 {
     
 public:
@@ -30,8 +32,15 @@ public:
 
 	virtual const char* getWorkerType() const override;
 
+    inline int getNumOfAnimalsToTakeCare() const;
+
+    void updateNewAnimal(Animal& newAnimal);
+
+	void notify(Animal& animalAdded) override;
+
 private:
 	eAnimalSpeciality keeperSpecialty;
+    int numOfAnimalsToTakeCare = 0;
 };
 
 

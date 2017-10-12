@@ -14,15 +14,13 @@
 using namespace std;
 
 class Area;
-
-//#include "AnimalClassify.h"
-
 static const char* animalClasses[] = {"LAND", "MARINE", "AMPHIBIAN"};
 
 class Animal
 {
-
 public:
+
+
 	enum class eAnimalClass{LAND, MARINE, AMPHIBIAN};
 
 	Animal(const char *name, float weight, int birthYear, eAnimalClass animalClass);
@@ -48,6 +46,8 @@ public:
 	virtual void toOs(ostream& os) const = 0;
 
 	friend ostream& operator<<(ostream& os, const Animal& animal);
+
+	virtual const char* getClassName() const = 0;
 
 private:
 	char* name;

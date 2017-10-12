@@ -53,12 +53,12 @@ int Area::getMaxNumberOfAnimals() const
     return maxNumberOfAnimals;
 }
 
-long Area::getNumOfWorkers() const
+int Area::getNumOfWorkers() const
 {
     return numOfWorkers;
 }
 
-long Area::getMaxNumberOfWorkers() const
+int Area::getMaxNumberOfWorkers() const
 {
     return maxNumberOfWorkers;
 }
@@ -205,6 +205,24 @@ Animal::eAnimalClass Area::getHabitat() const
     return habitat;
 }
 
-int Area::getNumOfSpacesLeftInAreaForAnimals() const {
+int Area::getNumOfSpacesLeftInAreaForAnimals() const
+{
     return maxNumberOfAnimals - numOfAnimals;
+}
+
+void Area::registerObserver(Observer *obs)
+{
+    if(numOfObservers < MAX_NUM_OF_OBSERVERS)
+    {
+        observers[numOfObservers] = obs;
+        numOfObservers++;
+    }
+}
+
+void Area::notifyAllObservers(Animal &animalAdded)
+{
+    for (int i = 0; i < numOfObservers; ++i)
+    {
+        observers[i]->notify(animalAdded);
+    }
 }

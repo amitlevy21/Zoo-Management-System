@@ -11,4 +11,8 @@ Zoo - 1. changed methods addWorker & addAnimal - receives Area object instead of
       5. changed operator + to +=
       6. main, used const cast. Also, we decided to get the input from the user about the areas of the zoo first, and then the input about the managers.
       7. I had issue with calling name from typeId. compiler said typeInfo doesn't have a function name and i read in stackoverflow its best to implement your own pure virtual function. https://stackoverflow.com/questions/32016809/using-typeid-to-get-name-of-derived-class
+      8. Design Pattern - implemented Singleton, Observer and Facade.
+      - class zoo is now singleton.
+      - class keeper is an observer while class area is the subject.
+      - class zooManager is the Facade.
 Moshe:

@@ -7,7 +7,6 @@ using namespace std;
 
 #include <string.h>
 #include "worker.h"
-#include "area.h"
 
 long Worker::idGenerator = 100000000;
 

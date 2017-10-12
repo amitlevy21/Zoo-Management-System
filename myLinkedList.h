@@ -13,27 +13,22 @@ class MyLinkedList
 {
 
 private:
-    int size;
-    Node* head;
-    Node* tail;
 
     class Node
     {
+        friend class MyLinkedList;
     private:
-        T& data;
+        T data;
         Node* next;
 
-        Node(const T& data, Node* next = nullptr);
+        Node(T data, Node* next = nullptr): data(data), next(next) {}
 
-        ~Node();
-
-        friend class MyLinkedList;
-
-    public:
-        const Node* getNext(Node* p)    const;
-
-        const T& getData()              const;
+        //~Node() {delete next;}
     };
+
+    int size;
+    Node* head;
+    Node* tail;
 
 public:
     MyLinkedList();
@@ -44,70 +39,58 @@ public:
     const Node* getHead()   const;
     const Node* getTail()   const;
 
-    void addNodeToBackOfList(const T data);
+    void addNodeToBackOfList(T data);
 
-    void removeFirstNodeFound(const T dataToRemove) throw(const char*);
+    void removeFirstNodeFound(T dataToRemove) throw(const char*);
 
-    void printList()        const;
+    void printList(ostream &os) const;
+
+    const Node* getNext(Node* p)  const;
+
+    const T& getData(Node* p)     const;
+
+    const T& operator[](int index) const throw(const char*);
 };
 
 template <class T>
-MyLinkedList::Node::Node(const T &data, MyLinkedList::Node *next): data(data), next(next)
+MyLinkedList<T>::MyLinkedList(): size(0), head(nullptr), tail(nullptr)
 {}
 
 template <class T>
-MyLinkedList::Node::~Node()
-{
-    delete next;
-}
-
-template <class T>
-const MyLinkedList::Node* MyLinkedList::Node::getNext(MyLinkedList::Node *p) const
-{
-    return next;
-}
-
-template <class T>
-const T& MyLinkedList::Node::getData() const
-{
-    return data;
-}
-
-template <class T>
-MyLinkedList::MyLinkedList(): size(0), head(nullptr), tail(nullptr)
-{
-}
-
-template <class T>
-int MyLinkedList::getSize() const
+int MyLinkedList<T>::getSize() const
 {
     return size;
 }
 
 template <class T>
-const MyLinkedList::Node *MyLinkedList::getHead() const
+const typename MyLinkedList<T>::Node* MyLinkedList<T>::getHead() const
 {
     return head;
 }
 
 template <class T>
-const MyLinkedList::Node *MyLinkedList::getTail() const
+const typename MyLinkedList<T>::Node* MyLinkedList<T>::getTail() const
 {
     return tail;
 }
 
 template <class T>
-void MyLinkedList::addNodeToBackOfList(const T data)
+void MyLinkedList<T>::addNodeToBackOfList(T data)
 {
-    Node* newNode = new Node(data);
-
     if(size == 0)
     {
-        this->head = newNode;
-        tail = head;
+        head = new Node(data);
+        tail = new Node(data);
+    }
+    else if(size == 1)
+    {
+        Node* newNode = new Node(data);
+        head->next = newNode;
+        tail = newNode;
     }
     else
     {
+        Node* newNode = new Node(data);
         tail->next = newNode;
         tail = newNode;
     }
@@ -115,26 +98,29 @@ void MyLinkedList::addNodeToBackOfList(const T data)
 }
 
 template <class T>
-void MyLinkedList::removeFirstNodeFound(const T dataToRemove)
+void MyLinkedList<T>::removeFirstNodeFound(T dataToRemove) throw(const char*)
 {
     if(dataToRemove == head->data)
     {
+        Node* temp = head;
         head = head->next;
-        delete head;
+        delete temp;
         size--;
         return;
     }
     else if(dataToRemove == tail->data)
     {
         size--;
-        delete tail;
+        Node* temp = tail;
         Node* p = head;
-        for (int i = 0; i < size; i++)
+        for (int i = 0; i < size - 1; i++)
         {
             p = p->next;
         }
 
         tail = p;
+        tail->next = nullptr;
+        delete temp;
         return;
     }
     else
@@ -144,9 +130,11 @@ void MyLinkedList::removeFirstNodeFound(const T dataToRemove)
         {
             if(dataToRemove == p->next->data)
             {
-                Node* temp = p->next->next;
-                delete p->next;
-                p->next = temp;
+                Node* temp = p->next;
+                p->next = p->next->next;
+                temp->next = nullptr;
+                delete temp;
+                size--;
                 return;
             }
             p = p->next;
@@ -156,21 +144,52 @@ void MyLinkedList::removeFirstNodeFound(const T dataToRemove)
 }
 
 template <class T>
-void MyLinkedList::printList() const
+void MyLinkedList<T>::printList(ostream &os) const
 {
     Node* p = head;
-    cout << "[";
-    for (int i = 0; i < size; ++i)
+    os << "[";
+    os.flush();
+    for (int i = 0; i < size; ++i, p = p->next)
     {
-        cout << p->data << ", ";
+        os << p->data ;
+        if(i != size - 1)
+            os << ", ";
+        os.flush();
     }
-    cout << "\b]";
+    os << "]";
+    os.flush();
 }
 
-MyLinkedList::~MyLinkedList()
+template <class T>
+MyLinkedList<T>::~MyLinkedList()
 {
     delete head;
     delete tail;
+}
+
+template <class T>
+const T& MyLinkedList<T>::operator[](int index) const throw(const char*)
+{
+    if(index < 0 || index >= size)
+        throw "index out of bound exception";
+
+    else if(index == 0)
+    {
+        return head->data;
+    }
+    else if(index == size - 1)
+    {
+        return tail->data;
+    }
+    else
+    {
+        Node* p = head;
+        for (int i = 0; i < index; ++i)
+        {
+            p = p->next;
+        }
+        return p->data;
+    }
 }
 
 

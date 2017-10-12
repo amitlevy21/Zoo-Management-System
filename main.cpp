@@ -22,6 +22,7 @@
 #include "penguin.h"
 #include "zebra.h"
 #include "zebroid.h"
+#include "myLinkedList.h"
 using namespace std;
 
 Area** createAllAreas(int numOfAreas) 						                    throw(const char*);
@@ -53,7 +54,7 @@ const int STRING_INPUT_LENGTH = 15;
 
 int main(int argc, const char * argv[])
 {
-	
+	/*
 	AreaManager** managers = nullptr;
 	Area** areas = nullptr;
 	Animal** animals = nullptr;
@@ -158,7 +159,7 @@ int main(int argc, const char * argv[])
 		addVeterinariansToZoo(myZoo, vets, numOfVeterinarian);
 		
 		// print the whole zoo
-		cout << "My Zoo: \n" << myZoo << endl;*/
+		cout << "My Zoo: \n" << myZoo << endl;
 	}
 	catch (const char* e)
 	{
@@ -175,7 +176,31 @@ int main(int argc, const char * argv[])
 	freeAllAreas(areas, numOfAreas);
 	freeAllKeepers(keepers, numOfKeepers);
 	freeAllVeterinarian(vets, numOfVeterinarian);
+*/
 
+    MyLinkedList<int> list;
+    list.addNodeToBackOfList(1);
+    list.addNodeToBackOfList(2);
+    list.addNodeToBackOfList(3);
+    list.addNodeToBackOfList(4);
+
+    cout << "List size is: "<< list.getSize() << endl;
+
+    list.printList(cout);
+    cout << endl;
+
+    list.removeFirstNodeFound(3);
+    cout << "List size is: "<< list.getSize() << endl;
+
+    list.printList(cout);
+    cout << endl;
+
+    list.removeFirstNodeFound(4);
+    list.removeFirstNodeFound(1);
+
+    cout << "List size is: "<< list.getSize() << endl;
+    list.printList(cout);
+    cout << endl;
     return 0;
 }
 

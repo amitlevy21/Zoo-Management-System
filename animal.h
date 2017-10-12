@@ -15,8 +15,6 @@ using namespace std;
 
 class Area;
 
-//#include "AnimalClassify.h"
-
 static const char* animalClasses[] = {"LAND", "MARINE", "AMPHIBIAN"};
 
 class Animal

@@ -26,7 +26,7 @@ int Veterinarian::getLicenseNumber() const
 
 void Veterinarian::toOs(ostream &os) const
 {
-    os << "Veterinarian details:\n License Number: " << licenseNumber;
+    os << "Veterinarian details:" << endl << "License Number: " << licenseNumber;
 }
 
 const char *Veterinarian::getWorkerType() const

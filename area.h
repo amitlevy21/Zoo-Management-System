@@ -17,7 +17,7 @@ class AreaManager;
 
 //#include "AnimalClassify.h"
 #include "animal.h"
-#include "ObserverInterface.h"
+#include "observerInterface.h"
 
 using namespace std;
 

@@ -131,7 +131,8 @@ ostream& operator<<(ostream& os, const Zoo& zoo)
     os << "-----------------" << endl;
     for (int i = 0; i < zoo.getNumOfAreas(); i++)
     {
-        os << *(zoo.getAllAreas()[i]);
+        os << *(zoo.getAllAreas()[i]) << endl;
+        os << "-----------------" << endl;
     }
     return os;
 }

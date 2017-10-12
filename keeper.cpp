@@ -17,7 +17,7 @@ Keeper::eAnimalSpeciality Keeper::getKeeperSpecialty() const
 
 void Keeper::toOs(ostream &os) const
 {
-    os << "Keeper Details:\nKeeper Specialty: " << eAnimalString[keeperSpecialty];
+    os << "Keeper Details:\nKeeper Specialty: " << eAnimalString[keeperSpecialty] << "\nNumber of animals he's responsible of " << numOfAnimalsToTakeCare;
 }
 
 const char *Keeper::getWorkerType() const

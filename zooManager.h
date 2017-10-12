@@ -7,46 +7,39 @@
 
 
 #include "zoo.h"
-#include "maintenanceWorker.h"
-#include "veterinarian.h"
 #include "keeper.h"
+#include "veterinarian.h"
+
 
 //facade class
 class ZooManager
 {
 private:
     Zoo* theZoo;
-    void inputForWorker(int indexForPrinting, char** name, int* salary,int* assignToArea) const;
-    bool inputValidationNonNegative(int inputFromUser) const;
-    int findAreaByHabitat(const Area *const *const areas, int numOfAreas, Animal::eAnimalClass habitat) const;
 
 
 public:
     ZooManager(Zoo& myZoo);
 
-    Worker** createAllWorkers(int numOfWorkers);
+    AreaManager** createAreaManagers(int numOfManagers);
 
-    AreaManager* createAreaManager(const char* managerName, int salary, int assignToArea) const throw(const char*);
+    Keeper** createAllKeepers(int numOfKeepers);
 
-    Keeper* createKeeper(const char*keeperName, int salary, int assignToArea) const throw(const char*);
+    Veterinarian** createAllVeterinarian(int numOfVeterinarian);
 
-    MaintenanceWorker* createMaintenanceWorker(const char* maintenanceWorkerName, int salary, int assignToArea) const throw(const char*);
+    Area** createAllAreas(int numOfAreas, AreaManager** managers, int numOfManagers);
 
-    Veterinarian* createVeterinarian(const char *veterinarianName, int salary, int assignToArea) const throw(const char*);
+    Animal** createAnimals(int numOfAnimals);
 
-    Area** createAllAreas(int numOfAreas) const throw(const char*);
+    void addAreasToZoo(Area** areas, int numOfAreas);
 
-    Animal** createAnimals(int numOfAnimals) const throw(const char*);
+    void addAllAnimalsToZoo(Animal** animals, int numOfAnimals);
 
-    void addAreasToZoo(Area** areas, int numOfAreas) const throw(const char*);
+    void addKeepersToZoo(Keeper** keepers, int numOfKeepers);
 
-    void addWorkersToZoo(Worker** workers, int numOfWorkers) const throw(const char*);
+    void addAllVeterinarianToZoo(Veterinarian**vets, int numOfVeterinarian);
 
-    bool addAnimalsToZoo(Animal **animals, int numOfAnimals) const;
 
-    void freeAllAreas(Area** areas, int numOfAreas)const;
-    void freeAllWorkers(Worker** workers, int numOfWorkers)const;
-    void freeAllAnimals(Animal** animals, int numOfAnimals)const;
 
 };
 

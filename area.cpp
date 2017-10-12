@@ -7,6 +7,7 @@
 #include "animal.h"
 #include "worker.h"
 #include "areaManager.h"
+#include "keeper.h"
 
 
 void Area::setMaxNumberOfAnimals(int maxNumberOfAnimals) throw(const char*)
@@ -91,6 +92,7 @@ void Area::addAnimal(Animal& animal) throw(const char*)
 
     animals[numOfAnimals++] = &animal;
     animal.setArea(*this);
+    notifyAllObservers(animal);
 }
 
 void Area::addWorker(Worker& worker) throw(const char*)
@@ -104,6 +106,9 @@ void Area::addWorker(Worker& worker) throw(const char*)
 
     workers[numOfWorkers++] = &worker;
     worker.setArea(*this);
+    Keeper* keeper = dynamic_cast<Keeper*>(&worker);
+    if(keeper)
+        registerObserver(keeper);
 }
 
 const Animal** Area::getAllAnimals() const
@@ -152,10 +157,14 @@ ostream &operator<<(ostream &os, const Area& area)
     {
         for (int i = 0; i < area.numOfAnimals; i++)
         {
-            os << i + 1 << ") " << *(area.animals[i]);
+            os << i + 1 << ") " << *(area.animals[i]) << endl;
         }
     }
-    os << endl;
+    else
+    {
+        os << "no animals are found" << endl;
+    }
+
 
     os << "The workers:" << endl;
 
@@ -163,8 +172,12 @@ ostream &operator<<(ostream &os, const Area& area)
     {
         for (int i = 0; i < area.numOfWorkers; i++)
         {
-            os << i + 1 << ") " << *(area.workers[i]);
+            os << i + 1 << ") " << *(area.workers[i]) << endl;
         }
+    }
+    else
+    {
+        os << "no workers found.";
     }
 
     return os;
@@ -186,15 +199,15 @@ void Area::setAreaName(const char *name)
 
 Area::~Area()
 {
-    for (int i = 0; i < numOfAnimals; i++)
-    {
-        delete(animals[i]);
-    }
-
-    for (int j = 0; j < numOfWorkers; j++)
-    {
-        delete(workers[j]);
-    }
+//    for (int i = 0; i < numOfAnimals; i++)
+//    {
+//        delete(animals[i]);
+//    }
+//
+//    for (int j = 0; j < numOfWorkers; j++)
+//    {
+//        delete(workers[j]);
+//    }
 
     delete[](animals);
     delete[](workers);

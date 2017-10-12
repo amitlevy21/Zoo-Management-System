@@ -11,7 +11,7 @@
 
 #include "worker.h"
 #include "animal.h"
-#include "ObserverInterface.h"
+#include "observerInterface.h"
 
 static const char* const eAnimalString[] = {"Lion" , "Penguin", "Elephant", "Giraffe", "Zebra", "Horse", "Zebroid"};
 
@@ -33,8 +33,6 @@ public:
 	virtual const char* getWorkerType() const override;
 
     inline int getNumOfAnimalsToTakeCare() const;
-
-    void updateNewAnimal(Animal& newAnimal);
 
 	void notify(Animal& animalAdded) override;
 

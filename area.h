@@ -17,6 +17,7 @@ class AreaManager;
 
 //#include "AnimalClassify.h"
 #include "animal.h"
+#include "observerInterface.h"
 
 using namespace std;
 
@@ -32,6 +33,10 @@ private:
 	Animal** animals;
 	Worker** workers;
 	Animal::eAnimalClass habitat;
+
+	const int MAX_NUM_OF_OBSERVERS = 15;
+	Observer** observers = new Observer*[MAX_NUM_OF_OBSERVERS];
+	int numOfObservers = 0;
 
 	void setMaxNumberOfAnimals(int maxNumberOfAnimals) throw (const char*);
 	void setMaxNumberOfWorkers(int maxNumberOfWorkers) throw (const char*);
@@ -52,8 +57,8 @@ public:
 
 	 Animal::eAnimalClass getHabitat() 	const;
  
-     long getNumOfWorkers() const;
-     long getMaxNumberOfWorkers() const;
+     int getNumOfWorkers() const;
+     int getMaxNumberOfWorkers() const;
     
      const AreaManager& getAreaManager() const;
     void setAreaManager(AreaManager& areaManager);
@@ -76,7 +81,12 @@ public:
     bool operator==(const Area& other) const;
     
     friend ostream& operator<<(ostream& os, const Area& area);
-    
+
+    void registerObserver(Observer* obs);
+
+	virtual void notifyAllObservers(Animal &animalAdded);
+
+
 };
 
 

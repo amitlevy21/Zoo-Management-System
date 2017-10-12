@@ -30,7 +30,8 @@ public:
     void setFavoriteFood(eSeaFood favoriteFood);
     
 	virtual void toOs(ostream& os) const override;
-  
+
+	virtual const char* getClassName() const override ;
 private:
 	eSeaFood favoriteFood;
 };

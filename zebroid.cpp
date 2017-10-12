@@ -34,3 +34,8 @@ void Zebroid::toOs(ostream &os) const
     Zebra::toOs(os);
 }
 
+const char *Zebroid::getClassName() const
+{
+    return "Zebroid";
+}
+

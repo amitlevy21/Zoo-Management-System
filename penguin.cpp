@@ -28,3 +28,7 @@ void Penguin::toOs(ostream &os) const
     os << ", favorite food: " << seaFood[favoriteFood];
 }
 
+const char *Penguin::getClassName() const {
+    return "Penguin";
+}
+

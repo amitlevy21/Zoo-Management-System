@@ -9,9 +9,10 @@
 #ifndef __ZOO_H
 #define __ZOO_H
 
-#include "area.h"
 #include "worker.h"
 #include "animal.h"
+#include "area.h"
+
 
 using namespace std;
 
@@ -27,8 +28,13 @@ private:
 	void setMaxNumOfAreas(int maxNumOfAreas) throw (const char*);
 	void setName(const char* name) throw(const char*);
 
-public:
+
 	Zoo(const char* name, int maxNumOfAreas, Area& quarantineArea);
+	static Zoo* theZoo;
+
+public:
+
+	static Zoo* getInstance(const char *name, int maxNumOfAreas, Area& quarantineArea);
     ~Zoo();
 
 	Zoo(const Zoo& other) = delete;

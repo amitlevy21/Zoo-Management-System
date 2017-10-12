@@ -30,6 +30,8 @@ public:
 	virtual inline int getBirthYear()       const override;
 
 	virtual void toOs(ostream& os)          const override;
+
+	virtual const char* getClassName() const override;
     
 };
 

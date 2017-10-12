@@ -29,6 +29,8 @@ public:
     
 	virtual void toOs(ostream& os) const override;
 
+	virtual const char* getClassName() const override ;
+
 private:
 	eManeColor maneColor;
 };

@@ -20,3 +20,7 @@ void Lion::toOs(ostream &os) const
     os << ", color of mane: " << maneColors[maneColor];
 }
 
+const char *Lion::getClassName() const {
+    return "Lion";
+}
+

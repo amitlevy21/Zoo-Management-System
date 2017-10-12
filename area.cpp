@@ -7,6 +7,7 @@
 #include "animal.h"
 #include "worker.h"
 #include "areaManager.h"
+#include "keeper.h"
 
 
 void Area::setMaxNumberOfAnimals(int maxNumberOfAnimals) throw(const char*)
@@ -53,12 +54,12 @@ int Area::getMaxNumberOfAnimals() const
     return maxNumberOfAnimals;
 }
 
-long Area::getNumOfWorkers() const
+int Area::getNumOfWorkers() const
 {
     return numOfWorkers;
 }
 
-long Area::getMaxNumberOfWorkers() const
+int Area::getMaxNumberOfWorkers() const
 {
     return maxNumberOfWorkers;
 }
@@ -91,6 +92,7 @@ void Area::addAnimal(Animal& animal) throw(const char*)
 
     animals[numOfAnimals++] = &animal;
     animal.setArea(*this);
+    notifyAllObservers(animal);
 }
 
 void Area::addWorker(Worker& worker) throw(const char*)
@@ -104,6 +106,9 @@ void Area::addWorker(Worker& worker) throw(const char*)
 
     workers[numOfWorkers++] = &worker;
     worker.setArea(*this);
+    Keeper* keeper = dynamic_cast<Keeper*>(&worker);
+    if(keeper)
+        registerObserver(keeper);
 }
 
 const Animal** Area::getAllAnimals() const
@@ -194,15 +199,15 @@ void Area::setAreaName(const char *name)
 
 Area::~Area()
 {
-    for (int i = 0; i < numOfAnimals; i++)
-    {
-        delete(animals[i]);
-    }
-
-    for (int j = 0; j < numOfWorkers; j++)
-    {
-        delete(workers[j]);
-    }
+//    for (int i = 0; i < numOfAnimals; i++)
+//    {
+//        delete(animals[i]);
+//    }
+//
+//    for (int j = 0; j < numOfWorkers; j++)
+//    {
+//        delete(workers[j]);
+//    }
 
     delete[](animals);
     delete[](workers);
@@ -213,6 +218,24 @@ Animal::eAnimalClass Area::getHabitat() const
     return habitat;
 }
 
-int Area::getNumOfSpacesLeftInAreaForAnimals() const {
+int Area::getNumOfSpacesLeftInAreaForAnimals() const
+{
     return maxNumberOfAnimals - numOfAnimals;
+}
+
+void Area::registerObserver(Observer *obs)
+{
+    if(numOfObservers < MAX_NUM_OF_OBSERVERS)
+    {
+        observers[numOfObservers] = obs;
+        numOfObservers++;
+    }
+}
+
+void Area::notifyAllObservers(Animal &animalAdded)
+{
+    for (int i = 0; i < numOfObservers; ++i)
+    {
+        observers[i]->notify(animalAdded);
+    }
 }

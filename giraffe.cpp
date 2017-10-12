@@ -29,3 +29,8 @@ void Giraffe::toOs(ostream &os) const
     os << ", length of neck: " << lengthOfNeck;
 }
 
+const char *Giraffe::getClassName() const
+{
+    return "Giraffe";
+}
+

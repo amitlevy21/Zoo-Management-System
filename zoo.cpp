@@ -5,7 +5,7 @@
 #include "zoo.h"
 #include <string.h>
 
-
+Zoo* Zoo::theZoo;
 
 Zoo::Zoo(const char *name, int maxNumOfAreas, Area& quarantineArea): quarantineArea(quarantineArea)
 {
@@ -148,6 +148,15 @@ int Zoo::findAreaIndex(const Area &area) const
     }
 
     return -1;
+}
+
+Zoo *Zoo::getInstance(const char *name, int maxNumOfAreas, Area& quarantineArea)
+{
+    if(!theZoo)
+    {
+        theZoo = new Zoo(name, maxNumOfAreas, quarantineArea);
+    }
+    return theZoo;
 }
 
 

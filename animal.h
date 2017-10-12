@@ -14,6 +14,7 @@
 using namespace std;
 
 class Area;
+
 static const char* animalClasses[] = {"LAND", "MARINE", "AMPHIBIAN"};
 
 class Animal

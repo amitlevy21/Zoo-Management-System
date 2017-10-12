@@ -78,7 +78,7 @@ const Area ** Zoo::getAllAreas() const
     return (const Area**)areas;
 }
 
-Area **Zoo::getAllAreas()
+Area** Zoo::getAllAreas()
 {
     return areas;
 }

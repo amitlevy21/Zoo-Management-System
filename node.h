@@ -1,0 +1,8 @@
+//
+// Created by Moshe Sheena on 11/10/2017.
+//
+
+#ifndef ZOO_MANAGEMENT_SYSTEM_NODE_H
+#define ZOO_MANAGEMENT_SYSTEM_NODE_H
+
+#endif //ZOO_MANAGEMENT_SYSTEM_NODE_H

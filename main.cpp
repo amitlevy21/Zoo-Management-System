@@ -25,10 +25,10 @@
 #include "myLinkedList.h"
 using namespace std;
 
-Area** createAllAreas(int numOfAreas) 						                    throw(const char*);
-AreaManager** createAreaManagers(Zoo& myZoo, int numOfManagers)                 throw(const char*);
-Keeper** createAllKeepers(Zoo& myZoo, int numOfKeepers)                         throw(const char*);
-Veterinarian** createAllVeterinarian(Zoo& myZoo, int numOfVeterinarian)         throw(const char*);
+Area **createAllAreas(int numOfAreas, AreaManager **managers)                                            throw(const char*);
+AreaManager **createAreaManagers(int numOfManagers)                 throw(const char*);
+Keeper **createAllKeepers(int numOfKeepers)                         throw(const char*);
+Veterinarian **createAllVeterinarian(int numOfVeterinarian)         throw(const char*);
 Animal** createAnimals(int numOfAnimals) throw(const char*);
 
 
@@ -45,16 +45,14 @@ void freeAllAnimals(Animal** animals, int numOfAnimals);
 void freeAllVeterinarian(Veterinarian** vets, int numOfVeterinarian);
 void freeAllKeepers(Keeper** keepers, int numOfKeepers);
 
-
 int findAreaByHabitat(const Area *const *const areas, int numOfAreas, Animal::eAnimalClass habitat);
 bool inputValidationNonNegative(int inputFromUser);
 
 const int STRING_INPUT_LENGTH = 15;
 
-
 int main(int argc, const char * argv[])
 {
-	/*
+
 	AreaManager** managers = nullptr;
 	Area** areas = nullptr;
 	Animal** animals = nullptr;
@@ -64,102 +62,48 @@ int main(int argc, const char * argv[])
     char zooName[STRING_INPUT_LENGTH];
     char quarantineAreaName[STRING_INPUT_LENGTH];
 
-    int maxNumOfWorkers = 0;
-    int numOfManagers = 0;
-    int numOfAreas = 0;
-    int numOfAnimals = 0;
-    int numOfKeepers = 0;
-    int numOfVeterinarian = 0;
-    int quarantineMaxNumOfWorkers = 0;
-    int quarantineMaxNumOfAnimals = 0;
-
-    int quarantineAnimalClassification = 0;
+    int maxNumOfWorkers = 30;
+    int numOfManagers = 3;
+    int numOfAreas = 3;
+    int numOfAnimals = 7;
+    int numOfKeepers = 3;
+    int numOfVeterinarian = 3;
+//    int quarantineMaxNumOfWorkers = 5;
+//    int quarantineMaxNumOfAnimals = 5;
+//
+//    int quarantineAnimalClassification = 0;
 
 	try
 	{
-        
         cout << "Welcome to Zoo Management System!" << endl << endl;
         cout << "Enter Zoo Name: ";
         
         cin.getline(zooName,STRING_INPUT_LENGTH);
-        
-        cout << endl << "Enter max number of workers: ";
-        
-        cin >> maxNumOfWorkers;
 
-        
-        cout << endl << endl << "The zoo must have a quarantine area, Let's create it first." << endl;
-
-        cin.ignore(); //clean buffer
-
-        cout << "Enter Quarantine Area Name: ";
-
-        cin.getline(quarantineAreaName, STRING_INPUT_LENGTH);
-
-        cout << endl << "Enter max number of workers and then max number of animals for the quarantine area: ";
-
-        cin >> quarantineMaxNumOfWorkers >> quarantineMaxNumOfAnimals;
-
-        cout << "Enter Animal Classification for the quarantine area:" << endl << "0 - Land" << endl << "1 - Marine" << endl << "2 - Amphibian" << endl;
-
-        cin >> quarantineAnimalClassification;
-
-        Area quarantineArea(quarantineAreaName, quarantineMaxNumOfWorkers, quarantineMaxNumOfAnimals, (Animal::eAnimalClass)quarantineAnimalClassification);
+        Area quarantineArea("quarentineArea", 4, 4, Animal::eAnimalClass::AMPHIBIAN);
         
 		Zoo myZoo(zooName, maxNumOfWorkers, quarantineArea);
 
-        cout << "Let's create the areas of the zoo" << endl << "Enter number of areas: ";
+        managers = createAreaManagers(numOfManagers);
 
-        cin >> numOfAreas;
-
-        areas = createAllAreas(numOfAreas);
+        areas = createAllAreas(numOfAreas, managers);
 
         addAreasToZoo(myZoo, areas, numOfAreas);
 
-        cout << endl << "Let's create the managers of the zoo" << endl << "Enter number of managers: ";
+        keepers = createAllKeepers(numOfKeepers);
 
-        cin >> numOfManagers;
+        addKeepersToZoo(myZoo, keepers, numOfKeepers);
 
-		managers = createAreaManagers(myZoo, numOfManagers);
+        vets = createAllVeterinarian(numOfVeterinarian);
 
-        /*cout << endl << "Let's create the keepers of the zoo" << endl << "Enter number of keepers: ";
-
-        cin >> numOfKeepers;
-
-        keepers = createAllKeepers(myZoo, numOfKeepers);
-
-        cout << endl << "Let's create the veterinarians of the zoo" << endl << "Enter number of veterinarians: ";
-
-        cin >> numOfVeterinarian;
-
-        vets = createAllVeterinarian(myZoo, numOfVeterinarian);
-
-        cout << endl << "Let's create the animals of the zoo" << endl << "Enter number of animals: ";
-
-        cin >> numOfAnimals;
+        addVeterinariansToZoo(myZoo, vets, numOfVeterinarian);
 
 		animals = createAnimals(numOfAnimals);
 
-        bool roomForAllAnimals;
-        do
-        {
-            roomForAllAnimals = addAnimalsToZoo(myZoo, animals, numOfAnimals);
-            if(!roomForAllAnimals)
-            {
-                cout << "enter num of animals to add to the zoo: ";
-                cin >> numOfAnimals;
-                cout << endl;
-            }
+        addAnimalsToZoo(myZoo, animals, numOfAnimals);
 
-        }while(!roomForAllAnimals);
-
-
-		addKeepersToZoo(myZoo, keepers, numOfKeepers);
-
-		addVeterinariansToZoo(myZoo, vets, numOfVeterinarian);
-		
 		// print the whole zoo
-		cout << "My Zoo: \n" << myZoo << endl;
+		cout << "My Zoo:" << endl << myZoo << endl;
 	}
 	catch (const char* e)
 	{
@@ -176,281 +120,93 @@ int main(int argc, const char * argv[])
 	freeAllAreas(areas, numOfAreas);
 	freeAllKeepers(keepers, numOfKeepers);
 	freeAllVeterinarian(vets, numOfVeterinarian);
-*/
 
-    MyLinkedList<int> list;
-    list.addNodeToBackOfList(1);
-    list.addNodeToBackOfList(2);
-    list.addNodeToBackOfList(3);
-    list.addNodeToBackOfList(4);
-
-    cout << "List size is: "<< list.getSize() << endl;
-
-    list.printList(cout);
-    cout << endl;
-
-    list.removeFirstNodeFound(3);
-    cout << "List size is: "<< list.getSize() << endl;
-
-    list.printList(cout);
-    cout << endl;
-
-    list.removeFirstNodeFound(4);
-    list.removeFirstNodeFound(1);
-
-    cout << "List size is: "<< list.getSize() << endl;
-    list.printList(cout);
-    cout << endl;
     return 0;
 }
 
 
-Area** createAllAreas(int numOfAreas) throw(const char*)
+Area **createAllAreas(int numOfAreas, AreaManager** managers) throw(const char*)
 {
-    const int NUM_OF_ANIMAL_CLASSIFICATIONS = 2;
+    numOfAreas = 3;
+
     Area** areas = new Area*[numOfAreas];
-    for (int i = 0; i < numOfAreas; i++)
-	{
-        char* areaName = new char[STRING_INPUT_LENGTH];
-        int maxNumOfAnimals = 0;
-        int maxNumOfWorkers = 0;
-        int areaAnimalClassification = 0;
 
-        cout << "Enter name for area #" << i+1 << " :";
-        cin >> areaName;
-        do
-        {
-            cout << endl << "Enter max num of animals for " << areaName << ": ";
-            cin >> maxNumOfAnimals;
-
-        }while(!inputValidationNonNegative(maxNumOfAnimals));
-
-        do
-        {
-            cout << endl << "Enter max num of workers for " << areaName << ": ";
-            cin >> maxNumOfWorkers;
-
-        }while(!inputValidationNonNegative(maxNumOfWorkers));
-
-        do
-        {
-            cout << "Enter Animal Classification for " << areaName << ": " << endl << "0 - Land" << endl << "1 - Marine" << endl << "2 - Amphibian" << endl;
-
-            cin >> areaAnimalClassification;
-
-        }while(areaAnimalClassification < 0 || areaAnimalClassification > NUM_OF_ANIMAL_CLASSIFICATIONS);
-
-        areas[i] = new Area(areaName,maxNumOfAnimals,maxNumOfWorkers,(Animal::eAnimalClass)areaAnimalClassification);
-
-    }
+    areas[0] = new Area("Land walkers", 5, 5, Animal::eAnimalClass::LAND, managers[0]);
+    areas[1] = new Area("Marine life", 5, 5, Animal::eAnimalClass::MARINE, managers[1]);
+    areas[2] = new Area("Creepy crawlers", 5, 5, Animal::eAnimalClass::AMPHIBIAN, managers[2]);
 
     return areas;
 }
 
-AreaManager** createAreaManagers(Zoo& myZoo, int numOfManagers) throw(const char*)
+AreaManager** createAreaManagers(int numOfManagers) throw(const char*)
 {
-	AreaManager** managers = new AreaManager* [numOfManagers];
+    numOfManagers = 3;
+    const char* areaMangerNames[] = {"Itay", "Moshe", "Amit"};
+    int salaries[]= {31235, 51455, 84578};
+    int yearsOfExperience[] = {5, 4, 7};
 
+    AreaManager** managers = new AreaManager*[numOfManagers];
 
-    for (int i = 0; i < numOfManagers; i++)
-	{
-        char *managerName = new char(STRING_INPUT_LENGTH);
-        int salary = 0;
-        int yearsOfExperience = 0;
-        int assignToArea = 0;
-
-        inputForWorker(i + 1, &managerName, &salary, "manager");
-        do
+    for (int i = 0; i < numOfManagers; ++i)
+    {
+        try
         {
-            cout << endl << "Enter years of experience of " << managerName << ": ";
-            cin >> yearsOfExperience;
-
-        }while(!inputValidationNonNegative(yearsOfExperience));
-
-        do
+            managers[i] = new AreaManager(areaMangerNames[i], salaries[i], yearsOfExperience[i]);
+        }catch (const char* msg)
         {
-            cout << endl << "If you wish to assign " << managerName << " to an area by entering the area's index. " << endl <<
-                 "Areas that already have manager will be overwritten" << endl <<
-                    "Enter -1 if you don't want to assign him to any area right now: " << endl;
-            cin >> assignToArea;
-        }while(assignToArea != -1 || !inputValidationNonNegative(assignToArea));
-
-        if(assignToArea == -1)
-        {
-            managers[i] = new AreaManager((char*)*managerName, salary, yearsOfExperience);
-        }
-        else
-        {
-            Area* areaToAssign = (myZoo.getAllAreas()[assignToArea]);
-            managers[i] = new AreaManager(managerName, salary, yearsOfExperience, areaToAssign);
+            cout << msg << endl;
+            cout << i << " area managers were created. cannot continue creation." << endl;
+            for (int j = i; j < numOfManagers; ++j)
+            {
+                delete managers[j];
+            }
+            numOfManagers = i;
         }
     }
-	return managers;
+    return managers;
 }
 
-Keeper** createAllKeepers(Zoo& myZoo, int numOfKeepers) throw(const char*)
+Keeper** createAllKeepers(int numOfKeepers) throw(const char*)
 {
+    numOfKeepers = 3;
+
     Keeper** keepers = new Keeper*[numOfKeepers];
 
-    const int NUM_OF_ANIMAL_TYPES = 6;
-
-    for (int i = 0; i < numOfKeepers; i++)
-	{
-        char* keeperName = new char[STRING_INPUT_LENGTH];
-        int salary = 0;
-        int keeperSpeciality = 0;
-        int assignToArea = 0;
-
-        inputForWorker(i + 1 , &keeperName, &salary, "keeper");
-        do
-        {
-            cout << "Enter Keeper Speciality for " << keeperName << ": " << endl << "0 - Lion" << endl << "1 - Penguin" << endl << "2 - Elephant" << endl
-                    << "3 - Giraffe" << endl << "4 - Zebra" << endl << "5 - Horse" << endl << "6 - Zebroid" << endl;
-
-            cin >> keeperSpeciality;
-
-        }while(keeperSpeciality < 0 || keeperSpeciality > NUM_OF_ANIMAL_TYPES);
-
-        do
-        {
-            cout << endl << "If you wish you can assign " << keeperName << " to an area by entering the area's index. " << endl <<
-                 "Enter -1 if you don't want to assign him to any area right now: " << endl;
-            cin >> assignToArea;
-
-        }while(assignToArea != -1 || !inputValidationNonNegative(assignToArea));
-
-        if(assignToArea == -1)
-        {
-			keepers[i] = new Keeper(keeperName,salary,(Keeper::eAnimalSpeciality)keeperSpeciality);
-        }
-        else
-        {
-			Area* areaToAssign = myZoo.getAllAreas()[assignToArea];
-			keepers[i] = new Keeper(keeperName,salary,(Keeper::eAnimalSpeciality)keeperSpeciality, areaToAssign);
-        }
-
-    }
+    keepers[0] = new Keeper("Haim", 312542, Keeper::eAnimalSpeciality::PENGUIN);
+    keepers[1] = new Keeper("Mosh", 387542, Keeper::eAnimalSpeciality::ELEPHANT);
+    keepers[2] = new Keeper("Ezra", 955642, Keeper::eAnimalSpeciality::HORSE);
 
     return keepers;
 }
 
-Veterinarian** createAllVeterinarian(Zoo& myZoo, int numOfVeterinarian) throw(const char*)
+Veterinarian **createAllVeterinarian(int numOfVeterinarian) throw(const char*)
 {
+    numOfVeterinarian = 3;
+
     Veterinarian** vets = new Veterinarian*[numOfVeterinarian];
 
-    for (int i = 0; i < numOfVeterinarian; i++)
-	{
-        char* nameOfVeterinarian = new char[STRING_INPUT_LENGTH];
-        int salary = 0;
-        int licenseNumber = 0;
-        int assignToArea = 0;
-
-        inputForWorker(i + 1, &nameOfVeterinarian, &salary, "veterinarian");
-        do
-        {
-            cout << endl << "Enter license number for " << nameOfVeterinarian << ": ";
-            cin >> licenseNumber;
-
-        }while(!inputValidationNonNegative(licenseNumber));
-
-        do
-        {
-            cout << endl << "If you wish you can assign " << nameOfVeterinarian << " to an area by entering the area's index. " << endl <<
-                 "Enter -1 if you don't want to assign him to any area right now: " << endl;
-            cin >> assignToArea;
-        }while(assignToArea != -1 || !inputValidationNonNegative(assignToArea));
-
-        if(assignToArea == -1)
-        {
-            vets[i] = new Veterinarian(nameOfVeterinarian, salary, licenseNumber);
-        }
-        else
-        {
-            Area* areaToAssign = myZoo.getAllAreas()[assignToArea];
-            vets[i] = new Veterinarian(nameOfVeterinarian, salary, licenseNumber, areaToAssign);
-        }
-
-    }
+    vets[0] = new Veterinarian("Vivi", 45875, 10303);
+    vets[1] = new Veterinarian("Vuvu", 87457, 24537);
+    vets[2] = new Veterinarian("Kobi", 26584, 67849);
 
     return vets;
 }
 
 Animal** createAnimals(int numOfAnimals) throw(const char*)
 {
-    /*const int NUM_OF_ANIMAL_CLASSIFICATIONS = 2;
-	const int RANGE_OF_ANIMAL_TYPES = 6;*/
+    numOfAnimals = 7;
 
     Animal** animals = new Animal*[numOfAnimals];
 
-    /*for (int i = 0; i < numOfAnimals; i++)
-	{
-        char* animalName = new char[STRING_INPUT_LENGTH];
-		int animalChoice = 0;
-        float weight = 0;
-        int birthYear = 0;
-        int animalClass = 0;
-
-		cout << "This zoo can currently house any one of these fine creatures:" << endl;
-		for (int j = 0; j < RANGE_OF_ANIMAL_TYPES; j++)
-		{
-			cout << i+1 << ") " << eAnimalString[j] << endl;
-		}
-
-		do
-		{
-			cout << "Please enter the number of the animal you would like to create: ";
-			cin >> animalChoice;
-
-		}while(animalChoice <0 || animalChoice > RANGE_OF_ANIMAL_TYPES);
-
-        cout << "Enter name for animal #" << i << ":";
-        cin.getline(animalName, STRING_INPUT_LENGTH);
-        do
-        {
-            cout << endl << "Enter weight for " << animalName << ": ";
-            cin >> weight;
-
-        }while(!inputValidationNonNegative((int)weight));
-
-        do
-        {
-            cout << endl << "Enter birth year for " << animalName << ": ";
-            cin >> birthYear;
-
-        }while(!inputValidationNonNegative(birthYear));
-
-        do
-        {
-            cout << "Enter Animal Classification for " << animalName << ": " << endl << "0 - Land" << endl << "1 - Marine" << endl << "2 - Amphibian" << endl;
-
-            cin >> animalClass;
-
-        }while(animalClass < 0 || animalClass > NUM_OF_ANIMAL_CLASSIFICATIONS);
-
-		switch (animalChoice)
-		{
-			case 1: animals[i] = new
-		}
-    }*/
-
 	animals[0] = new Lion("Arie", 35.5f, 2003, Lion::eManeColor::BROWN, Animal::eAnimalClass::LAND);
-	animals[1] = new Penguin("Pini", 45.6f, 2007, Penguin::eSeaFood::CRAB, Animal::eAnimalClass::MARINE);
-	animals[2] = new Horse("Barak", 98.4f, 1992, 16.5f, Animal::eAnimalClass::LAND);
-	animals[3] = new Zebra("Zezi", 46.8f, 1996, 4, Animal::eAnimalClass::AMPHIBIAN);
+	animals[1] = new Penguin("Noot", 45.6f, 2007, Penguin::eSeaFood::CRAB, Animal::eAnimalClass::MARINE);
+	animals[2] = new Horse("Seabiscuit", 98.4f, 1992, 16.5f, Animal::eAnimalClass::LAND);
+	animals[3] = new Zebra("Marti", 46.8f, 1996, 4, Animal::eAnimalClass::AMPHIBIAN);
+    animals[4] = new Elephant("Dumbo", 445.6f, 2008, 67.8f, 12.1f, Animal::eAnimalClass::LAND);
+    animals[5] = new Giraffe("Melman", 120.5f, 1997, 15.7f, Animal::eAnimalClass::LAND);
+    animals[6] = new Zebroid("Prometheous", 90.2f, 2015, 18, 34.6f, Animal::eAnimalClass::AMPHIBIAN);
 
     return animals;
-}
-
-void inputForWorker(int indexForPrinting, char** name, int* salary, const char* role)
-{
-    cout << "Enter name for " << role <<" #" << indexForPrinting << ": ";
-    cin >> *name;
-    do
-    {
-        cout << endl << "Enter salary for " << *name << ": ";
-        cin >> *salary;
-
-    }while(!inputValidationNonNegative(*salary));
 }
 
 void addAreasToZoo(Zoo& zoo, Area** areas, int numOfAreas) throw(const char*)
@@ -507,38 +263,18 @@ int findAreaByHabitat(const Area *const*const areas, int numOfAreas, Animal::eAn
 
 void addKeepersToZoo(Zoo &zoo, Keeper **keepers, int numOfKeepers) throw(const char*)
 {
-	int areaChoice;
-
-	cout << "new keepers that were hired by the zoo:" << endl;
-	for (int i = 0; i < numOfKeepers; i++)
+    for (int i = 0; i < numOfKeepers; i++)
 	{
-		cout << i+1 << ") " << keepers[i]->getName() << endl;
-	}
-
-	for (int i = 0; i < numOfKeepers; i++)
-	{
-		cout << "in which area would you like to assign keeper #" << i+1 << " ?";
-		cin >> areaChoice;
-		zoo.addWorker(*keepers[i], *zoo.getAllAreas()[areaChoice]);
+        zoo.addWorker(*keepers[i], *zoo.getAllAreas()[i]);
 	}
 
 }
 
 void addVeterinariansToZoo(Zoo& zoo, Veterinarian** vets, int numOfVeterinarian) throw(const char*)
 {
-	int areaChoice;
-
-	cout << "new veterinarians that were hired by the zoo:" << endl;
-	for (int i = 0; i < numOfVeterinarian; i++)
+    for (int i = 0; i < numOfVeterinarian; i++)
 	{
-		cout << i+1 << ") " << vets[i]->getName() << endl;
-	}
-
-	for (int i = 0; i < numOfVeterinarian; i++)
-	{
-		cout << "in which area would you like to assign keeper #" << i+1 << " ?";
-		cin >> areaChoice;
-		zoo.addWorker(*vets[i], *zoo.getAllAreas()[areaChoice]);
+		zoo.addWorker(*vets[i], *zoo.getAllAreas()[i]);
 	}
 }
 

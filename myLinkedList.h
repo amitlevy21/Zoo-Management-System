@@ -39,9 +39,9 @@ public:
     const Node* getHead()   const;
     const Node* getTail()   const;
 
-    void addNodeToBackOfList(T data);
+    void addNodeToBackOfList(const T data);
 
-    void removeFirstNodeFound(T dataToRemove) throw(const char*);
+    void removeFirstNodeFound(const T dataToRemove) throw(const char*);
 
     void printList(ostream &os) const;
 
@@ -75,7 +75,7 @@ const typename MyLinkedList<T>::Node* MyLinkedList<T>::getTail() const
 }
 
 template <class T>
-void MyLinkedList<T>::addNodeToBackOfList(T data)
+void MyLinkedList<T>::addNodeToBackOfList(const T data)
 {
     if(size == 0)
     {
@@ -98,7 +98,7 @@ void MyLinkedList<T>::addNodeToBackOfList(T data)
 }
 
 template <class T>
-void MyLinkedList<T>::removeFirstNodeFound(T dataToRemove) throw(const char*)
+void MyLinkedList<T>::removeFirstNodeFound(const T dataToRemove) throw(const char*)
 {
     if(dataToRemove == head->data)
     {

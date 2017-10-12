@@ -160,6 +160,7 @@ ostream &operator<<(ostream &os, const Area& area)
         os << "no animals are found" << endl;
     }
 
+
     os << "The workers:" << endl;
 
     if(area.numOfWorkers > 0)
@@ -171,7 +172,7 @@ ostream &operator<<(ostream &os, const Area& area)
     }
     else
     {
-        os << "no workers found." << endl;
+        os << "no workers found.";
     }
 
     return os;

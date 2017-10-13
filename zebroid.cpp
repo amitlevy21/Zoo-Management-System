@@ -4,14 +4,14 @@
 
 #include "zebroid.h"
 
-Zebroid::Zebroid(const char *name, float weight, int birthYear, int numOfStripes, float sizeOfHorseShoe,
+Zebroid::Zebroid(const string& name, float weight, int birthYear, int numOfStripes, float sizeOfHorseShoe,
                  eAnimalClass animalClass)
         :Animal(name, weight, birthYear, animalClass), Horse(name, weight, birthYear, sizeOfHorseShoe, animalClass),
          Zebra(name, weight, birthYear, numOfStripes, animalClass)
 {
 }
 
-const char* Zebroid::getName() const
+const string& Zebroid::getName() const
 {
     return Animal::getName();
 }
@@ -28,13 +28,12 @@ int Zebroid::getBirthYear() const
 
 void Zebroid::toOs(ostream &os) const
 {
-//    os << ", horse shoe size: " <<  << ", number of stripes: "
-//       << getNumOfStripes();
     Horse::toOs(os);
+    os << endl;
     Zebra::toOs(os);
 }
 
-const char *Zebroid::getClassName() const
+const string& Zebroid::getClassName() const
 {
     return "Zebroid";
 }

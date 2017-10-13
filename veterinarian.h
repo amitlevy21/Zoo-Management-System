@@ -16,10 +16,10 @@ class Veterinarian : public Worker
 private:
     int licenseNumber;
 
-	void setLicenseNumber(int licenseNumber) throw (const char*);
+	void setLicenseNumber(int licenseNumber) throw (const string&);
 
 public:
-	Veterinarian(const char *name, int salary, int licenseNumber, Area *area = nullptr);
+	Veterinarian(const string& name, int salary, int licenseNumber, Area *area = nullptr);
     
     Veterinarian(const Veterinarian& veterinarian) = delete;
     const Veterinarian& operator=(const Veterinarian& veterinarian) = delete;
@@ -28,7 +28,7 @@ public:
     
 	virtual void toOs(ostream& os) const override;
 
-	virtual const char* getWorkerType() const override;
+	virtual const string& getWorkerType() const override;
     
 };
 

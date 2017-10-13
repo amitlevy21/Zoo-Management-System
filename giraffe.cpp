@@ -4,7 +4,7 @@
 
 #include "giraffe.h"
 
-void Giraffe::setLengthOfNeck(float lengthOfNeck) throw(const char*)
+void Giraffe::setLengthOfNeck(float lengthOfNeck) throw(const string&)
 {
     if(lengthOfNeck <= 0)
         throw "Giraffe neck length must be non negative non zero number";
@@ -12,9 +12,8 @@ void Giraffe::setLengthOfNeck(float lengthOfNeck) throw(const char*)
     this->lengthOfNeck = lengthOfNeck;
 }
 
-Giraffe::Giraffe(const char *name, float weight, int birthYear, float lengthOfNeck, eAnimalClass animalClass)
+Giraffe::Giraffe(const string& name, float weight, int birthYear, float lengthOfNeck, eAnimalClass animalClass)
         : Animal(name, weight, birthYear, animalClass)
-//What about Area? why not received in c'tor?
 {
     setLengthOfNeck(lengthOfNeck);
 }
@@ -29,7 +28,7 @@ void Giraffe::toOs(ostream &os) const
     os << ", length of neck: " << lengthOfNeck;
 }
 
-const char *Giraffe::getClassName() const
+const string& Giraffe::getClassName() const
 {
     return "Giraffe";
 }

@@ -8,14 +8,14 @@
 #include <string.h>
 
 
-void Animal::setName(const char *name) throw(const char*)
+void Animal::setName(const string& name) throw(const string&)
 {
-    if(strcmp(name, "") == 0)
+    if(this->name == name)
         throw "animal name cannot be an empty string";
-    if(!name)
+    if(name == "")
         throw "animal name cannot be null";
 
-    this->name = strdup(name);
+    this->name = name;
 }
 
 void Animal::setWeight(float weight) throw(const char*)
@@ -35,7 +35,7 @@ void Animal::setBirthYear(int birthYear) throw(const char*)
     this->birthYear = birthYear;
 }
 
-Animal::Animal(const char *name, float weight, int birthYear, eAnimalClass animalClass)
+Animal::Animal(const string& name, float weight, int birthYear, eAnimalClass animalClass)
         :animalClass(animalClass)
 {
     setWeight(weight);
@@ -46,26 +46,21 @@ Animal::Animal(const char *name, float weight, int birthYear, eAnimalClass anima
 
 ostream &operator<<(ostream &os, const Animal &animal)
 {
-    os << "name: " << animal.name << ", class: " << animalClasses[static_cast<int>(animal.getAnimalClass())] << ", weight: " << animal.weight << ", YOB: "
-       << animal.birthYear << ", area: " << animal.area->getName();
+    os << "name: " << animal.name.c_str() << ", class: " << animalClasses[static_cast<int>(animal.getAnimalClass())] << ", weight: " << animal.weight << ", YOB: "
+       << animal.birthYear << ", area: " << animal.area->getName().c_str();
 
     animal.toOs(os);
 
     return os;
 }
 
-Animal::~Animal()
-{
-    delete[] name;
-}
-
 bool Animal::operator==(const Animal& other)
 {
-    return strcmp(this->name, other.name) == 0;
+    return this->name == other.name;
 
 }
 
-inline const char *Animal::getName() const
+inline const string& Animal::getName() const
 {
     return name;
 }

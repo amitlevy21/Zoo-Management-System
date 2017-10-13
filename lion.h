@@ -11,7 +11,7 @@
 
 #include "animal.h"
 
-static const char* maneColors[] = {"WHITE", "BROWN", "YELLOW", "RED", "ORANGE"};
+static const string& maneColors[] = {"WHITE", "BROWN", "YELLOW", "RED", "ORANGE"};
 
 class Lion : public Animal
 {
@@ -19,7 +19,7 @@ class Lion : public Animal
 public:
 	enum eManeColor { WHITE, BROWN, YELLOW, RED, ORANGE };
 
-	Lion(const char *name, float weight, int birthYear, eManeColor maneColor, eAnimalClass animalClass);
+	Lion(const string& name, float weight, int birthYear, eManeColor maneColor, eAnimalClass animalClass);
     
     Lion(const Lion& lion) = delete;
 
@@ -29,7 +29,7 @@ public:
     
 	virtual void toOs(ostream& os) const override;
 
-	virtual const char* getClassName() const override ;
+	virtual const string& getClassName() const override ;
 
 private:
 	eManeColor maneColor;

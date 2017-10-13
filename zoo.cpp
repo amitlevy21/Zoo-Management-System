@@ -7,20 +7,15 @@
 
 Zoo* Zoo::theZoo;
 
-Zoo::Zoo(const char *name, int maxNumOfAreas, Area& quarantineArea): quarantineArea(quarantineArea)
+Zoo::Zoo(const string& name, int maxNumOfAreas, Area& quarantineArea): quarantineArea(quarantineArea)
 {
     setName(name);
     setMaxNumOfAreas(maxNumOfAreas);
 
-    areas = new Area*[maxNumOfAreas];
+    areas.reserve(maxNumOfAreas);
 }
 
-Zoo::~Zoo()
-{
-    delete[](name);
-}
-
-const char *Zoo::getName() const
+const string& Zoo::getName() const
 {
     return name;
 }
@@ -40,16 +35,16 @@ const Area &Zoo::getQuarantineAreaArea() const
     return quarantineArea;
 }
 
-void Zoo::addArea(Area &area) throw(const char*)
+void Zoo::addArea(Area &area) throw(const string&)
 {
     if(findAreaIndex(area) != -1)
     {
         throw "Area already exists in the zoo";
     }
-    areas[numOfAreas++] = &area;
+    areas.push_back(&area);
 }
 
-void Zoo::addAnimal(Animal& animal, Area& area) throw(const char*)
+void Zoo::addAnimal(Animal& animal, Area& area) throw(const string&)
 {
     int areaIndex = findAreaIndex(area);
 
@@ -58,10 +53,12 @@ void Zoo::addAnimal(Animal& animal, Area& area) throw(const char*)
         throw "Tried to add animal to an Area that was not added to zoo";
     }
 
-    areas[areaIndex]->addAnimal(animal);
+    vector<Area*>::iterator itr = areas.begin();
+    itr += areaIndex;
+    (*itr)->addAnimal(animal);
 }
 
-void Zoo::addWorker(Worker& worker, Area& area) throw(const char*)
+void Zoo::addWorker(Worker& worker, Area& area) throw(const string&)
 {
     int areaIndex = findAreaIndex(area);
 
@@ -73,17 +70,17 @@ void Zoo::addWorker(Worker& worker, Area& area) throw(const char*)
     areas[areaIndex]->addWorker(worker);
 }
 
-const Area ** Zoo::getAllAreas() const
-{
-    return (const Area**)areas;
-}
-
-Area** Zoo::getAllAreas()
+const vector<Area*> Zoo::getAllAreas() const
 {
     return areas;
 }
 
-void Zoo::setMaxNumOfAreas(int maxNumOfAreas) throw(const char*)
+vector<Area*> Zoo::getAllAreas()
+{
+    return areas;
+}
+
+void Zoo::setMaxNumOfAreas(int maxNumOfAreas) throw(const string&)
 {
     if(maxNumOfAreas <= 0)
     {
@@ -93,19 +90,14 @@ void Zoo::setMaxNumOfAreas(int maxNumOfAreas) throw(const char*)
     this->maxNumOfAreas = maxNumOfAreas;
 }
 
-void Zoo::setName(const char *name) throw(const char*)
+void Zoo::setName(const string& name) throw(const string&)
 {
-    if(!name)
-    {
-        throw "ERROR: Zoo's name is pointing to NULL";
-    }
-
-    if(strcmp(name,"") == 0)
+    if(name == "")
     {
         throw "ERROR: Zoo's name cannot be empty";
     }
 
-    this->name = strdup(name);
+    this->name = name;
 }
 
 const Zoo &Zoo::operator+=(Area &area)
@@ -114,19 +106,21 @@ const Zoo &Zoo::operator+=(Area &area)
     return *this;
 }
 
-const Area &Zoo::operator[](int index) const throw(const char*)
+const Area& Zoo::operator[](int index) const throw(const string&)
 {
     if(index < 0 || index > numOfAreas)
     {
         throw "ERROR: index out of bound in Zoo::areas array";
     }
 
-    return *areas[index];
+    vector<Area*>::const_iterator itr = areas.begin();
+    itr += index;
+    return *(*itr);
 }
 
 ostream& operator<<(ostream& os, const Zoo& zoo)
 {
-    os << "Zoo name: " << zoo.getName() << ", area capacity: " << zoo.getMaxNumOfAreas() <<", number of areas: " << zoo.getNumOfAreas() << endl;
+    os << "Zoo name: " << zoo.getName().c_str() << ", area capacity: " << zoo.getMaxNumOfAreas() <<", number of areas: " << zoo.getNumOfAreas() << endl;
     os << "Areas: " << endl;
     os << "-----------------" << endl;
     for (int i = 0; i < zoo.getNumOfAreas(); i++)
@@ -139,9 +133,12 @@ ostream& operator<<(ostream& os, const Zoo& zoo)
 
 int Zoo::findAreaIndex(const Area &area) const
 {
-    for (int i = 0; i < numOfAreas; i++)
+    vector<Area*>::const_iterator itr = areas.begin();
+    vector<Area*>::const_iterator itrEnd = areas.begin();
+
+    for (int i = 0; itr != itrEnd; ++itr, ++i)
     {
-        if(*areas[i] == area)
+        if(*(*itr) == area)
         {
             return i;
         }
@@ -150,7 +147,7 @@ int Zoo::findAreaIndex(const Area &area) const
     return -1;
 }
 
-Zoo *Zoo::getInstance(const char *name, int maxNumOfAreas, Area& quarantineArea)
+Zoo *Zoo::getInstance(const string& name, int maxNumOfAreas, Area& quarantineArea)
 {
     if(!theZoo)
     {

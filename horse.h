@@ -17,10 +17,10 @@ class Horse : virtual public Animal
 private:
     float sizeOfHorseShoe;
 
-	void setSizeOfHorseShoe(float sizeOfHorseShoe) throw (const char*);
+	void setSizeOfHorseShoe(float sizeOfHorseShoe) throw (const string&);
     
 public:
-	Horse(const char *name, float weight, int birthYear, float sizeOfHorseShoe, eAnimalClass animalClass);
+	Horse(const string& name, float weight, int birthYear, float sizeOfHorseShoe, eAnimalClass animalClass);
 
     Horse(const Horse& horse) = delete;
     const Horse& operator=(const Horse& horse) = delete;
@@ -29,7 +29,7 @@ public:
     
 	virtual void toOs(ostream& os) const override;
 
-	virtual const char* getClassName() const override ;
+	virtual const string& getClassName() const override ;
 };
 
 

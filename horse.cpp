@@ -4,7 +4,7 @@
 
 #include "horse.h"
 
-void Horse::setSizeOfHorseShoe(float sizeOfHorseShoe) throw(const char*)
+void Horse::setSizeOfHorseShoe(float sizeOfHorseShoe) throw(const string&)
 {
     if(sizeOfHorseShoe <= 0)
         throw "Size of horse shoe must be a non negetive non zero number";
@@ -12,7 +12,7 @@ void Horse::setSizeOfHorseShoe(float sizeOfHorseShoe) throw(const char*)
     this->sizeOfHorseShoe = sizeOfHorseShoe;
 }
 
-Horse::Horse(const char *name, float weight, int birthYear, float sizeOfHorseShoe, eAnimalClass animalClass)
+Horse::Horse(const string& name, float weight, int birthYear, float sizeOfHorseShoe, eAnimalClass animalClass)
         :Animal(name, weight, birthYear, animalClass)
 {
     setSizeOfHorseShoe(sizeOfHorseShoe);
@@ -28,7 +28,7 @@ void Horse::toOs(ostream &os) const
     os << ", size of horse shoe: " << sizeOfHorseShoe;
 }
 
-const char *Horse::getClassName() const
+const string& Horse::getClassName() const
 {
     return "Horse";
 }

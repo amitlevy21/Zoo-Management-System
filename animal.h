@@ -15,18 +15,15 @@ using namespace std;
 
 class Area;
 
-static const char* animalClasses[] = {"LAND", "MARINE", "AMPHIBIAN"};
+static const string animalClasses[] = {"LAND", "MARINE", "AMPHIBIAN"};
 
 class Animal
 {
 public:
 
-
 	enum class eAnimalClass{LAND, MARINE, AMPHIBIAN};
 
-	Animal(const char *name, float weight, int birthYear, eAnimalClass animalClass);
-
-	virtual ~Animal();
+	Animal(const string& name, float weight, int birthYear, eAnimalClass animalClass);
 
 	Animal(const Animal& animal) = delete;
 
@@ -34,7 +31,7 @@ public:
 
 	bool operator==(const Animal& other);
 
-	virtual inline const char* getName() 	const;
+	virtual inline const string& getName() 	const;
 
 	virtual inline float getWeight() 		const;
 
@@ -48,18 +45,18 @@ public:
 
 	friend ostream& operator<<(ostream& os, const Animal& animal);
 
-	virtual const char* getClassName() const = 0;
+	virtual const string& getClassName() const = 0;
 
 private:
-	char* name;
+	string name;
 	float weight;
 	int birthYear;
 	Area* area;
 	eAnimalClass animalClass;
 
-	void setName(const char* name) 		throw (const char*);
-	void setWeight(float weight) 		throw (const char*);
-	void setBirthYear(int birthYear) 	throw (const char*);
+	void setName(const string& name) 		throw (const string&);
+	void setWeight(float weight) 			throw (const string&);
+	void setBirthYear(int birthYear) 		throw (const string&);
 };
 
 #endif /* __ANIMAL_H */

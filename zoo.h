@@ -12,6 +12,7 @@
 #include "worker.h"
 #include "animal.h"
 #include "area.h"
+#include <vector>
 
 
 using namespace std;
@@ -19,28 +20,28 @@ using namespace std;
 class Zoo
 {
 private:
-    char* name;
+	string name;
     int maxNumOfAreas;
     int numOfAreas =0;
-    Area** areas;
+    vector<Area*> areas;
 	Area& quarantineArea;
 
-	void setMaxNumOfAreas(int maxNumOfAreas) throw (const char*);
-	void setName(const char* name) throw(const char*);
+	void setMaxNumOfAreas(int maxNumOfAreas) throw (const string&);
+	void setName(const string& name) throw(const string&);
 
 
-	Zoo(const char* name, int maxNumOfAreas, Area& quarantineArea);
+	Zoo(const string& name, int maxNumOfAreas, Area& quarantineArea);
 	static Zoo* theZoo;
 
 public:
 
-	static Zoo* getInstance(const char *name, int maxNumOfAreas, Area& quarantineArea);
+	static Zoo* getInstance(const string& name, int maxNumOfAreas, Area& quarantineArea);
     ~Zoo();
 
 	Zoo(const Zoo& other) = delete;
 	const Zoo& operator=(const Zoo& zoo) = delete;
     
-    const char* getName() const;
+    const string& getName() const;
     
     int getMaxNumOfAreas() const;
 
@@ -48,19 +49,19 @@ public:
 	
 	const Area& getQuarantineAreaArea() const;
     
-	void addArea(Area& area)  throw (const char *);
+	void addArea(Area& area)  throw (const string&);
     
-	void addAnimal(Animal& animal, Area& area)  throw (const char*);
+	void addAnimal(Animal& animal, Area& area)  throw (const string&);
     
-	void addWorker(Worker& worker, Area& area)  throw (const char*);
+	void addWorker(Worker& worker, Area& area)  throw (const string&);
     
-    const Area ** getAllAreas() const;
+    const vector<Area*> getAllAreas() const;
 
-	Area** getAllAreas();
+	vector<Area*> getAllAreas();
     
     const Zoo& operator+=(Area& area);
     
-    const Area& operator[](int index) const throw(const char*);
+    const Area& operator[](int index) const throw(const string&);
 
 	int findAreaIndex(const Area &area) const;
     

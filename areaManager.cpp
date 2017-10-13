@@ -4,13 +4,13 @@
 
 #include "areaManager.h"
 
-AreaManager::AreaManager(const char *name, int salary, int yearsOfExperience, Area *area) : Worker(name, salary,
+AreaManager::AreaManager(const string& name, int salary, int yearsOfExperience, Area *area) : Worker(name, salary,
                                                                                                    area)
 {
     setYearsOfExperience(yearsOfExperience);
 }
 
-void AreaManager::setYearsOfExperience(int yearsOfExperience) throw(const char*)
+void AreaManager::setYearsOfExperience(int yearsOfExperience) throw(const string&)
 {
     if(yearsOfExperience < 0 )
     {
@@ -29,7 +29,7 @@ void AreaManager::toOs(ostream &os) const
     os << "years of Experience: " << yearsOfExperience;
 }
 
-const char *AreaManager::getWorkerType() const
+const string& AreaManager::getWorkerType() const
 {
     return "AreaManager";
 }

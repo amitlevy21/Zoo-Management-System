@@ -4,7 +4,7 @@
 
 #include "penguin.h"
 
-Penguin::Penguin(const char *name, float weight, int birthYear, eSeaFood favoriteFood, eAnimalClass animalClass)
+Penguin::Penguin(const string& name, float weight, int birthYear, eSeaFood favoriteFood, eAnimalClass animalClass)
         :Animal(name, weight, birthYear, animalClass)
 {
     setFavoriteFood(favoriteFood);
@@ -25,10 +25,10 @@ void Penguin::setFavoriteFood(eSeaFood favoriteFood)
 
 void Penguin::toOs(ostream &os) const
 {
-    os << ", favorite food: " << seaFood[favoriteFood];
+    os << ", favorite food: " << seaFood[favoriteFood].c_str();
 }
 
-const char *Penguin::getClassName() const {
+const string& Penguin::getClassName() const {
     return "Penguin";
 }
 

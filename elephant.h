@@ -19,11 +19,11 @@ private:
     float sizeOfEars;
     float lengthOfTrunk;
 
-	void setSizeOfEars(float sizeOfEars) throw (const char*);
-	void setLengthOfTrunk(float lengthOfTrunk) throw (const char*);
+	void setSizeOfEars(float sizeOfEars) 		throw (const string&);
+	void setLengthOfTrunk(float lengthOfTrunk) 	throw (const string&);
     
 public:
-	Elephant(const char *name, float weight, int birthYear, float sizeOfEars, float lengthOfTrunk,
+	Elephant(const string& name, float weight, int birthYear, float sizeOfEars, float lengthOfTrunk,
                  eAnimalClass animalClass);
     
     Elephant(const Elephant& elephant) = delete;
@@ -36,7 +36,7 @@ public:
     
 	virtual void toOs(ostream& os) const override;
 
-	virtual const char* getClassName() const override ;
+	virtual const string& getClassName() const override ;
  
 };
 

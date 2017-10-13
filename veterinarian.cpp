@@ -4,13 +4,13 @@
 
 #include "veterinarian.h"
 
-Veterinarian::Veterinarian(const char *name, int salary, int licenseNumber, Area *area)
+Veterinarian::Veterinarian(const string& name, int salary, int licenseNumber, Area *area)
         : Worker(name, salary, area)
 {
     setLicenseNumber(licenseNumber);
 }
 
-void Veterinarian::setLicenseNumber(int licenseNumber) throw(const char*)
+void Veterinarian::setLicenseNumber(int licenseNumber) throw(const string&)
 {
     if(licenseNumber < 0)
     {
@@ -29,7 +29,7 @@ void Veterinarian::toOs(ostream &os) const
     os << "Veterinarian details:" << endl << "License Number: " << licenseNumber;
 }
 
-const char *Veterinarian::getWorkerType() const
+const string& Veterinarian::getWorkerType() const
 {
     return "Veterinarian";
 }

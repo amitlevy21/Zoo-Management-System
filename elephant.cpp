@@ -4,7 +4,7 @@
 
 #include "elephant.h"
 
-void Elephant::setSizeOfEars(float sizeOfEars) throw(const char*)
+void Elephant::setSizeOfEars(float sizeOfEars) throw(const string&)
 {
     if(sizeOfEars <= 0)
         throw "Ear size must be non negative non zero number";
@@ -12,7 +12,7 @@ void Elephant::setSizeOfEars(float sizeOfEars) throw(const char*)
     this->sizeOfEars = sizeOfEars;
 }
 
-void Elephant::setLengthOfTrunk(float lengthOfTrunk) throw(const char*)
+void Elephant::setLengthOfTrunk(float lengthOfTrunk) throw(const string&)
 {
     if(lengthOfTrunk <= 0)
         throw "Length of trunk must be a non negative non zero number";
@@ -20,7 +20,7 @@ void Elephant::setLengthOfTrunk(float lengthOfTrunk) throw(const char*)
     this->lengthOfTrunk = lengthOfTrunk;
 }
 
-Elephant::Elephant(const char *name, float weight, int birthYear, float sizeOfEars, float lengthOfTrunk,
+Elephant::Elephant(const string& name, float weight, int birthYear, float sizeOfEars, float lengthOfTrunk,
                    eAnimalClass animalClass)
         :Animal(name, weight, birthYear, animalClass)
 {
@@ -43,7 +43,7 @@ void Elephant::toOs(ostream &os) const
     os << ", size of ears: " << sizeOfEars << ", length of trunk: " << lengthOfTrunk;
 }
 
-const char *Elephant::getClassName() const
+const string& Elephant::getClassName() const
 {
     return "Elephant";
 }

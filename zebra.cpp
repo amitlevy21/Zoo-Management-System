@@ -4,13 +4,13 @@
 
 #include "zebra.h"
 
-void Zebra::setNumOfStripes(int numOfStripes) throw(const char*)
+void Zebra::setNumOfStripes(int numOfStripes) throw(const string&)
 {
     if(numOfStripes < 0)
         throw "Number of stripes cannot be a negetive number";
 }
 
-Zebra::Zebra(const char *name, float weight, int birthYear, int numOfStripes, eAnimalClass animalClass)
+Zebra::Zebra(const string& name, float weight, int birthYear, int numOfStripes, eAnimalClass animalClass)
         :Animal(name, weight, birthYear, animalClass)
 {
     setNumOfStripes(numOfStripes);
@@ -26,7 +26,7 @@ void Zebra::toOs(ostream &os) const
     os << ", number of stripes: " << numOfStripes;
 }
 
-const char *Zebra::getClassName() const
+const string& Zebra::getClassName() const
 {
     return "Zebra";
 }

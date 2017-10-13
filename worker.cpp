@@ -13,7 +13,7 @@ long Worker::idGenerator = 100000000;
 //The order of methods called in the init line was change on purpose, setName is called last because of the name allocation.
 //that way we don't need to worry that if an exception occurs, the destructor is not called.
 
-Worker::Worker(const char *name, int salary, Area *area)
+Worker::Worker(const string& name, int salary, Area *area)
 {
     generateID();
     setSalary(salary);
@@ -21,12 +21,7 @@ Worker::Worker(const char *name, int salary, Area *area)
     setArea(*area);
 }
 
-Worker::~Worker()
-{
-    delete[](name);
-}
-
-inline const char *Worker::getName() const
+inline const string& Worker::getName() const
 {
     return name;
 }
@@ -41,7 +36,7 @@ int Worker::getSalary() const
     return salary;
 }
 
-void Worker::setSalary(int salary) throw(const char*)
+void Worker::setSalary(int salary) throw(const string&)
 {
     if(salary < 0)
     {
@@ -70,7 +65,7 @@ void Worker::setArea(Area &area)
 
 ostream& operator<<(ostream& os, const Worker& worker)
 {
-    os << "name: " << worker.getName() << ", ID: " << worker.getIdNumber() << ", salary: " << worker.getSalary() << ", area: " << worker.getArea().getName() << endl;
+    os << "name: " << worker.getName().c_str() << ", ID: " << worker.getIdNumber() << ", salary: " << worker.getSalary() << ", area: " << worker.getArea().getName() << endl;
 
     worker.toOs(os);
 
@@ -78,18 +73,13 @@ ostream& operator<<(ostream& os, const Worker& worker)
 }
 
 
-void Worker::setName(const char *name) throw(const char*)
+void Worker::setName(const string& name) throw(const char*)
 {
-    if(!name)
-    {
-        throw "ERROR: worker's name is pointing to NULL";
-    }
-
-    if(strcmp(name,"") == 0)
+    if(name == "")
     {
         throw "ERROR: worker's name cannot be empty";
     }
-    this->name = strdup(name);
+    this->name = name;
 }
 
 bool Worker::operator==(const Worker &other)

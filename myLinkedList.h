@@ -23,7 +23,6 @@ private:
 
         Node(T data, Node* next = nullptr): data(data), next(next) {}
 
-        //~Node() {delete next;}
     };
 
     int size;
@@ -48,6 +47,10 @@ public:
     const Node* getNext(Node* p)  const;
 
     const T& getData(Node* p)     const;
+
+    bool isEmpty()                const;
+
+    bool exists(T data)           const;
 
     const T& operator[](int index) const throw(const char*);
 };
@@ -163,8 +166,15 @@ void MyLinkedList<T>::printList(ostream &os) const
 template <class T>
 MyLinkedList<T>::~MyLinkedList()
 {
-    delete head;
-    delete tail;
+    Node* p1 = head;
+    while(p1)
+    {
+        Node* p2 = p1->next;
+        delete p1;
+        p1 = p2;
+    }
+
+
 }
 
 template <class T>
@@ -190,6 +200,26 @@ const T& MyLinkedList<T>::operator[](int index) const throw(const char*)
         }
         return p->data;
     }
+}
+
+template <class T>
+bool MyLinkedList<T>::isEmpty() const
+{
+    return size == 0;
+}
+
+template <class T>
+bool MyLinkedList<T>::exists(T data) const
+{
+    Node* p = head;
+    for (int i = 0; i < size; ++i)
+    {
+        if(data == p->data)
+            return true;
+
+        p = p->next;
+    }
+    return false;
 }
 
 

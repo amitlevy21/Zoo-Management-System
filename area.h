@@ -10,45 +10,44 @@
 #define __AREA_H
 
 #include <iostream>
-
-//class Animal;
-class Worker;
-class AreaManager;
-
-//#include "AnimalClassify.h"
 #include "animal.h"
 #include "observerInterface.h"
+#include "myLinkedList.h"
+#include <vector>
+
+class Worker;
+class AreaManager;
 
 using namespace std;
 
 class Area
 {
 private:
-    char *name;
+	string name;
     int numOfAnimals = 0;
     int maxNumberOfAnimals;
     int numOfWorkers = 0;
     int maxNumberOfWorkers;
 	AreaManager* areaManager;
-	Animal** animals;
-	Worker** workers;
+	MyLinkedList<Animal*> animals;
+	vector<Worker*> workers;
 	Animal::eAnimalClass habitat;
 
 	const int MAX_NUM_OF_OBSERVERS = 15;
 	Observer** observers = new Observer*[MAX_NUM_OF_OBSERVERS];
 	int numOfObservers = 0;
 
-	void setMaxNumberOfAnimals(int maxNumberOfAnimals) throw (const char*);
-	void setMaxNumberOfWorkers(int maxNumberOfWorkers) throw (const char*);
+	void setMaxNumberOfAnimals(int maxNumberOfAnimals) throw (const string&);
+	void setMaxNumberOfWorkers(int maxNumberOfWorkers) throw (const string&);
     
 public:
-	Area(const char *name, int maxNumberOfAnimals, int maxNumberOfWorkers, Animal::eAnimalClass habitat, AreaManager* areaManager = nullptr);
+	Area(const string& name, int maxNumberOfAnimals, int maxNumberOfWorkers, Animal::eAnimalClass habitat, AreaManager* areaManager = nullptr);
     ~Area();
     
     Area(const Area& area) = delete;
     const Area& operator=(const Area& area) = delete;
     
-     const char* getName() const;
+     const string& getName() const;
     
      int getNumOfAnimals() const;
      int getMaxNumberOfAnimals() const;
@@ -63,14 +62,14 @@ public:
      const AreaManager& getAreaManager() const;
     void setAreaManager(AreaManager& areaManager);
 
-	void setAreaName(const char* name);
+	void setAreaName(const string& name);
     
 	void addAnimal(Animal& animal) throw (const char*);
     
 	void addWorker(Worker& worker) throw (const char*);
     
-    const Animal** getAllAnimals() const;
-    const Worker** getAllworkers() const;
+    const MyLinkedList<Animal*>& getAllAnimals() const;
+    const vector<Worker*> getAllworkers() const;
     
     const Area& operator+=(Animal& animal);
 
@@ -85,8 +84,6 @@ public:
     void registerObserver(Observer* obs);
 
 	virtual void notifyAllObservers(Animal &animalAdded);
-
-
 };
 
 

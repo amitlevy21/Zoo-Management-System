@@ -16,14 +16,14 @@ class Zebroid : public Horse, public Zebra
 {
     
 public:
-	Zebroid(const char *name, float weight, int birthYear, int numOfStripes, float sizeOfHorseShoe,
+	Zebroid(const string& name, float weight, int birthYear, int numOfStripes, float sizeOfHorseShoe,
                 eAnimalClass animalClass);
 
     Zebroid(const Zebroid& zebroid) = delete;
 
     const Zebroid& operator=(const Zebroid& zebroid) = delete;
     
-	virtual inline const char* getName()    const override;
+	virtual inline const string& getName()    const override;
 
 	virtual inline float getWeight()        const override;
 
@@ -31,7 +31,7 @@ public:
 
 	virtual void toOs(ostream& os)          const override;
 
-	virtual const char* getClassName() const override;
+	virtual const string& getClassName() const override;
     
 };
 

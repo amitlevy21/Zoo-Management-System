@@ -11,7 +11,7 @@
 
 #include "animal.h"
 
-static const char* seaFood[] = {"SHRIMP", "CRAB", "FISH", "CALAMARI"};//Addition
+static const string& seaFood[] = {"SHRIMP", "CRAB", "FISH", "CALAMARI"};//Addition
 
 class Penguin : public Animal
 {
@@ -19,7 +19,7 @@ class Penguin : public Animal
 public:
 	enum eSeaFood { SHRIMP, CRAB, FISH, CALAMARI };
 
-	Penguin(const char *name, float weight, int birthYear, eSeaFood favoriteFood, eAnimalClass animalClass);
+	Penguin(const string& name, float weight, int birthYear, eSeaFood favoriteFood, eAnimalClass animalClass);
     
     Penguin(const Penguin& penguin) = delete;
 
@@ -31,7 +31,7 @@ public:
     
 	virtual void toOs(ostream& os) const override;
 
-	virtual const char* getClassName() const override ;
+	virtual const string& getClassName() const override ;
 private:
 	eSeaFood favoriteFood;
 };

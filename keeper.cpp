@@ -5,7 +5,7 @@
 #include "keeper.h"
 #include <string.h>
 
-Keeper::Keeper(const char *name, int salary, eAnimalSpeciality keeperSpecialty, Area *area) :
+Keeper::Keeper(const string& name, int salary, eAnimalSpeciality keeperSpecialty, Area *area) :
         Worker(name, salary, area), keeperSpecialty(keeperSpecialty)
 {
 }
@@ -17,10 +17,10 @@ Keeper::eAnimalSpeciality Keeper::getKeeperSpecialty() const
 
 void Keeper::toOs(ostream &os) const
 {
-    os << "Keeper Details:\nKeeper Specialty: " << eAnimalString[keeperSpecialty] << "\nNumber of animals he's responsible of " << numOfAnimalsToTakeCare;
+    os << "Keeper Details:"<<endl<<"Keeper Specialty: " << eAnimalString[keeperSpecialty] <<endl<< "Number of animals he's responsible of " << numOfAnimalsToTakeCare;
 }
 
-const char *Keeper::getWorkerType() const
+const string& Keeper::getWorkerType() const
 {
     return "Keeper";
 }
@@ -32,7 +32,7 @@ int Keeper::getNumOfAnimalsToTakeCare() const
 
 void Keeper::notify(Animal &animalAdded)
 {
-    if(strcmp(animalAdded.getClassName(), eAnimalString[keeperSpecialty]) == 0)
+    if(animalAdded.getClassName() == eAnimalString[keeperSpecialty])
     {
         numOfAnimalsToTakeCare++;
     }

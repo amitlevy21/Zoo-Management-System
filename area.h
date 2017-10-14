@@ -64,12 +64,12 @@ public:
 
 	void setAreaName(const string& name);
     
-	void addAnimal(Animal& animal) throw (const char*);
+	void addAnimal(Animal& animal) throw (const string&);
     
-	void addWorker(Worker& worker) throw (const char*);
+	void addWorker(Worker& worker) throw (const string&);
     
     const MyLinkedList<Animal*>& getAllAnimals() const;
-    const vector<Worker*> getAllworkers() const;
+    const vector<Worker*> getAllWorkers() const;
     
     const Area& operator+=(Animal& animal);
 

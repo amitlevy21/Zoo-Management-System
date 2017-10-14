@@ -42,6 +42,7 @@ void Zoo::addArea(Area &area) throw(const string&)
         throw "Area already exists in the zoo";
     }
     areas.push_back(&area);
+    numOfAreas++;
 }
 
 void Zoo::addAnimal(Animal& animal, Area& area) throw(const string&)
@@ -53,9 +54,7 @@ void Zoo::addAnimal(Animal& animal, Area& area) throw(const string&)
         throw "Tried to add animal to an Area that was not added to zoo";
     }
 
-    vector<Area*>::iterator itr = areas.begin();
-    itr += areaIndex;
-    (*itr)->addAnimal(animal);
+    areas[areaIndex]->addAnimal(animal);
 }
 
 void Zoo::addWorker(Worker& worker, Area& area) throw(const string&)
@@ -133,12 +132,9 @@ ostream& operator<<(ostream& os, const Zoo& zoo)
 
 int Zoo::findAreaIndex(const Area &area) const
 {
-    vector<Area*>::const_iterator itr = areas.begin();
-    vector<Area*>::const_iterator itrEnd = areas.begin();
-
-    for (int i = 0; itr != itrEnd; ++itr, ++i)
+    for (int i = 0; i < numOfAreas; ++i)
     {
-        if(*(*itr) == area)
+        if(*areas[i] == area)
         {
             return i;
         }

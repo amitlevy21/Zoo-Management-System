@@ -23,7 +23,7 @@ public:
     const MaintenanceWorker& operator=(const MaintenanceWorker& maintenanceWorker) = delete;
 
 	float getShoeSize() const;
-	void setShoeSize(float shoeSize) throw (const char*);
+	void setShoeSize(float shoeSize) throw (const string&);
 
 	virtual void toOs(ostream& os) const override;
 

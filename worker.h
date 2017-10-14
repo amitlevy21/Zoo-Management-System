@@ -31,7 +31,6 @@ private:
 
 public:
 	Worker(const string& name, int salary, Area *area = nullptr);
-    virtual ~Worker();
     
     Worker(const Worker& worker) = delete;
     const Worker& operator=(const Worker& worker) = delete;

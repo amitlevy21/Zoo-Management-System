@@ -79,7 +79,7 @@ void Area::setAreaManager(AreaManager& areaManager)
     }
 }
 
-void Area::addAnimal(Animal& animal) throw(const char*)
+void Area::addAnimal(Animal& animal) throw(const string&)
 {
     for (int i = 0; i < numOfAnimals; i++)
         if(animals.exists(&animal))
@@ -89,23 +89,22 @@ void Area::addAnimal(Animal& animal) throw(const char*)
         throw "zoo animal capacity has been reached.";
 
     animals.addNodeToBackOfList(&animal);
+    numOfAnimals++;
     animal.setArea(*this);
     notifyAllObservers(animal);
 }
 
 void Area::addWorker(Worker& worker) throw(const string&)
 {
-    vector<Worker*>::iterator itr = workers.begin();
-    vector<Worker*>::iterator itrEnd = workers.end();
-
-    for (; itr != itrEnd; ++itr)
-        if(*(*itr) == worker)
+    for (int i = 0; i < numOfWorkers; ++i)
+        if(*workers[i] == worker)
             return;
 
     if(numOfWorkers >= maxNumberOfWorkers)
         throw "zoo worker capacity has been reached.";
 
     workers.push_back(&worker);
+    numOfWorkers++;
     worker.setArea(*this);
 
     Keeper* keeper = dynamic_cast<Keeper*>(&worker);
@@ -118,7 +117,7 @@ const MyLinkedList<Animal*>& Area::getAllAnimals() const
     return animals;
 }
 
-const vector<Worker*> Area::getAllworkers() const
+const vector<Worker*> Area::getAllWorkers() const
 {
     return workers;
 }
@@ -143,7 +142,7 @@ bool Area::operator>(const Area& other) const
 
 bool Area::operator==(const Area& other) const
 {
-    return strcmp(getName(), other.getName()) == 0;
+    return name == other.getName();
 }
 
 ostream &operator<<(ostream &os, const Area& area)
@@ -172,11 +171,9 @@ ostream &operator<<(ostream &os, const Area& area)
 
     if(area.numOfWorkers > 0)
     {
-        vector<Worker*>::iterator itr = workers.begin();
-        vector<Worker*>::iterator itrEnd = workers.end();
-        for (int i = 0; itr != itrEnd; ++itr, ++i)
+        for (int i = 0; i < area.getNumOfWorkers(); ++i)
         {
-            os << i + 1 << ") " << *(*itr) << endl;
+            os << i + 1 << ") " << *area.getAllWorkers()[i] << endl;
         }
     }
     else

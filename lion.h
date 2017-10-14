@@ -11,7 +11,7 @@
 
 #include "animal.h"
 
-static const string& maneColors[] = {"WHITE", "BROWN", "YELLOW", "RED", "ORANGE"};
+static const string maneColors[] = {"WHITE", "BROWN", "YELLOW", "RED", "ORANGE"};
 
 class Lion : public Animal
 {

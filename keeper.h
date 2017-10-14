@@ -13,7 +13,7 @@
 #include "animal.h"
 #include "observerInterface.h"
 
-static const string& eAnimalString[] = {"Lion" , "Penguin", "Elephant", "Giraffe", "Zebra", "Horse", "Zebroid"};
+static const string eAnimalString[] = {"Lion" , "Penguin", "Elephant", "Giraffe", "Zebra", "Horse", "Zebroid"};
 
 class Keeper : public Worker, public Observer
 {

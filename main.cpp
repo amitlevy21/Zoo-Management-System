@@ -19,30 +19,30 @@ int main()
         ZooManager zooManager(*myZoo);
 
         int numOfManagers = 3;
-        AreaManager** managers = zooManager.createAreaManagers(numOfManagers);
+        vector<AreaManager*> managers = zooManager.createAreaManagers(numOfManagers);
 
         int numOfAreas = 3;
-        Area** areas = zooManager.createAllAreas(numOfAreas, managers, numOfManagers);
+        vector<Area*> areas = zooManager.createAllAreas(numOfAreas, managers, numOfManagers);
 
         // add all areas
         zooManager.addAreasToZoo(areas, numOfAreas);
 
         int numOfKeepers = 3;
-        Keeper** keepers = zooManager.createAllKeepers(numOfKeepers);
+        vector<Keeper*> keepers = zooManager.createAllKeepers(numOfKeepers);
 
         // add all the keepers
         zooManager.addKeepersToZoo(keepers, numOfKeepers);
 
         int numOfAnimals = 4;
 
-        Animal** animals = zooManager.createAnimals(numOfAnimals);
+        vector<Animal*> animals = zooManager.createAnimals(numOfAnimals);
 
         // add animals
         zooManager.addAllAnimalsToZoo(animals, numOfAnimals);
 
 
         int numOfVeterinarian = 3;
-        Veterinarian** vets = zooManager.createAllVeterinarian(numOfVeterinarian);
+        vector<Veterinarian*> vets = zooManager.createAllVeterinarian(numOfVeterinarian);
 
         // add all vets
         zooManager.addAllVeterinarianToZoo(vets, numOfVeterinarian);

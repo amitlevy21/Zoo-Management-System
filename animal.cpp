@@ -18,7 +18,7 @@ void Animal::setName(const string& name) throw(const string&)
     this->name = name;
 }
 
-void Animal::setWeight(float weight) throw(const char*)
+void Animal::setWeight(float weight) throw(const string&)
 {
     if(weight <= 0)
         throw "weight cannot be zero or negative";
@@ -26,7 +26,7 @@ void Animal::setWeight(float weight) throw(const char*)
     this->weight = weight;
 }
 
-void Animal::setBirthYear(int birthYear) throw(const char*)
+void Animal::setBirthYear(int birthYear) throw(const string&)
 {
     const int NINETEENTH_CENTURY = 1800;
     if(birthYear < NINETEENTH_CENTURY)

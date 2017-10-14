@@ -9,6 +9,7 @@
 #include "zoo.h"
 #include "keeper.h"
 #include "veterinarian.h"
+#include <vector>
 
 
 //facade class
@@ -21,23 +22,23 @@ private:
 public:
     ZooManager(Zoo& myZoo);
 
-    AreaManager** createAreaManagers(int numOfManagers);
+    vector<AreaManager*> createAreaManagers(int numOfManagers);
 
-    Keeper** createAllKeepers(int numOfKeepers);
+    vector<Keeper*> createAllKeepers(int numOfKeepers);
 
-    Veterinarian** createAllVeterinarian(int numOfVeterinarian);
+    vector<Veterinarian*> createAllVeterinarian(int numOfVeterinarian);
 
-    Area** createAllAreas(int numOfAreas, AreaManager** managers, int numOfManagers);
+    vector<Area*> createAllAreas(int numOfAreas, vector<AreaManager*> managers, int numOfManagers);
 
-    Animal** createAnimals(int numOfAnimals);
+    vector<Animal*> createAnimals(int numOfAnimals);
 
-    void addAreasToZoo(Area** areas, int numOfAreas);
+    void addAreasToZoo(vector<Area*> areas, int numOfAreas);
 
-    void addAllAnimalsToZoo(Animal** animals, int numOfAnimals);
+    void addAllAnimalsToZoo(vector<Animal*> animals, int numOfAnimals);
 
-    void addKeepersToZoo(Keeper** keepers, int numOfKeepers);
+    void addKeepersToZoo(vector<Keeper*> keepers, int numOfKeepers);
 
-    void addAllVeterinarianToZoo(Veterinarian**vets, int numOfVeterinarian);
+    void addAllVeterinarianToZoo(vector<Veterinarian*> vets, int numOfVeterinarian);
 
 
 

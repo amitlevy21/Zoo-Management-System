@@ -73,7 +73,7 @@ ostream& operator<<(ostream& os, const Worker& worker)
 }
 
 
-void Worker::setName(const string& name) throw(const char*)
+void Worker::setName(const string& name) throw(const string&)
 {
     if(name == "")
     {

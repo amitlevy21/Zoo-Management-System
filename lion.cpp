@@ -1,7 +1,3 @@
-//
-// Created by Moshe Sheena on 06/10/2017.
-//
-
 #include "lion.h"
 
 Lion::Lion(const string& name, float weight, int birthYear, eManeColor maneColor, eAnimalClass animalClass)

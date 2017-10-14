@@ -1,11 +1,3 @@
-//
-//  Zoo.h
-//  Zoo_Management_System
-//
-//  Created by Almog Segal on 18/08/2017.
-//  Copyright © 2017 Almog Segal. All rights reserved.
-//
-
 #ifndef __ZOO_H
 #define __ZOO_H
 
@@ -13,8 +5,6 @@
 #include "animal.h"
 #include "area.h"
 #include <vector>
-
-
 using namespace std;
 
 class Zoo
@@ -22,12 +12,11 @@ class Zoo
 private:
 	string name;
     int maxNumOfAreas;
-    int numOfAreas =0;
     vector<Area*> areas;
 	Area& quarantineArea;
 
-	void setMaxNumOfAreas(int maxNumOfAreas) throw (const string&);
-	void setName(const string& name) throw(const string&);
+	void setMaxNumOfAreas(int maxNumOfAreas) 	throw (const string&);
+	void setName(const string& name) 			throw(const string&);
 
 
 	Zoo(const string& name, int maxNumOfAreas, Area& quarantineArea);
@@ -47,7 +36,7 @@ public:
 
     int getNumOfAreas() const;
 	
-	const Area& getQuarantineAreaArea() const;
+	const Area& getQuarantineArea() const;
     
 	void addArea(Area& area)  throw (const string&);
     
@@ -55,15 +44,15 @@ public:
     
 	void addWorker(Worker& worker, Area& area)  throw (const string&);
     
-    const vector<Area*> getAllAreas() const;
+    const vector<Area*>& getAllAreas() const;
 
-	vector<Area*> getAllAreas();
+	vector<Area*>& getAllAreas();
     
     const Zoo& operator+=(Area& area);
     
     const Area& operator[](int index) const throw(const string&);
 
-	int findAreaIndex(const Area &area) const;
+	bool existsArea(const Area &area) const;
     
     friend ostream& operator<<(ostream& os, const Zoo& zoo);
 };

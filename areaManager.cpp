@@ -1,11 +1,7 @@
-//
-// Created by Amit Levy on 07/10/17.
-//
-
 #include "areaManager.h"
 
-AreaManager::AreaManager(const string& name, int salary, int yearsOfExperience, Area *area) : Worker(name, salary,
-                                                                                                   area)
+AreaManager::AreaManager(const string& name, int salary, int yearsOfExperience, Area *area)
+        : Worker(name, salary, area)
 {
     setYearsOfExperience(yearsOfExperience);
 }
@@ -14,7 +10,7 @@ void AreaManager::setYearsOfExperience(int yearsOfExperience) throw(const string
 {
     if(yearsOfExperience < 0 )
     {
-        throw "ERROR: yearOfExperience cannot be negative";
+        throw "yearOfExperience cannot be negative";
     }
     this->yearsOfExperience = yearsOfExperience;
 }

@@ -1,11 +1,3 @@
-//
-//  Zebroid.h
-//  Zoo_Management_System
-//
-//  Created by Almog Segal on 01/08/2017.
-//  Copyright © 2017 Almog Segal. All rights reserved.
-//
-
 #ifndef __ZEBROID_H
 #define __ZEBROID_H
 
@@ -20,10 +12,9 @@ public:
                 eAnimalClass animalClass);
 
     Zebroid(const Zebroid& zebroid) = delete;
-
     const Zebroid& operator=(const Zebroid& zebroid) = delete;
     
-	virtual inline const string& getName()    const override;
+	virtual inline const string& getName()  const override;
 
 	virtual inline float getWeight()        const override;
 

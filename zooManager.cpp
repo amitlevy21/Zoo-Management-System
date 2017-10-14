@@ -1,7 +1,3 @@
-//
-// Created by Amit Levy on 11/10/17.
-//
-
 #include "zooManager.h"
 #include "area.h"
 #include "animal.h"
@@ -23,7 +19,7 @@ ZooManager::ZooManager(Zoo &myZoo)
     theZoo = &myZoo;
 }
 
-vector<AreaManager*> ZooManager::createAreaManagers(int numOfManagers)
+vector<AreaManager*>& ZooManager::createAreaManagers(int numOfManagers)
 {
     numOfManagers = 3;
     const char* managersNames[] = { "Yogev", "Moshe", "Roie" };
@@ -33,30 +29,28 @@ vector<AreaManager*> ZooManager::createAreaManagers(int numOfManagers)
     vector<AreaManager*> managers;
     managers.reserve(numOfManagers);
 
-    for (int i = 0; i < numOfManagers; i++)
+    for (int i = 0; i < numOfManagers; ++i)
     {
         try
         {
             AreaManager* manager = new AreaManager(managersNames[i], managersSalary[i], managersYearsOfExperience[i]);
             managers.push_back(manager);
         }
-        catch (const char* errMessage)
+        catch (const string& errMessage)
         {
             cout << "Could not create manager " << managersNames[i] << ":" << endl << errMessage << endl << endl;
             managers[i] = nullptr;
-            numOfManagers = i;
             break;
         }
     }
-
     return managers;
 }
 
-vector<Area*> ZooManager::createAllAreas(int numOfAreas, vector<AreaManager*> managers, int numOfManagers)
+vector<Area*>& ZooManager::createAllAreas(int numOfAreas, vector<AreaManager*>& managers)
 {
     numOfAreas = 3;
     int maxNumberOfAnimals = 4, maxNumberOfWorkers = 4, wrongMaxNumberOfAnimals = -5;
-    const char* areasNames[] = { "A1", "A2", "A3" };
+    const string areasNames[] = { "A1", "A2", "A3" };
     Animal::eAnimalClass classes[] = {Animal::eAnimalClass::LAND, Animal::eAnimalClass::MARINE, Animal::eAnimalClass::AMPHIBIAN};
 
     vector<Area*> areas;
@@ -69,19 +63,17 @@ vector<Area*> ZooManager::createAllAreas(int numOfAreas, vector<AreaManager*> ma
             Area* area = new Area(areasNames[i], maxNumberOfAnimals, maxNumberOfWorkers, classes[i], managers[i]);
             areas.push_back(area);
         }
-        catch (const char* errMessage)
+        catch (const string& errMessage)
         {
             cout << "Could not create area " << areasNames[i] << ":" << endl << errMessage << endl << endl;
             areas[i] = nullptr;
-            numOfAreas = i;
             break;
         }
     }
-
     return areas;
 }
 
-void ZooManager::addAreasToZoo(vector<Area*> areas, int numOfAreas)
+void ZooManager::addAreasToZoo(vector<Area*>& areas, int numOfAreas)
 {
     for (int i = 0; i < numOfAreas; ++i)
     {
@@ -89,17 +81,17 @@ void ZooManager::addAreasToZoo(vector<Area*> areas, int numOfAreas)
         {
             theZoo->addArea(*areas[i]);
         }
-        catch (const char* errMessage)
+        catch (const string& errMessage)
         {
             cout << "Area " << areas[i]->getName() << " was not added to the zoo:" << endl << errMessage << endl << endl;
         }
     }
 }
 
-vector<Animal*> ZooManager::createAnimals(int numOfAnimals)
+vector<Animal*>& ZooManager::createAnimals(int numOfAnimals)
 {
     numOfAnimals = 4;
-    const char* names[] = { "Horsy", "Pini", "Eli", "Zeze" };
+    const string names[] = { "Horsy", "Pini", "Eli", "Zeze" };
 
     vector<Animal*> animals;
     animals.reserve(numOfAnimals);
@@ -136,89 +128,86 @@ vector<Animal*> ZooManager::createAnimals(int numOfAnimals)
                 }
             }
         }
-        catch (const char *errMessage)
+        catch (const string& errMessage)
         {
             cout << "Could not create animal " << names[i] << ":" << endl << errMessage << endl << endl;
             animals[i] = nullptr;
-            numOfAnimals = i;
             break;
         }
     }
     return animals;
 }
 
-void ZooManager::addAllAnimalsToZoo(vector<Animal*> animals, int numOfAnimals)
+void ZooManager::addAllAnimalsToZoo(vector<Animal*>& animals, int numOfAnimals)
 {
     int numOfAreas = theZoo->getNumOfAreas();
-    vector<Area*> areas = theZoo->getAllAreas();
+    vector<Area*>* areas = &theZoo->getAllAreas();
 
     for (int i = 0; i < numOfAnimals && i < numOfAreas; ++i)
     {
         try
         {
-            theZoo->addAnimal(*animals[i], *areas[i]);
+            theZoo->addAnimal(*animals[i], *((*areas)[i]));
         }
-        catch (const char* errMessage)
+        catch (const string& errMessage)
         {
             cout << "Could not add " << animals[i]->getName() << ":" << endl << errMessage << endl << endl;
         }
     }
 
     // another animal to the last area
-    theZoo->addAnimal(*animals[3], *areas[2]);
+    theZoo->addAnimal(*animals[3], *((*areas)[2]));
 }
 
-vector<Keeper*> ZooManager::createAllKeepers(int numOfKeepers)
+vector<Keeper*>& ZooManager::createAllKeepers(int numOfKeepers)
 {
     numOfKeepers = 3;
-    const char*  keepersNames[] = { "Kipi", "Keepi", "Keepee" };
+    const string keepersNames[] = { "Kipi", "Keepi", "Keepee" };
     int keeperSalary = 7500;
     Keeper::eAnimalSpeciality animals[] = { Keeper::HORSE, Keeper::ELEPHANT, Keeper::HORSE };
 
     vector<Keeper*> keepers;
     keepers.reserve(numOfKeepers);
 
-    for (int i = 0; i < numOfKeepers; i++)
+    for (int i = 0; i < numOfKeepers; ++i)
     {
         try
         {
             Keeper* keeper = new Keeper(keepersNames[i], keeperSalary, animals[i]);
             keepers.push_back(keeper);
         }
-        catch (const char* errMessage)
+        catch (const string& errMessage)
         {
             cout << "Could not create keeper " << keepersNames[i] << endl << ":" << errMessage << endl << endl;
             keepers[i] = nullptr;
-            numOfKeepers = i;
             break;
         }
     }
-
     return keepers;
 }
 
-void ZooManager::addKeepersToZoo(vector<Keeper*> keepers, int numOfKeepers)
+void ZooManager::addKeepersToZoo(vector<Keeper*>& keepers, int numOfKeepers)
 {
     int numOfAreas = theZoo->getNumOfAreas();
-    vector<Area*> areas = theZoo->getAllAreas();
+    vector<Area*>* areas = &theZoo->getAllAreas();
 
     for (int i = 0; i < numOfKeepers && i < numOfAreas; ++i)
     {
         try
         {
-            theZoo->addWorker(*keepers[i], *areas[i]);
+            theZoo->addWorker(*keepers[i], *((*areas)[i]));
         }
-        catch (const char* errMessage)
+        catch (const string& errMessage)
         {
             cout << "Could not add keeper " << keepers[i]->getName() << " to the zoo:" << endl << errMessage << endl << endl;
         }
     }
 }
 
-vector<Veterinarian*> ZooManager::createAllVeterinarian(int numOfVeterinarian)
+vector<Veterinarian*>& ZooManager::createAllVeterinarian(int numOfVeterinarian)
 {
     numOfVeterinarian = 3;
-    const char* vetsNames[] = { "Dr. Vivi", "Dr. Vuvu", "Dr. Kobi" };
+    const string vetsNames[] = { "Dr. Vivi", "Dr. Vuvu", "Dr. Kobi" };
     int vetsSalary = 10000, vetsLicenseNumbers[] = { 5, 8, 10 };
 
     vector<Veterinarian*> vets;
@@ -231,30 +220,28 @@ vector<Veterinarian*> ZooManager::createAllVeterinarian(int numOfVeterinarian)
             Veterinarian* vet = new Veterinarian(vetsNames[i], vetsSalary, vetsLicenseNumbers[i]);
             vets.push_back(vet);
         }
-        catch (const char* errMessage)
+        catch (const string& errMessage)
         {
             cout << "Could not create Veterinarian " << vetsNames[i] << ":" << endl << errMessage << endl << endl;
             vets[i] = nullptr;
-            numOfVeterinarian = i;
             break;
         }
     }
-
     return vets;
 }
 
-void ZooManager::addAllVeterinarianToZoo(vector<Veterinarian*> vets, int numOfVeterinarian)
+void ZooManager::addAllVeterinarianToZoo(vector<Veterinarian*>& vets, int numOfVeterinarian)
 {
     int numOfAreas = theZoo->getNumOfAreas();
-    vector<Area*> areas = theZoo->getAllAreas();
+    vector<Area*>* areas = &theZoo->getAllAreas();
 
     for (int i = 0; i < numOfVeterinarian && i < numOfAreas; i++)
     {
         try
         {
-            theZoo->addWorker(*vets[i], *areas[i]);
+            theZoo->addWorker(*vets[i], *((*areas)[i]));
         }
-        catch (const char* errMessage)
+        catch (const string& errMessage)
         {
             cout << "Could not add Veterinarian " << vets[i]->getName() << " to the zoo:" << endl << errMessage << endl << endl;
         }

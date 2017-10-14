@@ -1,12 +1,7 @@
-//
-// Created by Amit Levy on 07/10/17.
-//
-
 #include <iostream>
-using namespace std;
-
-#include <string.h>
 #include "worker.h"
+#include "area.h"
+using namespace std;
 
 long Worker::idGenerator = 100000000;
 
@@ -40,12 +35,13 @@ void Worker::setSalary(int salary) throw(const string&)
 {
     if(salary < 0)
     {
-        throw "ERROR: idNumber cannot be negative";
+        throw "salary cannot be negative";
     }
+
     this->salary = salary;
 }
 
-const Area &Worker::getArea() const
+const Area& Worker::getArea() const
 {
     return *area;
 }
@@ -75,9 +71,9 @@ ostream& operator<<(ostream& os, const Worker& worker)
 
 void Worker::setName(const string& name) throw(const string&)
 {
-    if(name == "")
+    if(name.empty())
     {
-        throw "ERROR: worker's name cannot be empty";
+        throw "worker's name cannot be empty";
     }
     this->name = name;
 }
@@ -85,7 +81,6 @@ void Worker::setName(const string& name) throw(const string&)
 bool Worker::operator==(const Worker &other)
 {
     return this->idNumber == other.idNumber;
-
 }
 
 void Worker::generateID()

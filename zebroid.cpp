@@ -1,7 +1,3 @@
-//
-// Created by Moshe Sheena on 06/10/2017.
-//
-
 #include "zebroid.h"
 
 Zebroid::Zebroid(const string& name, float weight, int birthYear, int numOfStripes, float sizeOfHorseShoe,

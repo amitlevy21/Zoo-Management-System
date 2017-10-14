@@ -27,7 +27,7 @@ void Area::setMaxNumberOfWorkers(int maxNumberOfWorkers) throw(const string&)
 }
 
 Area::Area(const string& name, int maxNumberOfAnimals, int maxNumberOfWorkers, Animal::eAnimalClass habitat, AreaManager *areaManager)
-        :habitat(habitat), animals()
+        :habitat(habitat), animals(), workers(), observers()
 {
     setAreaName(name);
     setMaxNumberOfAnimals(maxNumberOfAnimals);
@@ -35,6 +35,7 @@ Area::Area(const string& name, int maxNumberOfAnimals, int maxNumberOfWorkers, A
     setAreaManager(*areaManager);
 
     workers.reserve(maxNumberOfWorkers);
+    observers.reserve(INITIAL_OBSERVER_NUM);
 }
 
 const string& Area::getName() const
@@ -44,7 +45,7 @@ const string& Area::getName() const
 
 int Area::getNumOfAnimals() const
 {
-    return numOfAnimals;
+    return animals.getSize();
 }
 
 int Area::getMaxNumberOfAnimals() const
@@ -54,7 +55,7 @@ int Area::getMaxNumberOfAnimals() const
 
 int Area::getNumOfWorkers() const
 {
-    return numOfWorkers;
+    return workers.size();
 }
 
 int Area::getMaxNumberOfWorkers() const
@@ -62,7 +63,7 @@ int Area::getMaxNumberOfWorkers() const
     return maxNumberOfWorkers;
 }
 
-const AreaManager &Area::getAreaManager() const
+const AreaManager& Area::getAreaManager() const
 {
     return *areaManager;
 }
@@ -81,35 +82,33 @@ void Area::setAreaManager(AreaManager& areaManager)
 
 void Area::addAnimal(Animal& animal) throw(const string&)
 {
-    for (int i = 0; i < numOfAnimals; i++)
+    for (int i = 0; i < getNumOfAnimals(); ++i)
         if(animals.exists(&animal))
             return;
 
-    if(numOfAnimals >= maxNumberOfAnimals)
+    if(getNumOfAnimals() >= maxNumberOfAnimals)
         throw "zoo animal capacity has been reached.";
 
     animals.addNodeToBackOfList(&animal);
-    numOfAnimals++;
     animal.setArea(*this);
     notifyAllObservers(animal);
 }
 
 void Area::addWorker(Worker& worker) throw(const string&)
 {
-    for (int i = 0; i < numOfWorkers; ++i)
-        if(*workers[i] == worker)
-            return;
+    vector<Worker*>::iterator found = find(workers.begin(), workers.end(), &worker);
+    if(found == workers.end())
+        return;
 
-    if(numOfWorkers >= maxNumberOfWorkers)
+    if(getNumOfWorkers() >= maxNumberOfWorkers)
         throw "zoo worker capacity has been reached.";
 
     workers.push_back(&worker);
-    numOfWorkers++;
     worker.setArea(*this);
 
     Keeper* keeper = dynamic_cast<Keeper*>(&worker);
     if(keeper)
-        registerObserver(keeper);
+        registerObserver(*keeper);
 }
 
 const MyLinkedList<Animal*>& Area::getAllAnimals() const
@@ -117,7 +116,7 @@ const MyLinkedList<Animal*>& Area::getAllAnimals() const
     return animals;
 }
 
-const vector<Worker*> Area::getAllWorkers() const
+const vector<Worker*>& Area::getAllWorkers() const
 {
     return workers;
 }
@@ -147,19 +146,16 @@ bool Area::operator==(const Area& other) const
 
 ostream &operator<<(ostream &os, const Area& area)
 {
-    os << "Area name: " << area.name.c_str() << ", habitat: " << animalClasses[static_cast<int>(area.getHabitat())] << ", number of animals: " << area.numOfAnimals
+    os << "Area name: " << area.name.c_str() << ", habitat: " << animalClasses[static_cast<int>(area.getHabitat())] << ", number of animals: " << area.getNumOfAnimals()
        << ", up to: " << area.maxNumberOfAnimals << ", number of workers: "
-       << area.numOfWorkers << ", up to: " << area.maxNumberOfWorkers
+       << area.getNumOfWorkers() << ", up to: " << area.maxNumberOfWorkers
        << ", managed by: " << area.areaManager->getName().c_str() << endl;
 
     os << "The animals:" << endl;
 
-    if(area.numOfAnimals > 0)
+    if(area.getNumOfAnimals() > 0)
     {
-        for (int i = 0; i < area.numOfAnimals; i++)
-        {
-            os << i + 1 << ") " << *(area.animals[i]) << endl;
-        }
+        area.animals.printList(os);
     }
     else
     {
@@ -169,12 +165,9 @@ ostream &operator<<(ostream &os, const Area& area)
 
     os << "The workers:" << endl;
 
-    if(area.numOfWorkers > 0)
+    if(area.getNumOfWorkers() > 0)
     {
-        for (int i = 0; i < area.getNumOfWorkers(); ++i)
-        {
-            os << i + 1 << ") " << *area.getAllWorkers()[i] << endl;
-        }
+        copy(area.workers.begin(), area.workers.end(), ostream_iterator<Worker*>(os, ", "));
     }
     else
     {
@@ -190,12 +183,14 @@ void Area::setAreaName(const string& name)
     {
         throw "ERROR: worker's name cannot be empty";
     }
+
     this->name = name;
 }
 
 Area::~Area()
 {
     workers.clear();
+    observers.clear();
 }
 
 Animal::eAnimalClass Area::getHabitat() const
@@ -203,24 +198,16 @@ Animal::eAnimalClass Area::getHabitat() const
     return habitat;
 }
 
-int Area::getNumOfSpacesLeftInAreaForAnimals() const
+void Area::registerObserver(Observer& obs)
 {
-    return maxNumberOfAnimals - numOfAnimals;
+    observers.push_back(&obs);
 }
 
-void Area::registerObserver(Observer *obs)
+void Area::notifyAllObservers(const Animal &animalAdded)
 {
-    if(numOfObservers < MAX_NUM_OF_OBSERVERS)
-    {
-        observers[numOfObservers] = obs;
-        numOfObservers++;
-    }
-}
+    vector<Observer*>::iterator itr = observers.begin();
+    vector<Observer*>::iterator itrEnd = observers.end();
 
-void Area::notifyAllObservers(Animal &animalAdded)
-{
-    for (int i = 0; i < numOfObservers; ++i)
-    {
-        observers[i]->notify(animalAdded);
-    }
+    for (; itr != itrEnd; ++itr)
+        (*itr)->notify(animalAdded);
 }

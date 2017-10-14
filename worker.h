@@ -1,20 +1,10 @@
-//
-//  Worker.h
-//  Zoo_Management_System
-//
-//  Created by Almog Segal on 01/08/2017.
-//  Copyright © 2017 Almog Segal. All rights reserved.
-//
-
 #ifndef __WORKER_H
 #define __WORKER_H
 
-#include "area.h"
 #include <iostream>
 using namespace std;
 
 class Area;
-
 
 class Worker
 {
@@ -27,7 +17,6 @@ private:
 	Area* area;
 
 	void generateID();
-
 
 public:
 	Worker(const string& name, int salary, Area *area = nullptr);

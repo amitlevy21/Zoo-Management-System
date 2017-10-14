@@ -1,11 +1,3 @@
-//
-//  Area_Manager.h
-//  Zoo_Management_System
-//
-//  Created by Almog Segal on 01/08/2017.
-//  Copyright © 2017 Almog Segal. All rights reserved.
-//
-
 #ifndef __AREA_MANAGER_H
 #define __AREA_MANAGER_H
 
@@ -24,9 +16,9 @@ public:
     AreaManager(const AreaManager& areaManager) = delete;
     const AreaManager& operator=(const AreaManager& areaManager) = delete;
 
-	inline int getYearsOfExperience() const;
+	inline int getYearsOfExperience() 	const;
 
-	virtual void toOs(ostream& os) const;
+	virtual void toOs(ostream& os) 		const;
 
 	virtual const string& getWorkerType() const override;
 };

@@ -5,7 +5,7 @@ The purpose of this file is to make sure both developers are consistent with wri
 Amit:
 added setName method that can throw exception if char* points to null or is an empty string.
 Zoo - 1. changed methods addWorker & addAnimal - receives Area object instead of Area name.
-      2. added const Area& findAreaIndex(const Area& area) const;
+      2. added const Area& existsArea(const Area& area) const;
       3. In the methods addWorker & addAnimal we choose to iterate and check if the passed Area argument exists in the Zoo, not assuming that it was already added.
       4. operator[] now throws indexOutOfBound exception.
       5. changed operator + to +=

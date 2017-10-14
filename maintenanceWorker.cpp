@@ -1,7 +1,3 @@
-//
-// Created by Amit Levy on 07/10/17.
-//
-
 #include "maintenanceWorker.h"
 
 MaintenanceWorker::MaintenanceWorker(const string& name, int salary, float shoeSize, Area *area)
@@ -19,16 +15,17 @@ void MaintenanceWorker::setShoeSize(float shoeSize) throw(const string&)
 {
     if(shoeSize < 0 )
     {
-        throw "ERROR: shoeSize cannot be negative";
+        throw "shoeSize cannot be negative";
     }
     this->shoeSize = shoeSize;
 }
 
 void MaintenanceWorker::toOs(ostream &os) const
 {
-    os << "Maintenance Worker Details:"<<endl<<"Shoe Size: " << shoeSize;
+    os << ", shoe size: " << shoeSize;
 }
 
-const string& MaintenanceWorker::getWorkerType() const {
+const string& MaintenanceWorker::getWorkerType() const
+{
     return "Maintenance Worker";
 }

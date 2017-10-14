@@ -1,16 +1,7 @@
-//
-//  Animal.h
-//  Zoo_Management_System
-//
-//  Created by Almog Segal on 01/08/2017.
-//  Copyright © 2017 Almog Segal. All rights reserved.
-//
-
 #ifndef __ANIMAL_H
 #define __ANIMAL_H
 
 #include <iostream>
-
 using namespace std;
 
 class Area;
@@ -31,15 +22,15 @@ public:
 
 	bool operator==(const Animal& other);
 
-	virtual inline const string& getName() 	const;
+	virtual inline const string& getName() 			const;
 
-	virtual inline float getWeight() 		const;
+	virtual inline float getWeight() 				const;
 
-	virtual inline int getBirthYear() 		const;
+	virtual inline int getBirthYear() 				const;
 
 	inline Animal::eAnimalClass getAnimalClass() 	const;
 
-	void setArea(Area& area);
+	void setArea(Area& area); //Area& and not const Area& because area calls addAnimal()
 
 	virtual void toOs(ostream& os) const = 0;
 
@@ -51,7 +42,7 @@ private:
 	string name;
 	float weight;
 	int birthYear;
-	Area* area;
+	Area* area = nullptr;
 	eAnimalClass animalClass;
 
 	void setName(const string& name) 		throw (const string&);

@@ -1,11 +1,6 @@
-//
-// Created by Amit Levy on 08/10/17.
-//
-
 #include "zoo.h"
-#include <string.h>
 
-Zoo* Zoo::theZoo;
+Zoo* Zoo::theZoo = nullptr;
 
 Zoo::Zoo(const string& name, int maxNumOfAreas, Area& quarantineArea): quarantineArea(quarantineArea)
 {
@@ -27,54 +22,49 @@ int Zoo::getMaxNumOfAreas() const
 
 int Zoo::getNumOfAreas() const
 {
-    return numOfAreas;
+    return areas.size();
 }
 
-const Area &Zoo::getQuarantineAreaArea() const
+const Area& Zoo::getQuarantineArea() const
 {
     return quarantineArea;
 }
 
 void Zoo::addArea(Area &area) throw(const string&)
 {
-    if(findAreaIndex(area) != -1)
+    if(existsArea(area))
     {
         throw "Area already exists in the zoo";
     }
     areas.push_back(&area);
-    numOfAreas++;
 }
 
 void Zoo::addAnimal(Animal& animal, Area& area) throw(const string&)
 {
-    int areaIndex = findAreaIndex(area);
-
-    if(areaIndex == -1)
+    if(!existsArea(area))
     {
         throw "Tried to add animal to an Area that was not added to zoo";
     }
 
-    areas[areaIndex]->addAnimal(animal);
+    area.addAnimal(animal);
 }
 
 void Zoo::addWorker(Worker& worker, Area& area) throw(const string&)
 {
-    int areaIndex = findAreaIndex(area);
-
-    if(areaIndex == - 1)
+    if(!existsArea(area))
     {
        throw "Tried to add worker to an Area that was not added to zoo";
     }
 
-    areas[areaIndex]->addWorker(worker);
+    area.addWorker(worker);
 }
 
-const vector<Area*> Zoo::getAllAreas() const
+const vector<Area*>& Zoo::getAllAreas() const
 {
     return areas;
 }
 
-vector<Area*> Zoo::getAllAreas()
+vector<Area*>& Zoo::getAllAreas()
 {
     return areas;
 }
@@ -83,7 +73,7 @@ void Zoo::setMaxNumOfAreas(int maxNumOfAreas) throw(const string&)
 {
     if(maxNumOfAreas <= 0)
     {
-        throw "ERROR: maxNumOfAreas in Zoo must be greater than 0";
+        throw "maxNumOfAreas in Zoo must be greater than 0";
     }
 
     this->maxNumOfAreas = maxNumOfAreas;
@@ -91,9 +81,9 @@ void Zoo::setMaxNumOfAreas(int maxNumOfAreas) throw(const string&)
 
 void Zoo::setName(const string& name) throw(const string&)
 {
-    if(name == "")
+    if(name.empty())
     {
-        throw "ERROR: Zoo's name cannot be empty";
+        throw "Zoo's name cannot be empty";
     }
 
     this->name = name;
@@ -107,9 +97,9 @@ const Zoo &Zoo::operator+=(Area &area)
 
 const Area& Zoo::operator[](int index) const throw(const string&)
 {
-    if(index < 0 || index > numOfAreas)
+    if(index < 0 || index > areas.size())
     {
-        throw "ERROR: index out of bound in Zoo::areas array";
+        throw "index out of bound";
     }
 
     vector<Area*>::const_iterator itr = areas.begin();
@@ -122,25 +112,12 @@ ostream& operator<<(ostream& os, const Zoo& zoo)
     os << "Zoo name: " << zoo.getName().c_str() << ", area capacity: " << zoo.getMaxNumOfAreas() <<", number of areas: " << zoo.getNumOfAreas() << endl;
     os << "Areas: " << endl;
     os << "-----------------" << endl;
-    for (int i = 0; i < zoo.getNumOfAreas(); i++)
+    for (int i = 0; i < zoo.getNumOfAreas(); ++i)
     {
         os << *(zoo.getAllAreas()[i]) << endl;
         os << "-----------------" << endl;
     }
     return os;
-}
-
-int Zoo::findAreaIndex(const Area &area) const
-{
-    for (int i = 0; i < numOfAreas; ++i)
-    {
-        if(*areas[i] == area)
-        {
-            return i;
-        }
-    }
-
-    return -1;
 }
 
 Zoo *Zoo::getInstance(const string& name, int maxNumOfAreas, Area& quarantineArea)
@@ -150,6 +127,20 @@ Zoo *Zoo::getInstance(const string& name, int maxNumOfAreas, Area& quarantineAre
         theZoo = new Zoo(name, maxNumOfAreas, quarantineArea);
     }
     return theZoo;
+}
+
+Zoo::~Zoo()
+{
+    areas.clear();
+}
+
+bool Zoo::existsArea(const Area &area) const
+{
+    vector<Area*>::const_iterator found = find(areas.begin(), areas.end(), &area);
+    if(found == areas.end())
+        return false;
+
+    return true;
 }
 
 

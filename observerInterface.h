@@ -1,7 +1,3 @@
-//
-// Created by Amit Levy on 12/10/17.
-//
-
 #ifndef ZOO_MANAGEMENT_SYSTEM_OBSERVERINTERFACE_H
 #define ZOO_MANAGEMENT_SYSTEM_OBSERVERINTERFACE_H
 
@@ -10,7 +6,8 @@
 class Observer
 {
 public:
-    virtual void notify(Animal &animalAdded) = 0;
+    virtual void notify(const Animal &animalAdded) = 0;
+    virtual ~Observer() = default;
 };
 
 #endif //ZOO_MANAGEMENT_SYSTEM_OBSERVERINTERFACE_H

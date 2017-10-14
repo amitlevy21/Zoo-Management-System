@@ -1,11 +1,3 @@
-//
-//  Giraffe.h
-//  Zoo_Management_System
-//
-//  Created by Almog Segal on 01/08/2017.
-//  Copyright © 2017 Almog Segal. All rights reserved.
-//
-
 #ifndef __GIRAFFE_H
 #define __GIRAFFE_H
 
@@ -23,7 +15,6 @@ public:
 	Giraffe(const string& name, float weight, int birthYear, float lengthOfNeck, eAnimalClass animalClass);
     
     Giraffe(const Giraffe& giraffe) = delete;
-
     const Giraffe& operator=(const Giraffe& giraffe) = delete;
     
     inline float getLengthOfNeck() const;

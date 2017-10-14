@@ -1,10 +1,3 @@
-//
-//  Zibra.h
-//  Zoo_Management_System
-//
-//  Created by Almog Segal on 01/08/2017.
-//  Copyright © 2017 Almog Segal. All rights reserved.
-//
 #ifndef __ZEBRA_H
 #define __ZEBRA_H
 

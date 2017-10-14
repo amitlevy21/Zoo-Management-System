@@ -1,11 +1,3 @@
-//
-//  Lion.h
-//  Zoo_Management_System
-//
-//  Created by Almog Segal on 01/08/2017.
-//  Copyright © 2017 Almog Segal. All rights reserved.
-//
-
 #ifndef __LION_H
 #define __LION_H
 
@@ -22,7 +14,6 @@ public:
 	Lion(const string& name, float weight, int birthYear, eManeColor maneColor, eAnimalClass animalClass);
     
     Lion(const Lion& lion) = delete;
-
     const Lion& operator=(const Lion& lion) = delete;
     
     inline eManeColor getManeColor() const;

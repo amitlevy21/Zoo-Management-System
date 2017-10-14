@@ -1,13 +1,9 @@
-//
-// Created by Moshe Sheena on 06/10/2017.
-//
-
 #include "zebra.h"
 
 void Zebra::setNumOfStripes(int numOfStripes) throw(const string&)
 {
     if(numOfStripes < 0)
-        throw "Number of stripes cannot be a negetive number";
+        throw "Number of stripes cannot be a negative number";
 }
 
 Zebra::Zebra(const string& name, float weight, int birthYear, int numOfStripes, eAnimalClass animalClass)

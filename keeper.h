@@ -1,16 +1,7 @@
-//
-//  Keeper.h
-//  Zoo_Management_System
-//
-//  Created by Almog Segal on 01/08/2017.
-//  Copyright © 2017 Almog Segal. All rights reserved.
-//
-
 #ifndef __KEEPER_H
 #define __KEEPER_H
 
 #include "worker.h"
-#include "animal.h"
 #include "observerInterface.h"
 
 static const string eAnimalString[] = {"Lion" , "Penguin", "Elephant", "Giraffe", "Zebra", "Horse", "Zebroid"};
@@ -34,7 +25,7 @@ public:
 
     inline int getNumOfAnimalsToTakeCare() const;
 
-	void notify(Animal& animalAdded) override;
+	void notify(const Animal& animalAdded) override;
 
 private:
 	eAnimalSpeciality keeperSpecialty;

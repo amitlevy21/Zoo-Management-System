@@ -1,7 +1,3 @@
-//
-// Created by Moshe Sheena on 11/10/2017.
-//
-
 #ifndef ZOO_MANAGEMENT_SYSTEM_MYLINKEDLIST_H
 #define ZOO_MANAGEMENT_SYSTEM_MYLINKEDLIST_H
 
@@ -40,19 +36,15 @@ public:
 
     void addNodeToBackOfList(const T data);
 
-    void removeFirstNodeFound(const T dataToRemove) throw(const char*);
+    void removeFirstNodeFound(const T dataToRemove) throw(const string&);
 
     void printList(ostream &os) const;
 
-    const Node* getNext(Node* p)  const;
-
-    const T& getData(Node* p)     const;
-
     bool isEmpty()                const;
 
-    bool exists(T data)           const;
+    bool exists(const T& data)    const;
 
-    const T& operator[](int index) const throw(const char*);
+    const T& operator[](int index) const throw(const string&);
 };
 
 template <class T>
@@ -101,7 +93,7 @@ void MyLinkedList<T>::addNodeToBackOfList(const T data)
 }
 
 template <class T>
-void MyLinkedList<T>::removeFirstNodeFound(const T dataToRemove) throw(const char*)
+void MyLinkedList<T>::removeFirstNodeFound(const T dataToRemove) throw(const string&)
 {
     if(dataToRemove == head->data)
     {
@@ -173,12 +165,10 @@ MyLinkedList<T>::~MyLinkedList()
         delete p1;
         p1 = p2;
     }
-
-
 }
 
 template <class T>
-const T& MyLinkedList<T>::operator[](int index) const throw(const char*)
+const T& MyLinkedList<T>::operator[](int index) const throw(const string&)
 {
     if(index < 0 || index >= size)
         throw "index out of bound exception";
@@ -209,7 +199,7 @@ bool MyLinkedList<T>::isEmpty() const
 }
 
 template <class T>
-bool MyLinkedList<T>::exists(T data) const
+bool MyLinkedList<T>::exists(const T& data) const
 {
     Node* p = head;
     for (int i = 0; i < size; ++i)

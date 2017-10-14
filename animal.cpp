@@ -1,24 +1,15 @@
-//
-// Created by Moshe Sheena on 07/10/2017.
-//
-
 #include "animal.h"
 #include "area.h"
 
-#include <string.h>
-
-
 void Animal::setName(const string& name) throw(const string&)
 {
-    if(this->name == name)
+    if(name.empty())
         throw "animal name cannot be an empty string";
-    if(name == "")
-        throw "animal name cannot be null";
 
     this->name = name;
 }
 
-void Animal::setWeight(float weight) throw(const string&)
+void Animal::setWeight(float weight)    throw(const string&)
 {
     if(weight <= 0)
         throw "weight cannot be zero or negative";
@@ -41,7 +32,6 @@ Animal::Animal(const string& name, float weight, int birthYear, eAnimalClass ani
     setWeight(weight);
     setBirthYear(birthYear);
     setName(name);
-    area = nullptr;
 }
 
 ostream &operator<<(ostream &os, const Animal &animal)
@@ -60,7 +50,7 @@ bool Animal::operator==(const Animal& other)
 
 }
 
-inline const string& Animal::getName() const
+const string& Animal::getName() const
 {
     return name;
 }

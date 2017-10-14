@@ -7,7 +7,7 @@
 void Horse::setSizeOfHorseShoe(float sizeOfHorseShoe) throw(const string&)
 {
     if(sizeOfHorseShoe <= 0)
-        throw "Size of horse shoe must be a non negetive non zero number";
+        throw "Size of horse shoe must be a non negative non zero number";
 
     this->sizeOfHorseShoe = sizeOfHorseShoe;
 }

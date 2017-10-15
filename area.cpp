@@ -156,7 +156,11 @@ ostream &operator<<(ostream &os, const Area& area)
 
     if(area.getNumOfAnimals() > 0)
     {
-        area.animals.printList(os);
+        //area.animals.printList(os); //prints animals addresses
+        for (int i = 0; i < area.getNumOfAnimals(); i++)
+        {
+            cout << *area.animals[i] << endl;
+        }
     }
     else
     {
@@ -168,7 +172,10 @@ ostream &operator<<(ostream &os, const Area& area)
 
     if(area.getNumOfWorkers() > 0)
     {
-        copy(area.workers.begin(), area.workers.end(), ostream_iterator<Worker*>(os, ", "));
+        for (int i = 0; i < area.getNumOfWorkers(); ++i)
+        {
+            cout << *area.workers[i] << endl;
+        }
     }
     else
     {

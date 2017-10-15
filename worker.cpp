@@ -61,7 +61,7 @@ void Worker::setArea(Area &area)
 
 ostream& operator<<(ostream& os, const Worker& worker)
 {
-    os << "name: " << worker.getName().c_str() << ", ID: " << worker.getIdNumber() << ", salary: " << worker.getSalary() << ", area: " << worker.getArea().getName() << endl;
+    os << "name: " << worker.getName().c_str() << ", ID: " << worker.getIdNumber() << ", salary: " << worker.getSalary() << ", area: " << worker.getArea().getName();
 
     worker.toOs(os);
 

@@ -1,4 +1,5 @@
 #include "zoo.h"
+#include <algorithm>
 
 Zoo* Zoo::theZoo = nullptr;
 

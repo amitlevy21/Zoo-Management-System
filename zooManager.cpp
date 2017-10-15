@@ -26,24 +26,24 @@ vector<AreaManager*>& ZooManager::createAreaManagers(int numOfManagers)
     int managersSalary[] = { 5000, 4500, 4800 };
     int managersYearsOfExperience[] = { 2, 3, 4 };
 
-    vector<AreaManager*> managers;
-    managers.reserve(numOfManagers);
+    vector<AreaManager*>* managers = new vector<AreaManager*>();
+    managers->reserve(numOfManagers);
 
     for (int i = 0; i < numOfManagers; ++i)
     {
         try
         {
             AreaManager* manager = new AreaManager(managersNames[i], managersSalary[i], managersYearsOfExperience[i]);
-            managers.push_back(manager);
+            managers->push_back(manager);
         }
         catch (const string& errMessage)
         {
             cout << "Could not create manager " << managersNames[i] << ":" << endl << errMessage << endl << endl;
-            managers[i] = nullptr;
+            (*managers)[i] = nullptr;
             break;
         }
     }
-    return managers;
+    return *managers;
 }
 
 vector<Area*>& ZooManager::createAllAreas(int numOfAreas, vector<AreaManager*>& managers)
@@ -53,24 +53,24 @@ vector<Area*>& ZooManager::createAllAreas(int numOfAreas, vector<AreaManager*>& 
     const string areasNames[] = { "A1", "A2", "A3" };
     Animal::eAnimalClass classes[] = {Animal::eAnimalClass::LAND, Animal::eAnimalClass::MARINE, Animal::eAnimalClass::AMPHIBIAN};
 
-    vector<Area*> areas;
-    areas.reserve(numOfAreas);
+    vector<Area*>* areas = new vector<Area*>();
+    areas->reserve(numOfAreas);
 
     for (int i = 0; i < numOfAreas; i++)
     {
         try
         {
             Area* area = new Area(areasNames[i], maxNumberOfAnimals, maxNumberOfWorkers, classes[i], managers[i]);
-            areas.push_back(area);
+            areas->push_back(area);
         }
         catch (const string& errMessage)
         {
             cout << "Could not create area " << areasNames[i] << ":" << endl << errMessage << endl << endl;
-            areas[i] = nullptr;
+            (*areas)[i] = nullptr;
             break;
         }
     }
-    return areas;
+    return *areas;
 }
 
 void ZooManager::addAreasToZoo(vector<Area*>& areas, int numOfAreas)
@@ -93,8 +93,8 @@ vector<Animal*>& ZooManager::createAnimals(int numOfAnimals)
     numOfAnimals = 4;
     const string names[] = { "Horsy", "Pini", "Eli", "Zeze" };
 
-    vector<Animal*> animals;
-    animals.reserve(numOfAnimals);
+    vector<Animal*>* animals = new vector<Animal*>();
+    animals->reserve(numOfAnimals);
 
     for (int i = 0; i < numOfAnimals; ++i)
     {
@@ -105,25 +105,25 @@ vector<Animal*>& ZooManager::createAnimals(int numOfAnimals)
                 case 0:
                 {
                     Animal* horse = new Horse(names[i], 208.5f, 1998, 40.2f, Animal::eAnimalClass::LAND);
-                    animals.push_back(horse);
+                    animals->push_back(horse);
                     break;
                 }
                 case 1:
                 {
                     Animal* penguin = new Penguin(names[i], 1.2f, 2005, Penguin::CRAB, Animal::eAnimalClass::AMPHIBIAN);
-                    animals.push_back(penguin);
+                    animals->push_back(penguin);
                     break;
                 }
                 case 2:
                 {
                     Animal* elephant = new Elephant(names[i], 2.5f, 2000, 1.35f, 2.75f, Animal::eAnimalClass::LAND);
-                    animals.push_back(elephant);
+                    animals->push_back(elephant);
                     break;
                 }
                 case 3:
                 {
                     Animal* zebroid = new Zebroid(names[i], 1.45f, 2010, 128, 38.6f, Animal::eAnimalClass::LAND);
-                    animals.push_back(zebroid);
+                    animals->push_back(zebroid);
                     break;
                 }
             }
@@ -131,11 +131,11 @@ vector<Animal*>& ZooManager::createAnimals(int numOfAnimals)
         catch (const string& errMessage)
         {
             cout << "Could not create animal " << names[i] << ":" << endl << errMessage << endl << endl;
-            animals[i] = nullptr;
+            (*animals)[i] = nullptr;
             break;
         }
     }
-    return animals;
+    return *animals;
 }
 
 void ZooManager::addAllAnimalsToZoo(vector<Animal*>& animals, int numOfAnimals)
@@ -166,24 +166,24 @@ vector<Keeper*>& ZooManager::createAllKeepers(int numOfKeepers)
     int keeperSalary = 7500;
     Keeper::eAnimalSpeciality animals[] = { Keeper::HORSE, Keeper::ELEPHANT, Keeper::HORSE };
 
-    vector<Keeper*> keepers;
-    keepers.reserve(numOfKeepers);
+    vector<Keeper*>* keepers = new vector<Keeper*>();
+    keepers->reserve(numOfKeepers);
 
     for (int i = 0; i < numOfKeepers; ++i)
     {
         try
         {
             Keeper* keeper = new Keeper(keepersNames[i], keeperSalary, animals[i]);
-            keepers.push_back(keeper);
+            keepers->push_back(keeper);
         }
         catch (const string& errMessage)
         {
             cout << "Could not create keeper " << keepersNames[i] << endl << ":" << errMessage << endl << endl;
-            keepers[i] = nullptr;
+            (*keepers)[i] = nullptr;
             break;
         }
     }
-    return keepers;
+    return *keepers;
 }
 
 void ZooManager::addKeepersToZoo(vector<Keeper*>& keepers, int numOfKeepers)
@@ -210,24 +210,24 @@ vector<Veterinarian*>& ZooManager::createAllVeterinarian(int numOfVeterinarian)
     const string vetsNames[] = { "Dr. Vivi", "Dr. Vuvu", "Dr. Kobi" };
     int vetsSalary = 10000, vetsLicenseNumbers[] = { 5, 8, 10 };
 
-    vector<Veterinarian*> vets;
-    vets.reserve(numOfVeterinarian);
+    vector<Veterinarian*>* vets = new vector<Veterinarian*>();
+    vets->reserve(numOfVeterinarian);
 
     for (int i = 0; i < numOfVeterinarian; ++i)
     {
         try
         {
             Veterinarian* vet = new Veterinarian(vetsNames[i], vetsSalary, vetsLicenseNumbers[i]);
-            vets.push_back(vet);
+            vets->push_back(vet);
         }
         catch (const string& errMessage)
         {
             cout << "Could not create Veterinarian " << vetsNames[i] << ":" << endl << errMessage << endl << endl;
-            vets[i] = nullptr;
+            (*vets)[i] = nullptr;
             break;
         }
     }
-    return vets;
+    return *vets;
 }
 
 void ZooManager::addAllVeterinarianToZoo(vector<Veterinarian*>& vets, int numOfVeterinarian)

@@ -8,6 +8,8 @@
 #include "worker.h"
 #include "areaManager.h"
 #include "keeper.h"
+#include <algorithm>
+#include <iterator>
 
 
 void Area::setMaxNumberOfAnimals(int maxNumberOfAnimals) throw(const string&)
@@ -82,9 +84,8 @@ void Area::setAreaManager(AreaManager& areaManager)
 
 void Area::addAnimal(Animal& animal) throw(const string&)
 {
-    for (int i = 0; i < getNumOfAnimals(); ++i)
-        if(animals.exists(&animal))
-            return;
+    if(animals.exists(&animal))
+        return;
 
     if(getNumOfAnimals() >= maxNumberOfAnimals)
         throw "zoo animal capacity has been reached.";
@@ -97,7 +98,7 @@ void Area::addAnimal(Animal& animal) throw(const string&)
 void Area::addWorker(Worker& worker) throw(const string&)
 {
     vector<Worker*>::iterator found = find(workers.begin(), workers.end(), &worker);
-    if(found == workers.end())
+    if(found != workers.end())
         return;
 
     if(getNumOfWorkers() >= maxNumberOfWorkers)
@@ -179,9 +180,9 @@ ostream &operator<<(ostream &os, const Area& area)
 
 void Area::setAreaName(const string& name)
 {
-    if(name == "")
+    if(name.empty())
     {
-        throw "ERROR: worker's name cannot be empty";
+        throw "worker's name cannot be empty";
     }
 
     this->name = name;
